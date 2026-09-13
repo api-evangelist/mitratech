@@ -1,0 +1,66 @@
+generated: '2026-09-13'
+method: probed
+status: published
+source: >-
+  https://mitratech.com/.well-known/oauth-protected-resource (RFC 9728) +
+  https://mitratech.com/.well-known/oauth-authorization-server (RFC 8414) +
+  a live JSON-RPC tools/list POST to https://mitratech.com/wp-json/mcp/mcp-oauth-server
+deployment:
+  mode: remote
+  endpoint: https://mitratech.com/wp-json/mcp/mcp-oauth-server
+  auth: oauth
+  verified: probed
+server:
+  name: mitratech-mcp-oauth-server
+  transport: streamable-http
+  url: https://mitratech.com/wp-json/mcp/mcp-oauth-server
+  host_platform: >-
+    WordPress MCP adapter. The site's REST index (https://mitratech.com/wp-json/) declares an `mcp`
+    namespace alongside `wp-abilities/v1`; the mcp namespace exposes /mcp/mcp-oauth-server and
+    /mcp/mcp-adapter-default-server, both accepting POST, GET and DELETE.
+  companion_endpoints:
+  - url: https://mitratech.com/wp-json/mcp/mcp-adapter-default-server
+    status: 401
+    note: >-
+      Second MCP server route on the same namespace. Returns {"code":"rest_forbidden"} with HTTP 401
+      anonymously — gated by WordPress capability rather than by the MCP OAuth challenge.
+auth:
+  methods:
+  - oauth2
+  oauth2:
+    authorization_server: https://mitratech.com
+    issuer: https://mitratech.com
+    authorization_endpoint: https://mitratech.com/oauth/authorize
+    token_endpoint: https://mitratech.com/oauth/token
+    revocation_endpoint: https://mitratech.com/oauth/revoke
+    grant_types:
+    - authorization_code
+    - refresh_token
+    pkce: S256
+    scopes_supported:
+    - mcp
+    token_endpoint_auth_methods_supported:
+    - none
+    client_id_metadata_document_supported: true
+    discovery: well-known/mitratech-oauth-authorization-server.json
+    protected_resource: well-known/mitratech-oauth-protected-resource.json
+probe:
+  fetched: '2026-09-13'
+  request: 'POST {"jsonrpc":"2.0","id":1,"method":"tools/list"} with Accept: application/json, text/event-stream'
+  url: https://mitratech.com/wp-json/mcp/mcp-oauth-server
+  http_status: 401
+  body: '{"code":"mcp_unauthorized","message":"MCP authentication required.","data":{"status":401}}'
+tool_count: null
+tools: []
+tools_note: >-
+  The live tool manifest is auth-gated. An anonymous tools/list returns HTTP 401 mcp_unauthorized,
+  and the WordPress Abilities registry that backs it
+  (https://mitratech.com/wp-json/wp-abilities/v1/abilities) returns HTTP 401 rest_forbidden as well.
+  Mitratech publishes no llms.txt tool list and no MCP documentation page, so there is no public
+  fallback source for tool names or input schemas. Recording tool_count: null rather than guessing —
+  the schemas require authenticated introspection with an `mcp`-scoped OAuth token.
+relationship_to_rest_api:
+  note: >-
+    This MCP server sits on the marketing/content site (mitratech.com, WordPress), not on the TAP or
+    TeamConnect product APIs. Nothing published connects its tools to TAP operationIds, so no tool
+    crosswalk is emitted — see mcp/mitratech-tool-crosswalk.yml for the recorded reasoning.

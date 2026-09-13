@@ -1,0 +1,81 @@
+generated: '2026-09-13'
+method: searched
+source: https://success.mitratech.com/TAP/ReleaseNotes
+docs:
+- https://success.mitratech.com/TAP/ReleaseNotes
+- https://success.mitratech.com/TeamConnect/All_TeamConnect_Products_Release_Notes
+summary: >-
+  Mitratech publishes dated, per-release public release notes for TAP on the Success Center, grouped
+  by year from 2021 to 2026. Each entry names enhancements, bug fixes with tracking codes, internal
+  defect resolutions and known issues, and carries a "Production Date". TeamConnect has a parallel
+  release-notes tree. Neither is API-specific: API changes appear inline among product changes and
+  there is no separate API changelog or RSS feed.
+scheme: three-part product version (major.minor.patch)
+current_version: 1.24.9
+current_version_date: '2026-09-11'
+product: TAP Workflow Automation
+feed: null
+feed_note: No RSS/Atom or JSON feed is published for either release-notes tree.
+entries:
+- version: 1.24.9
+  date: '2026-09-11'
+  url: https://success.mitratech.com/TAP/ReleaseNotes/TAP_1.24.9_Release_Notes
+  breaking: false
+  highlights:
+  - Configurable reply-to and display-name settings for workflow notifications.
+  - Fixed dashboard search when column filters are applied.
+- version: 1.24.8
+  date: null
+  url: https://success.mitratech.com/TAP/ReleaseNotes/TAP_1.24.8_Release_Notes
+  breaking: false
+  highlights:
+  - Improved integration reliability, document handling and overall user experience.
+  - Bug fixes and internal defect resolutions.
+  note: >-
+    Listed on the release-notes index but the linked article returns HTTP 404 — a published pointer
+    to a page that is not served.
+- version: 1.24.7
+  date: '2026-07-10'
+  url: https://success.mitratech.com/TAP/ReleaseNotes/TAP_1.24.7_Release_Notes
+  breaking: false
+  highlights:
+  - Security enhancements.
+  - Database and performance optimizations.
+  - Bug fixes and internal defect resolutions.
+- version: 1.24.6
+  date: '2026-06-26'
+  url: https://success.mitratech.com/TAP/ReleaseNotes/TAP_1.24.6_Release_Notes
+  breaking: false
+  highlights:
+  - Enhanced token handling in the Salesforce integration to maintain uninterrupted access to records.
+- version: '1.21'
+  date: null
+  url: https://success.mitratech.com/TAP/ReleaseNotes/TAP_1.21_Release_Notes
+  breaking: false
+  highlights:
+  - Upgrades, bug fixes, internal improvements and known issues.
+- version: '1.20'
+  date: '2025-02-07'
+  url: https://success.mitratech.com/TAP/ReleaseNotes/TAP_1.20_Release_Notes
+  breaking: false
+  api_relevant: true
+  highlights:
+  - >-
+    .NET Framework upgrade for security and performance.
+  - >-
+    New automatic retry of outbound API calls on transient errors, covering the Relationship Ext API,
+    Stage Ext API, External Datasource and External Grid Datasource.
+  - Dashboard filter toggle for non-Super-Admin users; optimized column data sizes.
+- version: '1.17'
+  date: null
+  url: https://success.mitratech.com/TAP/ReleaseNotes/TAP_1.17_Release_Notes
+  breaking: false
+  api_relevant: true
+  highlights:
+  - >-
+    Added API endpoints for roles and departments, create/update/delete TAP users, comments retrieval
+    and collaboration-discussion retrieval, plus POST BulkAddOrUpdate — the additions visible in the
+    harvested Swagger document today.
+window: >-
+  Recent window only. The index also lists 2025, 2024, 2023, 2022 and 2021 major and minor releases,
+  which are not transcribed here.

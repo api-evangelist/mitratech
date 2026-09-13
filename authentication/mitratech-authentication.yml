@@ -1,0 +1,112 @@
+generated: '2026-09-13'
+method: searched
+source: >-
+  https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation +
+  https://success.mitratech.com/TeamConnect/TeamConnect_Setup_and_Development/TeamConnect_REST_API_Modernization_(TCE_7.2)/TeamConnect_RESTAPIs_-_Authentication +
+  https://mitratech.com/.well-known/oauth-authorization-server
+docs:
+- https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
+- https://success.mitratech.com/TeamConnect/TeamConnect_Setup_and_Development/TeamConnect_REST_API_Modernization_(TCE_7.2)/TeamConnect_RESTAPIs_-_Authentication
+summary: >-
+  Every Mitratech programmatic surface is OAuth 2.0, but the three surfaces use three different flows
+  and three different token issuers. The harvested TAP Swagger 2.0 document declares NO
+  securityDefinitions at all — the auth model exists only in prose on the Success Center, which is why
+  this artifact is method: searched rather than derived from the spec.
+apis:
+- api: Mitratech TAP Workflow Automation API
+  schemes:
+  - id: tap_oauth2_password
+    type: oauth2
+    flow: password
+    grant_type: password
+    token_endpoint: https://{tenant}.tap.thinksmart.com/{tenant}/auth/identity/connect/token
+    token_endpoint_staging: https://{tenant}.stagingtap.thinksmart.com/{tenant}/auth/identity/connect/token
+    content_type: application/x-www-form-urlencoded
+    parameters:
+    - name: grant_type
+      value: password
+    - name: scope
+      value: api
+    - name: redirect_uri
+      value: tapredirect
+      note: Typical default value; the docs say to confirm it with Mitratech.
+    - name: username
+      note: The registered TAP user to be authorized.
+    - name: password
+      note: That user's password.
+    - name: client_id
+      note: Obtained from Mitratech — not self-serve.
+    - name: client_secret
+      note: Obtained from Mitratech — not self-serve.
+    token_type: Bearer
+    expires_in: 3600
+    presentation: 'Authorization: Bearer <access_token>'
+    authorization_model: >-
+      The token inherits the permissions of the TAP user account it was issued for. Mitratech's own
+      documentation warns that a non-Super-Admin account will silently return incomplete result sets
+      rather than a 403 — an authorization pitfall an agent cannot detect from the response.
+    spec_declared: false
+    spec_note: >-
+      openapi/_original/mitratech-tap-swagger.json has no securityDefinitions and no security block on
+      any of its 49 operations. A client generated from the spec alone would send no credentials.
+- api: Mitratech TeamConnect REST API
+  schemes:
+  - id: teamconnect_oauth2_authorization_code
+    type: oauth2
+    flow: authorizationCode
+    authorization_endpoint: https://{your-tc-instance}/webservice/enterprise/oauth/authorize
+    token_endpoint: https://{your-tc-instance}/webservice/enterprise/oauth/token
+    client_authentication: Basic auth header
+    token_type: Bearer
+    note: >-
+      Available in TeamConnect Enterprise 7.2 and later only. Backward compatibility with pre-7.2
+      REST APIs was deliberately dropped.
+  - id: teamconnect_oauth2_client_credentials
+    type: oauth2
+    flow: clientCredentials
+    token_endpoint: https://{your-tc-instance}/webservice/enterprise/oauth/token
+    client_authentication: Basic auth header
+    token_type: Bearer
+    note: Server-to-server integrations without a user in the loop.
+  client_registration: >-
+    API clients are registered inside the customer's own TeamConnect instance —
+    Setup > System Settings > API Client Settings — where an admin supplies a Name, Description,
+    Homepage URL and Callback URL and TeamConnect issues an API Client ID. There is no central
+    Mitratech developer console and no self-serve key.
+  token_lifetime:
+    model: rolling idle expiration
+    idle_window_days: 30
+    note: >-
+      Mitratech documents that TeamConnect access tokens use a rolling 30-day idle expiration and that
+      each valid use resets the window. It also documents that the `expires_in` value in the token
+      response is a hardcoded server response that clients should IGNORE. This is a real agent hazard:
+      the machine-readable field in the response contradicts the documented behaviour.
+- api: Mitratech MCP Server
+  schemes:
+  - id: mcp_oauth2_authorization_code_pkce
+    type: oauth2
+    flow: authorizationCode
+    issuer: https://mitratech.com
+    authorization_endpoint: https://mitratech.com/oauth/authorize
+    token_endpoint: https://mitratech.com/oauth/token
+    revocation_endpoint: https://mitratech.com/oauth/revoke
+    pkce: S256
+    grant_types: [authorization_code, refresh_token]
+    scopes: [mcp]
+    token_endpoint_auth_methods_supported: [none]
+    client_id_metadata_document_supported: true
+    bearer_methods_supported: [header]
+    discovery:
+    - well-known/mitratech-oauth-authorization-server.json
+    - well-known/mitratech-oauth-protected-resource.json
+    method: probed
+gaps:
+- No API key or personal-access-token option is documented on any surface.
+- >-
+  TAP's only documented grant is the OAuth 2.0 resource owner password credentials grant, which
+  OAuth 2.1 and RFC 9700 (BCP for OAuth 2.0 Security) both deprecate. It requires the integration to
+  hold a real TAP user's password.
+- >-
+  TAP client_id and client_secret are issued by Mitratech on request, not through self-service, so
+  there is no path from reading the public docs to making an authenticated call.
+- The TAP Swagger document carries no securityDefinitions, so the auth model is not machine-readable.

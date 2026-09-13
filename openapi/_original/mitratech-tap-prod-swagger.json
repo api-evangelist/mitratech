@@ -1,0 +1,4992 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "v1",
+    "title": "TAP API Explorer"
+  },
+  "host": "demo.tap.thinksmart.com",
+  "basePath": "/prod/api",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/v1/dashboard/columns": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "summary": "Grid Columns",
+        "description": "Method that will return all dashboard workflows (does not support OData filtering yet)",
+        "operationId": "Dashboard_Columns",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "onlyFromInstances",
+            "in": "query",
+            "description": "Should include dynamic columns only from initiated forkflows",
+            "required": true,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DashboardColumnDefinition"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/files/{id}": {
+      "get": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "Download by ID",
+        "description": "Method which will return a file by id. Use GET File Attachments to get the file ids from a specific workflow record.",
+        "operationId": "Files_Get",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "File ID",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "format": "byte",
+              "type": "string"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/gridconfigurations/tenant": {
+      "get": {
+        "tags": [
+          "GridConfigurations"
+        ],
+        "summary": "Tenant Configurations",
+        "description": "Method that will return all dashboard grid configurations",
+        "operationId": "GridConfigurations_GetByTenant",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "$top",
+            "in": "query",
+            "description": "The max number of records",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "$skip",
+            "in": "query",
+            "description": "The number of records to skip",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "description": "A function that must evaluate to true for a record to be returned",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "$select",
+            "in": "query",
+            "description": "Specifies a subset of properties to return",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "$orderby",
+            "in": "query",
+            "description": "Determines what values are used to order a collection of records",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "$inlinecount",
+            "in": "query",
+            "description": "Set <b>'allpages'</b> if you want to have total count value in result",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/PageResult[GridConfiguration]"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/gridconfigurations/user": {
+      "get": {
+        "tags": [
+          "GridConfigurations"
+        ],
+        "summary": "User Configurations",
+        "description": "Method that will return all dashboard grid configurations visible for current user",
+        "operationId": "GridConfigurations_GetByUser",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "$top",
+            "in": "query",
+            "description": "The max number of records",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "$skip",
+            "in": "query",
+            "description": "The number of records to skip",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "description": "A function that must evaluate to true for a record to be returned",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "$select",
+            "in": "query",
+            "description": "Specifies a subset of properties to return",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "$orderby",
+            "in": "query",
+            "description": "Determines what values are used to order a collection of records",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "$inlinecount",
+            "in": "query",
+            "description": "Set <b>'allpages'</b> if you want to have total count value in result",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/PageResult[GridConfiguration]"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/gridconfigurations/{id}": {
+      "get": {
+        "tags": [
+          "GridConfigurations"
+        ],
+        "summary": "Get by ID",
+        "description": "Method which returns the details of a grid configuration by id.",
+        "operationId": "GridConfigurations_Get",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/GridConfiguration"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/healthcheck": {
+      "get": {
+        "tags": [
+          "HealthCheck"
+        ],
+        "operationId": "HealthCheck_Get",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "/v1/templates/dashboard": {
+      "get": {
+        "tags": [
+          "Templates"
+        ],
+        "summary": "Available templates",
+        "description": "Returns available workflow templates for visible on dashboard",
+        "operationId": "Templates_Get",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "$top",
+            "in": "query",
+            "description": "The max number of records",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "$skip",
+            "in": "query",
+            "description": "The number of records to skip",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "description": "A function that must evaluate to true for a record to be returned",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "$select",
+            "in": "query",
+            "description": "Specifies a subset of properties to return",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "$orderby",
+            "in": "query",
+            "description": "Determines what values are used to order a collection of records",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "$inlinecount",
+            "in": "query",
+            "description": "Set <b>'allpages'</b> if you want to have total count value in result",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/PageResult[WorkflowTemplate]"
+            }
+          }
+        }
+      }
+    },
+    "/v1/users/{id}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get by ID",
+        "description": "Returns user info by ID",
+        "operationId": "Users_Get",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/users/current": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Current User",
+        "description": "Returns authenticated user info",
+        "operationId": "Users_GetCurrent",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/v1/users/Roles": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "User Roles",
+        "description": "Get all existing roles. These role id’s further can be used for creating or updating users.",
+        "operationId": "Users_getRoles",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Role"
+            }
+          }
+        }
+      }
+    },
+    "/v1/users/Departments": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "User Departments",
+        "description": "Get all existing departments. These department id’s further can be used for creating or updating users.",
+        "operationId": "Users_getDepartments",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Departmnt"
+            }
+          }
+        }
+      }
+    },
+    "/v1/users": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "All Users",
+        "description": "Returns TAP users info",
+        "operationId": "Users_Get",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "$top",
+            "in": "query",
+            "description": "The max number of records",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "$skip",
+            "in": "query",
+            "description": "The number of records to skip",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "description": "A function that must evaluate to true for a record to be returned",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "$select",
+            "in": "query",
+            "description": "Specifies a subset of properties to return",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "$orderby",
+            "in": "query",
+            "description": "Determines what values are used to order a collection of records",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "$inlinecount",
+            "in": "query",
+            "description": "Set <b>'allpages'</b> if you want to have total count value in result",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/PageResult[AdvancedUserModel]"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Create User",
+        "description": "Create users through Json. We can either create single or multiple users at a time.\r\nRequired fields to create a user is Login/Password/FirstName/LastName/Roles/Departments.",
+        "operationId": "Users_CreateUser",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "text/plain",
+          "text/csv",
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "users",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/UserDetail"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Delete Users",
+        "description": "Delete users through Json. We can either delete single or multiple users at a time.\r\nRequired fields to delete a user is Login.",
+        "operationId": "Users_DeleteUser",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "text/plain",
+          "text/csv",
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "users",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Update User",
+        "description": "Update users through Json. We can either update single or multiple users at a time.\r\nRequired fields to update a user is Login.",
+        "operationId": "Users_UpdateUser",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "text/plain",
+          "text/csv",
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "users",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/UserDetail"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/v2/workflows/audittrail/details": {
+      "post": {
+        "tags": [
+          "Workflow"
+        ],
+        "summary": "Returns audit trail details for each provided workflow name.",
+        "description": "Expects a JSON array of workflow names in the request body.\r\nExample:\r\n<code>\r\n[\"Request # 00020998\",\"Request # 00020995\",\"CNDA0207\"]\r\n</code>",
+        "operationId": "Workflow_SearchAuditTrailDetails",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "workflowNames",
+            "in": "body",
+            "description": "List of workflow names to query. Must not be null or empty.",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Audit trail information was found and returned.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AuditTrailDetailList"
+              }
+            }
+          },
+          "400": {
+            "description": "The input was invalid (e.g., null or empty list)."
+          },
+          "401": {
+            "description": "Authentication is required or has failed."
+          },
+          "403": {
+            "description": "The caller is not authorized for the current tenant."
+          },
+          "500": {
+            "description": "An unexpected error occurred."
+          }
+        }
+      }
+    },
+    "/v1/workflows/all": {
+      "get": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "All Workflows",
+        "description": "Method that will return all dashboard workflows (does not support OData filtering yet)",
+        "operationId": "Workflows_GetAll",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Page size",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Number of displayed page",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "configurationId",
+            "in": "query",
+            "description": "Id of Workflow Dashboard configuration",
+            "required": false,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Text for search filter",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "description": "Field name for sorting",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "orderDirection",
+            "in": "query",
+            "description": "Direction of sorting. Possible values: ASC, DESC",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "advancedFilter",
+            "in": "query",
+            "description": "Advanced filter for records (e.g. : column1~startswith~'value'~and~column2~eq~'value')",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "dynamicColumns",
+            "in": "query",
+            "description": "Dynamic columns separated with comma to select and filter on",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/DashboardWorkflowsList"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/workflows/my": {
+      "get": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Assigned Workflows",
+        "description": "Method that will return workflows related to requestor (does not support OData filtering yet)",
+        "operationId": "Workflows_GetMy",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Page size",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Number of displayed page",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "configurationId",
+            "in": "query",
+            "description": "Id of Workflow Dashboard configuration",
+            "required": false,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Text for search filter",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "description": "Field name for sorting",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "orderDirection",
+            "in": "query",
+            "description": "Direction of sorting. Possible values: ASC, DESC",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "advancedFilter",
+            "in": "query",
+            "description": "Advanced filter for records (e.g. : column1~startswith~'value'~and~column2~eq~'value')",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "dynamicColumns",
+            "in": "query",
+            "description": "Dynamic columns separated with comma to select and filter on",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/DashboardWorkflowsList"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/workflows/actionrequired": {
+      "get": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Action Required Workflows",
+        "description": "Method that will return workflows that required action of requestor (does not support OData filtering yet)",
+        "operationId": "Workflows_GetActionRequired",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Page size",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Number of displayed page",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "configurationId",
+            "in": "query",
+            "description": "Id of Workflow Dashboard configuration",
+            "required": false,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Text for search filter",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "description": "Field name for sorting",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "orderDirection",
+            "in": "query",
+            "description": "Direction of sorting. Possible values: ASC, DESC",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "advancedFilter",
+            "in": "query",
+            "description": "Advanced filter for records (e.g. : column1~startswith~'value'~and~column2~eq~'value')",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "dynamicColumns",
+            "in": "query",
+            "description": "Dynamic columns separated with comma to select and filter on",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/DashboardWorkflowsList"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/workflows/getarchivedrecords": {
+      "get": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "GetArchivedRecords",
+        "description": "Method that will return workflows that that have been archived",
+        "operationId": "Workflows_GetArchivedRecords",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Page size",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Number of displayed page",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Text for search filter",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "description": "Field name for sorting",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "orderDirection",
+            "in": "query",
+            "description": "Direction of sorting. Possible values: ASC, DESC",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "advancedFilter",
+            "in": "query",
+            "description": "Advanced filter for records (e.g. : column1~startswith~'value'~and~column2~eq~'value')",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "additionalDynamicColumns",
+            "in": "query",
+            "description": "Dynamic columns separated with comma to select and filter on",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/BasicWorkflowDetailsList"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/workflows/{taskId}/view": {
+      "get": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Task Values",
+        "description": "View values from specific workflow task by \"taskId\"",
+        "operationId": "Workflows_GetTaskValues",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "ID of workflow task",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "include",
+            "in": "query",
+            "description": "Additional properties to include. Use \"fieldCode\" value to add EchoSign code to result.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TaskValue"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/workflows/form": {
+      "get": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Form Info",
+        "description": "View form info for workflow initiation or continuation. If there is only <b>templateId</b> provided - will return info for start stage.",
+        "operationId": "Workflows_GetWorkflowForm",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "templateId",
+            "in": "query",
+            "description": "ID of workflow template",
+            "required": false,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "tokenId",
+            "in": "query",
+            "description": "ID of workflow token (for continuation only)",
+            "required": false,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "additionalInfo",
+            "in": "query",
+            "description": "Adds additional field info into result",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/WorkflowForm"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/workflows/{templateId}/form": {
+      "post": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Initiate",
+        "description": "Initiates workflow by workflow template ID. Allowed content types:       \r\n            <ul><li><b>multipart/form-data</b> (only way to submit files) in structure <b>fieldName:fieldValue</b></li><li><b>application/x-www-form-urlencoded</b> in structure <b>fieldName=fieldValue</b></li><li><b>application/json</b> in structure <b>{ \"fieldName\" : \"fieldValue\" }</b></li></ul>",
+        "operationId": "Workflows_InitiateWorkflow",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "templateId",
+            "in": "path",
+            "description": "ID of workflow template",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "title",
+            "in": "query",
+            "description": "Workflow Instance title",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/WorkflowSubmitResult"
+            }
+          }
+        }
+      }
+    },
+    "/v1/workflows/{tokenId}/form": {
+      "put": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Continue",
+        "description": "Submit active workflow by Token ID. Allowed content types: \r\n            <ul><li><b>multipart/form-data</b> (only way to submit files) in structure <b>fieldName:fieldValue</b></li><li><b>application/x-www-form-urlencoded</b> in structure <b>fieldName=fieldValue</b></li><li><b>application/json</b> in structure <b>{ \"fieldName\" : \"fieldValue\" }</b></li></ul>",
+        "operationId": "Workflows_ContinueWorkflow",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "tokenId",
+            "in": "path",
+            "description": "ID of workflow token",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/WorkflowSubmitResult"
+            }
+          }
+        }
+      }
+    },
+    "/v1/workflows/saveform": {
+      "put": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Save Workflow",
+        "description": "Save the form without submitting the stage.\r\nSave workflow by resultSetId or workflowName. Allowed content types: \r\n<ul><li><b>multipart/form-data</b> (only way to submit files) in structure <b>fieldName:fieldValue</b></li><li><b>application/x-www-form-urlencoded</b> in structure <b>fieldName=fieldValue</b></li><li><b>application/json</b> in structure <b>{ \"fieldName\" : \"fieldValue\" }</b></li></ul>",
+        "operationId": "Workflows_SaveWorkflow",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "resultsetId",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "workflowName",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/WorkflowSubmitResult"
+            }
+          }
+        }
+      }
+    },
+    "/v1/workflows/{resultSetId}/files": {
+      "get": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "File Attachments",
+        "description": "View workflow attachments by \"resultSetId\"",
+        "operationId": "Workflows_GetFiles",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "resultSetId",
+            "in": "path",
+            "description": "ID of workflow",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AttachedFile"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/workflows/{resultSetId}/docs": {
+      "get": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Signed Documents",
+        "description": "View workflow signed documents by \"resultSetId\"",
+        "operationId": "Workflows_GetDocuments",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "resultSetId",
+            "in": "path",
+            "description": "ID of workflow",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SignedDocument"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Cancel Sent Documents",
+        "description": "Terminates workflow instance by \"resultSetId\"",
+        "operationId": "Workflows_CancelDocuments",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "resultSetId",
+            "in": "path",
+            "description": "Unique ID of workflow instance",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "onlyReminders",
+            "in": "query",
+            "description": "Resets only reminders of workflow (\"cancel and continue\" if false)",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "format": "uuid",
+              "type": "string",
+              "example": "00000000-0000-0000-0000-000000000000"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/workflows/{resultSetId}/cancel": {
+      "delete": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Cancel Workflow",
+        "description": "Cancels workflow instance by \"resultSetId\"",
+        "operationId": "Workflows_Terminate",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "text/csv",
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "resultSetId",
+            "in": "path",
+            "description": "Unique ID of workflow instance",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/workflows/{tokenId}/assign/{userId}": {
+      "put": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Re-assign Workflow",
+        "description": "Assigns new user to specific workflow token by \"tokenId\"",
+        "operationId": "Workflows_Assign",
+        "consumes": [
+          "text/plain",
+          "text/csv",
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "text/plain",
+          "text/csv",
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "tokenId",
+            "in": "path",
+            "description": "ID of workflow token",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "New user ID",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "message",
+            "in": "body",
+            "description": "Comment about reassignment",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/workflows/archive": {
+      "post": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Archive by ID",
+        "description": "Archives records by resultSetId. Archived records can be restored with Restore calls",
+        "operationId": "Workflows_ArchiveRecord",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "resultSetIds",
+            "in": "body",
+            "description": "List of IDs for the Records you wish to Archive.",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "format": "uuid",
+                "type": "string",
+                "example": "00000000-0000-0000-0000-000000000000"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/workflows/archive/name": {
+      "post": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Archive by Name",
+        "description": "Archives records by workflow name. Archived records can be restored with Restore calls",
+        "operationId": "Workflows_ArchiveRecord",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "recordTitles",
+            "in": "body",
+            "description": "A list of the Workflow Record names you wish to archive.",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/workflows/archive/filter": {
+      "post": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Archive by Filter",
+        "description": "Archives records by Filter. Archived records can be restored with Restore calls",
+        "operationId": "Workflows_ArchiveRecord",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TapApiFilterStructureNotPaged"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/workflows/delete": {
+      "post": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Delete by ID",
+        "description": "Deletes records by resultSetId. Deleted records are removed permanently",
+        "operationId": "Workflows_DeleteRecords",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "resultSetIds",
+            "in": "body",
+            "description": "The list of IDs you wish to delete",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "format": "uuid",
+                "type": "string",
+                "example": "00000000-0000-0000-0000-000000000000"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/workflows/delete/name": {
+      "post": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Delete by Name",
+        "description": "Deletes records by workflow name. Deleted records are removed permanently",
+        "operationId": "Workflows_DeleteRecords",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "recordNames",
+            "in": "body",
+            "description": "The Names you wish to Delete",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/workflows/delete/filter": {
+      "post": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Delete by Filter",
+        "description": "Deletes records by Filter. Deleted records are removed permanently",
+        "operationId": "Workflows_DeleteRecord",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TapApiFilterStructureNotPaged"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/workflows/restore": {
+      "post": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Restore by ID",
+        "description": "Restores previously-archived records by resultSetId",
+        "operationId": "Workflows_RestoreRecord",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "resultSetIds",
+            "in": "body",
+            "description": "The list of workflow records to restore",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "format": "uuid",
+                "type": "string",
+                "example": "00000000-0000-0000-0000-000000000000"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/workflows/restore/name": {
+      "post": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Restore by Name",
+        "description": "Restores previously-archived records by workflow name",
+        "operationId": "Workflows_RestoreRecord",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "recordNames",
+            "in": "body",
+            "description": "The list of workflow records to restore",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/workflows/restore/filter": {
+      "post": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Restore by Filter",
+        "description": "Restores previously-archived records by Filter",
+        "operationId": "Workflows_RestoreRecord",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "body",
+            "description": "The list of workflow records to restore",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TapApiFilterStructureNotPaged"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/workflows/getaudittrail/filter": {
+      "get": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Audit Trail by Filter",
+        "description": "Get list of audit trail of selected workflow by Filter.",
+        "operationId": "Workflows_GetAuditTrail",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "filter.pageSize",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "filter.page",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "filter.configurationId",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "filter.search",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "filter.orderBy",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "filter.orderDirection",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "filter.advancedFilter",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "filter.dynamicColumns",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BasicAuditTrailDetailsList"
+            }
+          }
+        }
+      }
+    },
+    "/v1/workflows/getaudittrail/name": {
+      "get": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Audit Trail by Name",
+        "description": "Get list of audit trail of selected workflow by name.",
+        "operationId": "Workflows_GetAuditTrail",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "workflowNames",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BasicAuditTrailDetailsList"
+            }
+          }
+        }
+      }
+    },
+    "/v1/workflows/getaudittrail": {
+      "get": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Audit Trail by ID",
+        "description": "Get list of audit trail of selected workflow by resultSetId.",
+        "operationId": "Workflows_GetAuditTrail",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "resultSetIds",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BasicAuditTrailDetailsList"
+            }
+          }
+        }
+      }
+    },
+    "/v1/workflows/getaudittraildetails/filter": {
+      "get": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Audit Trail Log by Filter",
+        "description": "Method to audit the workflows by Filter. Get list of audit trail log by filter.",
+        "operationId": "Workflows_GetAuditTrailDetailsWithFilter",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "filter.pageSize",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "filter.page",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "filter.configurationId",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "filter.search",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "filter.orderBy",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "filter.orderDirection",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "filter.advancedFilter",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "filter.dynamicColumns",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AuditTrailDetailList"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/workflows/comments/name": {
+      "get": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Comments by Workflow Names",
+        "description": "Get workflow comments from a workflow or list of workflows based on provided Workflow Name(s).",
+        "operationId": "Workflows_GetComments",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "workflowNames",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CommentsDetailList"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/workflows/comments": {
+      "get": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Comments by Workflow ID",
+        "description": "Get workflow comments from a workflow or list of workflows based on Workflow ID/ResultSetID.",
+        "operationId": "Workflows_GetComments",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "resultSetIds",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CommentsDetailList"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/workflows/comments/all": {
+      "get": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Comments by Filter Id",
+        "description": "Get workflow comments from a workflow or list of workflows based on provided dashboard view Filter ID/Configuration ID.",
+        "operationId": "Workflows_GetComments",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "filter.pageSize",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "filter.page",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "filter.configurationId",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "filter.search",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "filter.orderBy",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "filter.orderDirection",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "filter.advancedFilter",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "filter.dynamicColumns",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BasicCommentsFields"
+            }
+          }
+        }
+      }
+    },
+    "/v1/workflows/discussion": {
+      "get": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Discussion by Workflow ID",
+        "description": "Get discussion section info for a workflow or list of workflows based on Workflow ID/ResultSetID.",
+        "operationId": "Workflows_GetCollabCommentsById",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "resultSetIds",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CommentsDetailList"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/workflows/discussion/name": {
+      "get": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Discussion by Workflow Names",
+        "description": "Get discussion section info for a workflow or list of workflows based on provided Workflow Name(s).",
+        "operationId": "Workflows_GetCollabCommentsByName",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "workflowNames",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CommentsDetailList"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/workflows/discussion/all": {
+      "get": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Discussion by Filter Id",
+        "description": "Get discussion section info for a workflow or list of workflows based on provided dashboard view Filter ID/Configuration Id.",
+        "operationId": "Workflows_GetCollabComments",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "filter.pageSize",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "filter.page",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "filter.configurationId",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "filter.search",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "filter.orderBy",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "filter.orderDirection",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "filter.advancedFilter",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "filter.dynamicColumns",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BasicCommentsFields"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "DashboardColumnDefinition": {
+      "description": "Dashboard Column definition",
+      "type": "object",
+      "properties": {
+        "Name": {
+          "description": "Column name",
+          "type": "string"
+        },
+        "Label": {
+          "description": "Column Label",
+          "type": "string"
+        },
+        "IsStatic": {
+          "description": "Is this column is static",
+          "type": "boolean"
+        },
+        "DataType": {
+          "description": "Type of value for this column",
+          "type": "string"
+        }
+      }
+    },
+    "ODataQueryOptions[GridConfiguration]": {
+      "type": "object",
+      "properties": {
+        "IfMatch": {
+          "type": "object",
+          "readOnly": true
+        },
+        "IfNoneMatch": {
+          "type": "object",
+          "readOnly": true
+        },
+        "Request": {
+          "type": "object",
+          "readOnly": true
+        },
+        "Context": {
+          "$ref": "#/definitions/ODataQueryContext",
+          "readOnly": true
+        },
+        "RawValues": {
+          "$ref": "#/definitions/ODataRawQueryOptions",
+          "readOnly": true
+        },
+        "SelectExpand": {
+          "$ref": "#/definitions/SelectExpandQueryOption",
+          "readOnly": true
+        },
+        "Apply": {
+          "$ref": "#/definitions/ApplyQueryOption",
+          "readOnly": true
+        },
+        "Filter": {
+          "$ref": "#/definitions/FilterQueryOption",
+          "readOnly": true
+        },
+        "OrderBy": {
+          "$ref": "#/definitions/OrderByQueryOption",
+          "readOnly": true
+        },
+        "Skip": {
+          "$ref": "#/definitions/SkipQueryOption",
+          "readOnly": true
+        },
+        "SkipToken": {
+          "$ref": "#/definitions/SkipTokenQueryOption",
+          "readOnly": true
+        },
+        "Top": {
+          "$ref": "#/definitions/TopQueryOption",
+          "readOnly": true
+        },
+        "Count": {
+          "$ref": "#/definitions/CountQueryOption",
+          "readOnly": true
+        },
+        "Validator": {
+          "$ref": "#/definitions/ODataQueryValidator"
+        }
+      }
+    },
+    "ODataQueryContext": {
+      "type": "object",
+      "properties": {
+        "DefaultQuerySettings": {
+          "$ref": "#/definitions/DefaultQuerySettings",
+          "readOnly": true
+        },
+        "Model": {
+          "$ref": "#/definitions/IEdmModel",
+          "readOnly": true
+        },
+        "ElementType": {
+          "$ref": "#/definitions/IEdmType",
+          "readOnly": true
+        },
+        "NavigationSource": {
+          "$ref": "#/definitions/IEdmNavigationSource",
+          "readOnly": true
+        },
+        "ElementClrType": {
+          "type": "string",
+          "readOnly": true
+        },
+        "Path": {
+          "$ref": "#/definitions/ODataPath",
+          "readOnly": true
+        },
+        "RequestContainer": {
+          "$ref": "#/definitions/IServiceProvider",
+          "readOnly": true
+        }
+      }
+    },
+    "ODataRawQueryOptions": {
+      "type": "object",
+      "properties": {
+        "Filter": {
+          "type": "string",
+          "readOnly": true
+        },
+        "Apply": {
+          "type": "string",
+          "readOnly": true
+        },
+        "OrderBy": {
+          "type": "string",
+          "readOnly": true
+        },
+        "Top": {
+          "type": "string",
+          "readOnly": true
+        },
+        "Skip": {
+          "type": "string",
+          "readOnly": true
+        },
+        "Select": {
+          "type": "string",
+          "readOnly": true
+        },
+        "Expand": {
+          "type": "string",
+          "readOnly": true
+        },
+        "Count": {
+          "type": "string",
+          "readOnly": true
+        },
+        "Format": {
+          "type": "string",
+          "readOnly": true
+        },
+        "SkipToken": {
+          "type": "string",
+          "readOnly": true
+        },
+        "DeltaToken": {
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "SelectExpandQueryOption": {
+      "type": "object",
+      "properties": {
+        "Context": {
+          "$ref": "#/definitions/ODataQueryContext",
+          "readOnly": true
+        },
+        "RawSelect": {
+          "type": "string",
+          "readOnly": true
+        },
+        "RawExpand": {
+          "type": "string",
+          "readOnly": true
+        },
+        "Validator": {
+          "$ref": "#/definitions/SelectExpandQueryValidator"
+        },
+        "SelectExpandClause": {
+          "$ref": "#/definitions/SelectExpandClause",
+          "readOnly": true
+        },
+        "LevelsMaxLiteralExpansionDepth": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "ApplyQueryOption": {
+      "type": "object",
+      "properties": {
+        "Context": {
+          "$ref": "#/definitions/ODataQueryContext",
+          "readOnly": true
+        },
+        "ResultClrType": {
+          "type": "string",
+          "readOnly": true
+        },
+        "ApplyClause": {
+          "$ref": "#/definitions/ApplyClause",
+          "readOnly": true
+        },
+        "RawValue": {
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "FilterQueryOption": {
+      "type": "object",
+      "properties": {
+        "Context": {
+          "$ref": "#/definitions/ODataQueryContext",
+          "readOnly": true
+        },
+        "Validator": {
+          "$ref": "#/definitions/FilterQueryValidator"
+        },
+        "FilterClause": {
+          "$ref": "#/definitions/FilterClause",
+          "readOnly": true
+        },
+        "RawValue": {
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "OrderByQueryOption": {
+      "type": "object",
+      "properties": {
+        "Context": {
+          "$ref": "#/definitions/ODataQueryContext",
+          "readOnly": true
+        },
+        "OrderByNodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OrderByNode"
+          },
+          "readOnly": true
+        },
+        "RawValue": {
+          "type": "string",
+          "readOnly": true
+        },
+        "Validator": {
+          "$ref": "#/definitions/OrderByQueryValidator"
+        },
+        "OrderByClause": {
+          "$ref": "#/definitions/OrderByClause",
+          "readOnly": true
+        }
+      }
+    },
+    "SkipQueryOption": {
+      "type": "object",
+      "properties": {
+        "Context": {
+          "$ref": "#/definitions/ODataQueryContext",
+          "readOnly": true
+        },
+        "RawValue": {
+          "type": "string",
+          "readOnly": true
+        },
+        "Value": {
+          "format": "int32",
+          "type": "integer",
+          "readOnly": true
+        },
+        "Validator": {
+          "$ref": "#/definitions/SkipQueryValidator"
+        }
+      }
+    },
+    "SkipTokenQueryOption": {
+      "type": "object",
+      "properties": {
+        "RawValue": {
+          "type": "string",
+          "readOnly": true
+        },
+        "Context": {
+          "$ref": "#/definitions/ODataQueryContext",
+          "readOnly": true
+        },
+        "Validator": {
+          "$ref": "#/definitions/SkipTokenQueryValidator",
+          "readOnly": true
+        },
+        "QuerySettings": {
+          "$ref": "#/definitions/ODataQuerySettings",
+          "readOnly": true
+        },
+        "QueryOptions": {
+          "$ref": "#/definitions/ODataQueryOptions",
+          "readOnly": true
+        }
+      }
+    },
+    "TopQueryOption": {
+      "type": "object",
+      "properties": {
+        "Context": {
+          "$ref": "#/definitions/ODataQueryContext",
+          "readOnly": true
+        },
+        "RawValue": {
+          "type": "string",
+          "readOnly": true
+        },
+        "Value": {
+          "format": "int32",
+          "type": "integer",
+          "readOnly": true
+        },
+        "Validator": {
+          "$ref": "#/definitions/TopQueryValidator"
+        }
+      }
+    },
+    "CountQueryOption": {
+      "type": "object",
+      "properties": {
+        "Context": {
+          "$ref": "#/definitions/ODataQueryContext",
+          "readOnly": true
+        },
+        "RawValue": {
+          "type": "string",
+          "readOnly": true
+        },
+        "Value": {
+          "type": "boolean",
+          "readOnly": true
+        },
+        "Validator": {
+          "$ref": "#/definitions/CountQueryValidator"
+        }
+      }
+    },
+    "ODataQueryValidator": {
+      "type": "object",
+      "properties": {}
+    },
+    "DefaultQuerySettings": {
+      "type": "object",
+      "properties": {
+        "EnableExpand": {
+          "type": "boolean"
+        },
+        "EnableSelect": {
+          "type": "boolean"
+        },
+        "EnableCount": {
+          "type": "boolean"
+        },
+        "EnableOrderBy": {
+          "type": "boolean"
+        },
+        "EnableFilter": {
+          "type": "boolean"
+        },
+        "MaxTop": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "EnableSkipToken": {
+          "type": "boolean"
+        }
+      }
+    },
+    "IEdmModel": {
+      "type": "object",
+      "properties": {
+        "SchemaElements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IEdmSchemaElement"
+          },
+          "readOnly": true
+        },
+        "VocabularyAnnotations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IEdmVocabularyAnnotation"
+          },
+          "readOnly": true
+        },
+        "ReferencedModels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IEdmModel"
+          },
+          "readOnly": true
+        },
+        "DeclaredNamespaces": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "readOnly": true
+        },
+        "DirectValueAnnotationsManager": {
+          "$ref": "#/definitions/IEdmDirectValueAnnotationsManager",
+          "readOnly": true
+        },
+        "EntityContainer": {
+          "$ref": "#/definitions/IEdmEntityContainer",
+          "readOnly": true
+        }
+      }
+    },
+    "IEdmType": {
+      "type": "object",
+      "properties": {
+        "TypeKind": {
+          "enum": [
+            "None",
+            "Primitive",
+            "Entity",
+            "Complex",
+            "Collection",
+            "EntityReference",
+            "Enum",
+            "TypeDefinition",
+            "Untyped",
+            "Path"
+          ],
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "IEdmNavigationSource": {
+      "type": "object",
+      "properties": {
+        "NavigationPropertyBindings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IEdmNavigationPropertyBinding"
+          },
+          "readOnly": true
+        },
+        "Path": {
+          "$ref": "#/definitions/IEdmPathExpression",
+          "readOnly": true
+        },
+        "Type": {
+          "$ref": "#/definitions/IEdmType",
+          "readOnly": true
+        },
+        "Name": {
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "ODataPath": {
+      "type": "object",
+      "properties": {
+        "EdmType": {
+          "$ref": "#/definitions/IEdmType",
+          "readOnly": true
+        },
+        "NavigationSource": {
+          "$ref": "#/definitions/IEdmNavigationSource",
+          "readOnly": true
+        },
+        "Segments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ODataPathSegment"
+          },
+          "readOnly": true
+        },
+        "PathTemplate": {
+          "type": "string",
+          "readOnly": true
+        },
+        "Path": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ODataPathSegment"
+          },
+          "readOnly": true
+        }
+      }
+    },
+    "IServiceProvider": {
+      "type": "object",
+      "properties": {}
+    },
+    "SelectExpandQueryValidator": {
+      "type": "object",
+      "properties": {}
+    },
+    "SelectExpandClause": {
+      "type": "object",
+      "properties": {
+        "SelectedItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SelectItem"
+          },
+          "readOnly": true
+        },
+        "AllSelected": {
+          "type": "boolean",
+          "readOnly": true
+        }
+      }
+    },
+    "ApplyClause": {
+      "type": "object",
+      "properties": {
+        "Transformations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TransformationNode"
+          },
+          "readOnly": true
+        }
+      }
+    },
+    "FilterQueryValidator": {
+      "type": "object",
+      "properties": {}
+    },
+    "FilterClause": {
+      "type": "object",
+      "properties": {
+        "Expression": {
+          "$ref": "#/definitions/SingleValueNode",
+          "readOnly": true
+        },
+        "RangeVariable": {
+          "$ref": "#/definitions/RangeVariable",
+          "readOnly": true
+        },
+        "ItemType": {
+          "$ref": "#/definitions/IEdmTypeReference",
+          "readOnly": true
+        }
+      }
+    },
+    "OrderByNode": {
+      "type": "object",
+      "properties": {
+        "Direction": {
+          "enum": [
+            "Ascending",
+            "Descending"
+          ],
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "OrderByQueryValidator": {
+      "type": "object",
+      "properties": {}
+    },
+    "OrderByClause": {
+      "type": "object",
+      "properties": {
+        "ThenBy": {
+          "$ref": "#/definitions/OrderByClause",
+          "readOnly": true
+        },
+        "Expression": {
+          "$ref": "#/definitions/SingleValueNode",
+          "readOnly": true
+        },
+        "Direction": {
+          "enum": [
+            "Ascending",
+            "Descending"
+          ],
+          "type": "string",
+          "readOnly": true
+        },
+        "RangeVariable": {
+          "$ref": "#/definitions/RangeVariable",
+          "readOnly": true
+        },
+        "ItemType": {
+          "$ref": "#/definitions/IEdmTypeReference",
+          "readOnly": true
+        }
+      }
+    },
+    "SkipQueryValidator": {
+      "type": "object",
+      "properties": {}
+    },
+    "SkipTokenQueryValidator": {
+      "type": "object",
+      "properties": {}
+    },
+    "ODataQuerySettings": {
+      "type": "object",
+      "properties": {
+        "EnsureStableOrdering": {
+          "type": "boolean"
+        },
+        "HandleNullPropagation": {
+          "enum": [
+            "Default",
+            "True",
+            "False"
+          ],
+          "type": "string"
+        },
+        "EnableConstantParameterization": {
+          "type": "boolean"
+        },
+        "EnableCorrelatedSubqueryBuffering": {
+          "type": "boolean"
+        },
+        "PageSize": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "HandleReferenceNavigationPropertyExpandFilter": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ODataQueryOptions": {
+      "type": "object",
+      "properties": {
+        "Request": {
+          "type": "object",
+          "readOnly": true
+        },
+        "Context": {
+          "$ref": "#/definitions/ODataQueryContext",
+          "readOnly": true
+        },
+        "RawValues": {
+          "$ref": "#/definitions/ODataRawQueryOptions",
+          "readOnly": true
+        },
+        "SelectExpand": {
+          "$ref": "#/definitions/SelectExpandQueryOption",
+          "readOnly": true
+        },
+        "Apply": {
+          "$ref": "#/definitions/ApplyQueryOption",
+          "readOnly": true
+        },
+        "Filter": {
+          "$ref": "#/definitions/FilterQueryOption",
+          "readOnly": true
+        },
+        "OrderBy": {
+          "$ref": "#/definitions/OrderByQueryOption",
+          "readOnly": true
+        },
+        "Skip": {
+          "$ref": "#/definitions/SkipQueryOption",
+          "readOnly": true
+        },
+        "SkipToken": {
+          "$ref": "#/definitions/SkipTokenQueryOption",
+          "readOnly": true
+        },
+        "Top": {
+          "$ref": "#/definitions/TopQueryOption",
+          "readOnly": true
+        },
+        "Count": {
+          "$ref": "#/definitions/CountQueryOption",
+          "readOnly": true
+        },
+        "Validator": {
+          "$ref": "#/definitions/ODataQueryValidator"
+        },
+        "IfMatch": {
+          "type": "object",
+          "readOnly": true
+        },
+        "IfNoneMatch": {
+          "type": "object",
+          "readOnly": true
+        }
+      }
+    },
+    "TopQueryValidator": {
+      "type": "object",
+      "properties": {}
+    },
+    "CountQueryValidator": {
+      "type": "object",
+      "properties": {}
+    },
+    "IEdmSchemaElement": {
+      "type": "object",
+      "properties": {
+        "SchemaElementKind": {
+          "enum": [
+            "None",
+            "TypeDefinition",
+            "Term",
+            "Action",
+            "EntityContainer",
+            "Function"
+          ],
+          "type": "string",
+          "readOnly": true
+        },
+        "Namespace": {
+          "type": "string",
+          "readOnly": true
+        },
+        "Name": {
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "IEdmVocabularyAnnotation": {
+      "type": "object",
+      "properties": {
+        "Qualifier": {
+          "type": "string",
+          "readOnly": true
+        },
+        "Term": {
+          "$ref": "#/definitions/IEdmTerm",
+          "readOnly": true
+        },
+        "Target": {
+          "$ref": "#/definitions/IEdmVocabularyAnnotatable",
+          "readOnly": true
+        },
+        "Value": {
+          "$ref": "#/definitions/IEdmExpression",
+          "readOnly": true
+        }
+      }
+    },
+    "IEdmDirectValueAnnotationsManager": {
+      "type": "object",
+      "properties": {}
+    },
+    "IEdmEntityContainer": {
+      "type": "object",
+      "properties": {
+        "Elements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IEdmEntityContainerElement"
+          },
+          "readOnly": true
+        },
+        "SchemaElementKind": {
+          "enum": [
+            "None",
+            "TypeDefinition",
+            "Term",
+            "Action",
+            "EntityContainer",
+            "Function"
+          ],
+          "type": "string",
+          "readOnly": true
+        },
+        "Namespace": {
+          "type": "string",
+          "readOnly": true
+        },
+        "Name": {
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "IEdmNavigationPropertyBinding": {
+      "type": "object",
+      "properties": {
+        "NavigationProperty": {
+          "$ref": "#/definitions/IEdmNavigationProperty",
+          "readOnly": true
+        },
+        "Target": {
+          "$ref": "#/definitions/IEdmNavigationSource",
+          "readOnly": true
+        },
+        "Path": {
+          "$ref": "#/definitions/IEdmPathExpression",
+          "readOnly": true
+        }
+      }
+    },
+    "IEdmPathExpression": {
+      "type": "object",
+      "properties": {
+        "PathSegments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "readOnly": true
+        },
+        "Path": {
+          "type": "string",
+          "readOnly": true
+        },
+        "ExpressionKind": {
+          "enum": [
+            "None",
+            "BinaryConstant",
+            "BooleanConstant",
+            "DateTimeOffsetConstant",
+            "DecimalConstant",
+            "FloatingConstant",
+            "GuidConstant",
+            "IntegerConstant",
+            "StringConstant",
+            "DurationConstant",
+            "Null",
+            "Record",
+            "Collection",
+            "Path",
+            "If",
+            "Cast",
+            "IsType",
+            "FunctionApplication",
+            "LabeledExpressionReference",
+            "Labeled",
+            "PropertyPath",
+            "NavigationPropertyPath",
+            "DateConstant",
+            "TimeOfDayConstant",
+            "EnumMember",
+            "AnnotationPath"
+          ],
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "ODataPathSegment": {
+      "type": "object",
+      "properties": {
+        "EdmType": {
+          "$ref": "#/definitions/IEdmType",
+          "readOnly": true
+        },
+        "Identifier": {
+          "type": "string"
+        }
+      }
+    },
+    "SelectItem": {
+      "type": "object",
+      "properties": {}
+    },
+    "TransformationNode": {
+      "type": "object",
+      "properties": {
+        "Kind": {
+          "enum": [
+            "Aggregate",
+            "GroupBy",
+            "Filter",
+            "Compute",
+            "Expand"
+          ],
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "SingleValueNode": {
+      "type": "object",
+      "properties": {
+        "TypeReference": {
+          "$ref": "#/definitions/IEdmTypeReference",
+          "readOnly": true
+        },
+        "Kind": {
+          "enum": [
+            "None",
+            "Constant",
+            "Convert",
+            "NonResourceRangeVariableReference",
+            "BinaryOperator",
+            "UnaryOperator",
+            "SingleValuePropertyAccess",
+            "CollectionPropertyAccess",
+            "SingleValueFunctionCall",
+            "Any",
+            "CollectionNavigationNode",
+            "SingleNavigationNode",
+            "SingleValueOpenPropertyAccess",
+            "SingleResourceCast",
+            "All",
+            "CollectionResourceCast",
+            "ResourceRangeVariableReference",
+            "SingleResourceFunctionCall",
+            "CollectionFunctionCall",
+            "CollectionResourceFunctionCall",
+            "NamedFunctionParameter",
+            "ParameterAlias",
+            "EntitySet",
+            "KeyLookup",
+            "SearchTerm",
+            "CollectionOpenPropertyAccess",
+            "CollectionComplexNode",
+            "SingleComplexNode",
+            "Count",
+            "SingleValueCast",
+            "CollectionPropertyNode",
+            "AggregatedCollectionPropertyNode",
+            "In",
+            "CollectionConstant"
+          ],
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "RangeVariable": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string",
+          "readOnly": true
+        },
+        "TypeReference": {
+          "$ref": "#/definitions/IEdmTypeReference",
+          "readOnly": true
+        },
+        "Kind": {
+          "format": "int32",
+          "type": "integer",
+          "readOnly": true
+        }
+      }
+    },
+    "IEdmTypeReference": {
+      "type": "object",
+      "properties": {
+        "IsNullable": {
+          "type": "boolean",
+          "readOnly": true
+        },
+        "Definition": {
+          "$ref": "#/definitions/IEdmType",
+          "readOnly": true
+        }
+      }
+    },
+    "IEdmTerm": {
+      "type": "object",
+      "properties": {
+        "Type": {
+          "$ref": "#/definitions/IEdmTypeReference",
+          "readOnly": true
+        },
+        "AppliesTo": {
+          "type": "string",
+          "readOnly": true
+        },
+        "DefaultValue": {
+          "type": "string",
+          "readOnly": true
+        },
+        "SchemaElementKind": {
+          "enum": [
+            "None",
+            "TypeDefinition",
+            "Term",
+            "Action",
+            "EntityContainer",
+            "Function"
+          ],
+          "type": "string",
+          "readOnly": true
+        },
+        "Namespace": {
+          "type": "string",
+          "readOnly": true
+        },
+        "Name": {
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "IEdmVocabularyAnnotatable": {
+      "type": "object",
+      "properties": {}
+    },
+    "IEdmExpression": {
+      "type": "object",
+      "properties": {
+        "ExpressionKind": {
+          "enum": [
+            "None",
+            "BinaryConstant",
+            "BooleanConstant",
+            "DateTimeOffsetConstant",
+            "DecimalConstant",
+            "FloatingConstant",
+            "GuidConstant",
+            "IntegerConstant",
+            "StringConstant",
+            "DurationConstant",
+            "Null",
+            "Record",
+            "Collection",
+            "Path",
+            "If",
+            "Cast",
+            "IsType",
+            "FunctionApplication",
+            "LabeledExpressionReference",
+            "Labeled",
+            "PropertyPath",
+            "NavigationPropertyPath",
+            "DateConstant",
+            "TimeOfDayConstant",
+            "EnumMember",
+            "AnnotationPath"
+          ],
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "IEdmEntityContainerElement": {
+      "type": "object",
+      "properties": {
+        "ContainerElementKind": {
+          "enum": [
+            "None",
+            "EntitySet",
+            "ActionImport",
+            "FunctionImport",
+            "Singleton"
+          ],
+          "type": "string",
+          "readOnly": true
+        },
+        "Container": {
+          "$ref": "#/definitions/IEdmEntityContainer",
+          "readOnly": true
+        },
+        "Name": {
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "IEdmNavigationProperty": {
+      "type": "object",
+      "properties": {
+        "Partner": {
+          "$ref": "#/definitions/IEdmNavigationProperty",
+          "readOnly": true
+        },
+        "OnDelete": {
+          "enum": [
+            "None",
+            "Cascade"
+          ],
+          "type": "string",
+          "readOnly": true
+        },
+        "ContainsTarget": {
+          "type": "boolean",
+          "readOnly": true
+        },
+        "ReferentialConstraint": {
+          "$ref": "#/definitions/IEdmReferentialConstraint",
+          "readOnly": true
+        },
+        "PropertyKind": {
+          "enum": [
+            "None",
+            "Structural",
+            "Navigation"
+          ],
+          "type": "string",
+          "readOnly": true
+        },
+        "Type": {
+          "$ref": "#/definitions/IEdmTypeReference",
+          "readOnly": true
+        },
+        "DeclaringType": {
+          "$ref": "#/definitions/IEdmStructuredType",
+          "readOnly": true
+        },
+        "Name": {
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "IEdmReferentialConstraint": {
+      "type": "object",
+      "properties": {
+        "PropertyPairs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EdmReferentialConstraintPropertyPair"
+          },
+          "readOnly": true
+        }
+      }
+    },
+    "IEdmStructuredType": {
+      "type": "object",
+      "properties": {
+        "IsAbstract": {
+          "type": "boolean",
+          "readOnly": true
+        },
+        "IsOpen": {
+          "type": "boolean",
+          "readOnly": true
+        },
+        "BaseType": {
+          "$ref": "#/definitions/IEdmStructuredType",
+          "readOnly": true
+        },
+        "DeclaredProperties": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IEdmProperty"
+          },
+          "readOnly": true
+        },
+        "TypeKind": {
+          "enum": [
+            "None",
+            "Primitive",
+            "Entity",
+            "Complex",
+            "Collection",
+            "EntityReference",
+            "Enum",
+            "TypeDefinition",
+            "Untyped",
+            "Path"
+          ],
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "EdmReferentialConstraintPropertyPair": {
+      "type": "object",
+      "properties": {
+        "DependentProperty": {
+          "$ref": "#/definitions/IEdmStructuralProperty",
+          "readOnly": true
+        },
+        "PrincipalProperty": {
+          "$ref": "#/definitions/IEdmStructuralProperty",
+          "readOnly": true
+        }
+      }
+    },
+    "IEdmProperty": {
+      "type": "object",
+      "properties": {
+        "PropertyKind": {
+          "enum": [
+            "None",
+            "Structural",
+            "Navigation"
+          ],
+          "type": "string",
+          "readOnly": true
+        },
+        "Type": {
+          "$ref": "#/definitions/IEdmTypeReference",
+          "readOnly": true
+        },
+        "DeclaringType": {
+          "$ref": "#/definitions/IEdmStructuredType",
+          "readOnly": true
+        },
+        "Name": {
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "IEdmStructuralProperty": {
+      "type": "object",
+      "properties": {
+        "DefaultValueString": {
+          "type": "string",
+          "readOnly": true
+        },
+        "PropertyKind": {
+          "enum": [
+            "None",
+            "Structural",
+            "Navigation"
+          ],
+          "type": "string",
+          "readOnly": true
+        },
+        "Type": {
+          "$ref": "#/definitions/IEdmTypeReference",
+          "readOnly": true
+        },
+        "DeclaringType": {
+          "$ref": "#/definitions/IEdmStructuredType",
+          "readOnly": true
+        },
+        "Name": {
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "PageResult[GridConfiguration]": {
+      "type": "object",
+      "properties": {
+        "Items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GridConfiguration"
+          }
+        },
+        "NextPageLink": {
+          "type": "string"
+        },
+        "Count": {
+          "format": "int64",
+          "type": "integer"
+        }
+      }
+    },
+    "GridConfiguration": {
+      "description": "Grid Configuration",
+      "required": [
+        "Name",
+        "Configuration"
+      ],
+      "type": "object",
+      "properties": {
+        "ID": {
+          "format": "uuid",
+          "description": "Identifier",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        },
+        "Name": {
+          "description": "Configuration Name",
+          "maxLength": 100,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Description": {
+          "description": "Description",
+          "maxLength": 255,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Configuration": {
+          "description": "Jsoned Configuration",
+          "type": "string"
+        },
+        "UserID": {
+          "format": "uuid",
+          "description": "Owned by User",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        },
+        "ApplicationID": {
+          "format": "uuid",
+          "description": "Tenant ID",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        },
+        "IsPinned": {
+          "description": "Is pinned on dashboard",
+          "type": "boolean"
+        },
+        "IsTenant": {
+          "description": "Is tenant-level filter",
+          "type": "boolean"
+        },
+        "IsDefault": {
+          "description": "Is default filter",
+          "type": "boolean"
+        },
+        "HasParameters": {
+          "description": "Has Query parameters",
+          "type": "boolean"
+        },
+        "DateCreated": {
+          "format": "date-time",
+          "description": "Creation Date",
+          "type": "string"
+        },
+        "UserCreated": {
+          "format": "uuid",
+          "description": "User Created",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        },
+        "DateModified": {
+          "format": "date-time",
+          "description": "Modification date",
+          "type": "string"
+        },
+        "UserModified": {
+          "format": "uuid",
+          "description": "User Modified",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        }
+      }
+    },
+    "ODataQueryOptions[WorkflowTemplate]": {
+      "type": "object",
+      "properties": {
+        "IfMatch": {
+          "type": "object",
+          "readOnly": true
+        },
+        "IfNoneMatch": {
+          "type": "object",
+          "readOnly": true
+        },
+        "Request": {
+          "type": "object",
+          "readOnly": true
+        },
+        "Context": {
+          "$ref": "#/definitions/ODataQueryContext",
+          "readOnly": true
+        },
+        "RawValues": {
+          "$ref": "#/definitions/ODataRawQueryOptions",
+          "readOnly": true
+        },
+        "SelectExpand": {
+          "$ref": "#/definitions/SelectExpandQueryOption",
+          "readOnly": true
+        },
+        "Apply": {
+          "$ref": "#/definitions/ApplyQueryOption",
+          "readOnly": true
+        },
+        "Filter": {
+          "$ref": "#/definitions/FilterQueryOption",
+          "readOnly": true
+        },
+        "OrderBy": {
+          "$ref": "#/definitions/OrderByQueryOption",
+          "readOnly": true
+        },
+        "Skip": {
+          "$ref": "#/definitions/SkipQueryOption",
+          "readOnly": true
+        },
+        "SkipToken": {
+          "$ref": "#/definitions/SkipTokenQueryOption",
+          "readOnly": true
+        },
+        "Top": {
+          "$ref": "#/definitions/TopQueryOption",
+          "readOnly": true
+        },
+        "Count": {
+          "$ref": "#/definitions/CountQueryOption",
+          "readOnly": true
+        },
+        "Validator": {
+          "$ref": "#/definitions/ODataQueryValidator"
+        }
+      }
+    },
+    "PageResult[WorkflowTemplate]": {
+      "type": "object",
+      "properties": {
+        "Items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WorkflowTemplate"
+          }
+        },
+        "NextPageLink": {
+          "type": "string"
+        },
+        "Count": {
+          "format": "int64",
+          "type": "integer"
+        }
+      }
+    },
+    "WorkflowTemplate": {
+      "description": "Workflow Template",
+      "type": "object",
+      "properties": {
+        "ParentID": {
+          "format": "uuid",
+          "description": "ParentID - stays same for all templates of a workflow",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        },
+        "ID": {
+          "format": "uuid",
+          "description": "Template ID",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        },
+        "WorkflowName": {
+          "description": "Template Name",
+          "type": "string"
+        },
+        "InitialStage": {
+          "description": "Initial stage name",
+          "type": "string"
+        },
+        "DateCreated": {
+          "format": "date-time",
+          "description": "Creation date",
+          "type": "string"
+        }
+      }
+    },
+    "User": {
+      "description": "TAP User",
+      "type": "object",
+      "properties": {
+        "ID": {
+          "format": "uuid",
+          "description": "User ID",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        },
+        "FullName": {
+          "description": "User name and surname",
+          "type": "string"
+        },
+        "Email": {
+          "description": "User email",
+          "type": "string"
+        },
+        "Roles": {
+          "description": "Roles assigned to user",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Departments": {
+          "description": "Departments assigned to user",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ESignKey": {
+          "description": "User`s esignature key",
+          "type": "string"
+        },
+        "CustomFields": {
+          "description": "Custom fields",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/KeyValuePair"
+          }
+        }
+      }
+    },
+    "KeyValuePair": {
+      "description": "",
+      "type": "object",
+      "properties": {
+        "Key": {
+          "type": "string"
+        },
+        "Value": {
+          "type": "string"
+        }
+      }
+    },
+    "Role": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "format": "uuid",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Rank": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "Departmnt": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "format": "uuid",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        }
+      }
+    },
+    "ODataQueryOptions[AdvancedUserModel]": {
+      "type": "object",
+      "properties": {
+        "IfMatch": {
+          "type": "object",
+          "readOnly": true
+        },
+        "IfNoneMatch": {
+          "type": "object",
+          "readOnly": true
+        },
+        "Request": {
+          "type": "object",
+          "readOnly": true
+        },
+        "Context": {
+          "$ref": "#/definitions/ODataQueryContext",
+          "readOnly": true
+        },
+        "RawValues": {
+          "$ref": "#/definitions/ODataRawQueryOptions",
+          "readOnly": true
+        },
+        "SelectExpand": {
+          "$ref": "#/definitions/SelectExpandQueryOption",
+          "readOnly": true
+        },
+        "Apply": {
+          "$ref": "#/definitions/ApplyQueryOption",
+          "readOnly": true
+        },
+        "Filter": {
+          "$ref": "#/definitions/FilterQueryOption",
+          "readOnly": true
+        },
+        "OrderBy": {
+          "$ref": "#/definitions/OrderByQueryOption",
+          "readOnly": true
+        },
+        "Skip": {
+          "$ref": "#/definitions/SkipQueryOption",
+          "readOnly": true
+        },
+        "SkipToken": {
+          "$ref": "#/definitions/SkipTokenQueryOption",
+          "readOnly": true
+        },
+        "Top": {
+          "$ref": "#/definitions/TopQueryOption",
+          "readOnly": true
+        },
+        "Count": {
+          "$ref": "#/definitions/CountQueryOption",
+          "readOnly": true
+        },
+        "Validator": {
+          "$ref": "#/definitions/ODataQueryValidator"
+        }
+      }
+    },
+    "PageResult[AdvancedUserModel]": {
+      "type": "object",
+      "properties": {
+        "Items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AdvancedUserModel"
+          }
+        },
+        "NextPageLink": {
+          "type": "string"
+        },
+        "Count": {
+          "format": "int64",
+          "type": "integer"
+        }
+      }
+    },
+    "AdvancedUserModel": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "format": "uuid",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        },
+        "FullName": {
+          "type": "string"
+        },
+        "Email": {
+          "type": "string"
+        },
+        "Roles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Departments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ESignKey": {
+          "type": "string"
+        },
+        "CustomFields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/KeyValue"
+          }
+        }
+      }
+    },
+    "KeyValue": {
+      "type": "object",
+      "properties": {
+        "Key": {
+          "type": "string"
+        },
+        "Value": {
+          "type": "string"
+        }
+      }
+    },
+    "UserDetail": {
+      "description": "TAP User Detail",
+      "type": "object",
+      "properties": {
+        "ID": {
+          "format": "uuid",
+          "description": "User ID",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        },
+        "Login": {
+          "description": "Login",
+          "type": "string"
+        },
+        "FirstName": {
+          "description": "First Name property",
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        },
+        "LastName": {
+          "description": "Last Name property",
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        },
+        "Password": {
+          "description": "Password property (not mandatory for updates)",
+          "type": "string"
+        },
+        "UserName": {
+          "description": "UserName property",
+          "type": "string"
+        },
+        "Roles": {
+          "description": "AssignedRoles property",
+          "type": "array",
+          "items": {
+            "format": "uuid",
+            "type": "string",
+            "example": "00000000-0000-0000-0000-000000000000"
+          }
+        },
+        "Departments": {
+          "description": "AssignedDepartments property",
+          "type": "array",
+          "items": {
+            "format": "uuid",
+            "type": "string",
+            "example": "00000000-0000-0000-0000-000000000000"
+          }
+        },
+        "IsPasswordChangeRequired": {
+          "description": "IsPasswordChangeRequired property",
+          "type": "boolean"
+        },
+        "GenericFields": {
+          "description": "GenericFields property",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserGenericFieldsMapData"
+          }
+        },
+        "IsDeleted": {
+          "description": "IsDeleted property",
+          "type": "boolean"
+        },
+        "IsLockedOut": {
+          "description": "IsLockedOut property",
+          "type": "boolean"
+        },
+        "CellNumber": {
+          "description": "CellNumber property",
+          "type": "string"
+        },
+        "FaxNumber": {
+          "description": "FaxNumber",
+          "type": "string"
+        },
+        "EmployeeID": {
+          "description": "EmployeeID property",
+          "type": "string"
+        },
+        "Type": {
+          "description": "Type property",
+          "type": "string"
+        },
+        "SisenseUserName": {
+          "description": "Sisense User Name",
+          "type": "string"
+        },
+        "SisenseUserPassword": {
+          "description": "Sisense User Password",
+          "type": "string"
+        }
+      }
+    },
+    "UserGenericFieldsMapData": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "format": "uuid",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        },
+        "UserGenericFieldID": {
+          "format": "uuid",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        },
+        "FieldLabel": {
+          "type": "string"
+        },
+        "FieldCode": {
+          "type": "string"
+        },
+        "FieldValue": {
+          "type": "string"
+        },
+        "UserCreated": {
+          "format": "uuid",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        },
+        "DateCreated": {
+          "format": "date-time",
+          "type": "string"
+        }
+      }
+    },
+    "AuditTrailDetailList": {
+      "description": "Workflow Attachment",
+      "type": "object",
+      "properties": {
+        "WorkflowName": {
+          "type": "string"
+        },
+        "AuditTrailFieldLogStageList": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AuditTrailFieldLogStage"
+          }
+        }
+      }
+    },
+    "AuditTrailFieldLogStage": {
+      "description": "Workflow Attachment",
+      "type": "object",
+      "properties": {
+        "Stage": {
+          "description": "Name of the stage",
+          "type": "string"
+        },
+        "Date": {
+          "format": "date-time",
+          "description": "Timestamp when stage was saved",
+          "type": "string"
+        },
+        "User": {
+          "description": "User that saved the stage",
+          "type": "string"
+        },
+        "Status": {
+          "description": "Status of the stage",
+          "type": "string"
+        },
+        "Fields": {
+          "description": "Specific field log",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AuditTrailFieldLog"
+          }
+        }
+      }
+    },
+    "AuditTrailFieldLog": {
+      "description": "Workflow Attachment",
+      "type": "object",
+      "properties": {
+        "Name": {
+          "description": "Name of the field",
+          "type": "string"
+        },
+        "Value": {
+          "description": "Value of the field",
+          "type": "string"
+        },
+        "Type": {
+          "description": "Type of the field",
+          "type": "string"
+        },
+        "Label": {
+          "description": "Label of the field",
+          "type": "string"
+        }
+      }
+    },
+    "DashboardWorkflowsList": {
+      "description": "Wrapper for Dashboard Workflows",
+      "type": "object",
+      "properties": {
+        "Items": {
+          "description": "Requested items",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DashboardWorkflow"
+          }
+        },
+        "Count": {
+          "format": "int32",
+          "description": "Total items",
+          "type": "integer"
+        }
+      }
+    },
+    "DashboardWorkflow": {
+      "description": "Workflow Instance definition for dashboard",
+      "type": "object",
+      "properties": {
+        "ResultSetId": {
+          "format": "uuid",
+          "description": "Workflow Instance ID",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        },
+        "TaskId": {
+          "format": "uuid",
+          "description": "Task ID",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        },
+        "TokenId": {
+          "format": "uuid",
+          "description": "Token ID",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        },
+        "Columns": {
+          "description": "Column Collection",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Column"
+          }
+        },
+        "Actions": {
+          "description": "Allowed Actions",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Column": {
+      "description": "Dashboard Column definition",
+      "type": "object",
+      "properties": {
+        "Name": {
+          "description": "Column name",
+          "type": "string"
+        },
+        "Label": {
+          "description": "Column Label",
+          "type": "string"
+        },
+        "Value": {
+          "description": "Value",
+          "type": "string"
+        }
+      }
+    },
+    "BasicWorkflowDetailsList": {
+      "description": "Wrapper for Basic workflow details",
+      "type": "object",
+      "properties": {
+        "Items": {
+          "description": "Requested items",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BasicWorkflowDetails"
+          }
+        },
+        "Count": {
+          "format": "int32",
+          "description": "Total items",
+          "type": "integer"
+        }
+      }
+    },
+    "BasicWorkflowDetails": {
+      "description": "Basic details Instance definition for workflows",
+      "type": "object",
+      "properties": {
+        "ResultSetId": {
+          "format": "uuid",
+          "description": "Workflow Instance ID",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        },
+        "WorkflowName": {
+          "description": "Workflow Name",
+          "type": "string"
+        },
+        "Status": {
+          "description": "Current Status",
+          "type": "string"
+        },
+        "CurrentAssignee": {
+          "description": "Current Assignee",
+          "type": "string"
+        },
+        "CreatedOn": {
+          "description": "Date Created",
+          "type": "string"
+        },
+        "LastUpdatedOn": {
+          "description": "Last Updated On",
+          "type": "string"
+        }
+      }
+    },
+    "TaskValue": {
+      "description": "Task value wrapper",
+      "type": "object",
+      "properties": {
+        "Label": {
+          "description": "Label for task value",
+          "type": "string"
+        },
+        "Value": {
+          "description": "Task value",
+          "type": "string"
+        },
+        "Code": {
+          "description": "Task code",
+          "type": "string"
+        }
+      }
+    },
+    "WorkflowForm": {
+      "description": "Object that describes workflow for submission",
+      "type": "object",
+      "properties": {
+        "TemplateId": {
+          "format": "uuid",
+          "description": "Workflow Template ID",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        },
+        "ResultSetId": {
+          "format": "uuid",
+          "description": "Workflow Instance ID",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        },
+        "TaskId": {
+          "format": "uuid",
+          "description": "Task ID",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        },
+        "TokenId": {
+          "format": "uuid",
+          "description": "Token ID",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        },
+        "TemplateName": {
+          "description": "Template Name",
+          "type": "string"
+        },
+        "Title": {
+          "description": "Instance Name",
+          "type": "string"
+        },
+        "StageTitle": {
+          "description": "Active Stage Title",
+          "type": "string"
+        },
+        "Status": {
+          "description": "Workflow Status",
+          "type": "string"
+        },
+        "ActiveRelationship": {
+          "description": "Current relationship (s)",
+          "type": "string"
+        },
+        "IsContinuable": {
+          "description": "Is available for continuation",
+          "type": "boolean"
+        },
+        "CurrentAssignee": {
+          "description": "Current Assegnee ID",
+          "type": "string"
+        },
+        "IsWizardEnabled": {
+          "description": "If true - section fields should be grouped on UI",
+          "type": "boolean"
+        },
+        "FormSections": {
+          "description": "Section names for workflow form",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FormSection"
+          }
+        },
+        "AdditionalWorkflowInfo": {
+          "description": "Additional Info",
+          "type": "object"
+        },
+        "FormFields": {
+          "description": "Workflow Form Fields",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SimpleFormField"
+          }
+        }
+      }
+    },
+    "FormSection": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "sectionIndex": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "HideSection": {
+          "type": "boolean"
+        }
+      }
+    },
+    "SimpleFormField": {
+      "description": "Description of Form Field for submission",
+      "type": "object",
+      "properties": {
+        "ID": {
+          "description": "Element unique ID",
+          "type": "string"
+        },
+        "Name": {
+          "description": "Element Name",
+          "type": "string"
+        },
+        "Label": {
+          "description": "Label",
+          "type": "string"
+        },
+        "Value": {
+          "description": "Predefined value",
+          "type": "string"
+        },
+        "Required": {
+          "description": "Is Required",
+          "type": "boolean"
+        },
+        "Editable": {
+          "description": "Is Editable",
+          "type": "boolean"
+        },
+        "Validation": {
+          "description": "Validation for current field",
+          "type": "string"
+        },
+        "FieldType": {
+          "description": "Type of field",
+          "type": "string"
+        },
+        "AdditionalInfo": {
+          "description": "Additional Field info",
+          "type": "object"
+        },
+        "RequiredForSave": {
+          "type": "boolean"
+        }
+      }
+    },
+    "WorkflowSubmitResult": {
+      "description": "Result message for workflow initiation or cintinuation",
+      "type": "object",
+      "properties": {
+        "ResultSetId": {
+          "format": "uuid",
+          "description": "Result Set ID of workflow instance",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        },
+        "TokenCollection": {
+          "description": "Token IDs of new workflow stages",
+          "type": "array",
+          "items": {
+            "format": "uuid",
+            "type": "string",
+            "example": "00000000-0000-0000-0000-000000000000"
+          }
+        }
+      }
+    },
+    "AttachedFile": {
+      "description": "Workflow Attachment",
+      "type": "object",
+      "properties": {
+        "ID": {
+          "format": "uuid",
+          "description": "File ID",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        },
+        "Name": {
+          "description": "File Name",
+          "type": "string"
+        },
+        "UploadedBy": {
+          "description": "User uploaded",
+          "type": "string"
+        },
+        "UploadedOn": {
+          "format": "date-time",
+          "description": "Date uploaded",
+          "type": "string"
+        }
+      }
+    },
+    "SignedDocument": {
+      "description": "Workflow signed document",
+      "type": "object",
+      "properties": {
+        "ID": {
+          "format": "uuid",
+          "description": "Document ID",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        },
+        "Name": {
+          "description": "Document name",
+          "type": "string"
+        },
+        "Status": {
+          "description": "Document status",
+          "type": "string"
+        },
+        "SignedOn": {
+          "format": "date-time",
+          "description": "Date of signing",
+          "type": "string"
+        },
+        "AgreementID": {
+          "description": "ESign agreement ID (Document Key)",
+          "type": "string"
+        },
+        "UploadedOn": {
+          "format": "date-time",
+          "description": "Date of uploading",
+          "type": "string"
+        },
+        "UploadedBy": {
+          "description": "User Uploaded",
+          "type": "string"
+        }
+      }
+    },
+    "TapApiFilterStructureNotPaged": {
+      "description": "",
+      "type": "object",
+      "properties": {
+        "PageSize": {
+          "format": "int32",
+          "description": "Force -1 as a value, since this will allow for filtering all items",
+          "type": "integer"
+        },
+        "Page": {
+          "format": "int32",
+          "description": "Force -1 as a value, since this will allow for filtering all items",
+          "type": "integer"
+        },
+        "ConfigurationId": {
+          "format": "uuid",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        },
+        "Search": {
+          "type": "string"
+        },
+        "OrderBy": {
+          "type": "string"
+        },
+        "OrderDirection": {
+          "type": "string"
+        },
+        "AdvancedFilter": {
+          "type": "string"
+        },
+        "DynamicColumns": {
+          "type": "string"
+        },
+        "IsNullFilter": {
+          "description": "Checks if any part of the filter is defined, not including page size or which page",
+          "type": "boolean",
+          "readOnly": true
+        }
+      }
+    },
+    "TapApiFilterStructure": {
+      "description": "",
+      "type": "object",
+      "properties": {
+        "PageSize": {
+          "format": "int32",
+          "description": "",
+          "type": "integer"
+        },
+        "Page": {
+          "format": "int32",
+          "description": "",
+          "type": "integer"
+        },
+        "ConfigurationId": {
+          "format": "uuid",
+          "type": "string",
+          "example": "00000000-0000-0000-0000-000000000000"
+        },
+        "Search": {
+          "type": "string"
+        },
+        "OrderBy": {
+          "type": "string"
+        },
+        "OrderDirection": {
+          "type": "string"
+        },
+        "AdvancedFilter": {
+          "type": "string"
+        },
+        "DynamicColumns": {
+          "type": "string"
+        },
+        "IsNullFilter": {
+          "description": "Checks if any part of the filter is defined, not including page size or which page",
+          "type": "boolean",
+          "readOnly": true
+        }
+      }
+    },
+    "BasicAuditTrailDetailsList": {
+      "description": "Wrapper for Basic audit trail details",
+      "type": "object",
+      "properties": {
+        "Items": {
+          "description": "Requested items",
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/BasicAuditTrailDetails"
+            }
+          }
+        },
+        "Count": {
+          "format": "int32",
+          "description": "Total items",
+          "type": "integer"
+        }
+      }
+    },
+    "BasicAuditTrailDetails": {
+      "description": "Basic Audit Trail details Instance definition for workflows",
+      "type": "object",
+      "properties": {
+        "RecordName": {
+          "description": "Workflow Name",
+          "type": "string"
+        },
+        "StageName": {
+          "description": "Stage Name",
+          "type": "string"
+        },
+        "StageAssignedTo": {
+          "description": "stage assigned to",
+          "type": "string"
+        },
+        "StageSubmittedBy": {
+          "description": "stage submitted by",
+          "type": "string"
+        },
+        "DateSubmitted": {
+          "description": "Date Submitted",
+          "type": "string"
+        },
+        "StatusSubmittedTo": {
+          "description": "status submitted to",
+          "type": "string"
+        }
+      }
+    },
+    "CommentsDetailList": {
+      "description": "CommentsDetailList",
+      "type": "object",
+      "properties": {
+        "WorkflowName": {
+          "description": "WorkflowName",
+          "type": "string"
+        },
+        "Count": {
+          "format": "int32",
+          "description": "Count",
+          "type": "integer"
+        },
+        "Error": {
+          "description": "Error",
+          "type": "string"
+        },
+        "CommentsFieldsList": {
+          "description": "List of comments fields",
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "BasicCommentsFields": {
+      "type": "object",
+      "properties": {
+        "Items": {
+          "description": "Requested items",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CommentsDetailList"
+          }
+        },
+        "Count": {
+          "format": "int32",
+          "description": "Total items",
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

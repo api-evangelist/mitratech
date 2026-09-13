@@ -1,0 +1,330 @@
+generated: '2026-09-13'
+method: derived
+source: openapi/_original/mitratech-tap-swagger.json + mcp/mitratech-mcp.yml
+summary: Mitratech operates both an OpenAPI-described REST surface (TAP) and a live MCP server (mitratech.com),
+  but they are different products on different hosts and nothing published binds them. The MCP server's
+  tools/list is OAuth-gated (HTTP 401) and Mitratech publishes no MCP tool documentation and no llms.txt
+  tool list, so there is no name or schema to map against. Every TAP operation is therefore recorded as
+  rest_only and crosswalk[] is deliberately empty — mapping an unknown tool set to TAP operationIds would
+  be invention, not derivation.
+surfaces:
+  openapi:
+    file: openapi/_original/mitratech-tap-swagger.json
+    spec_version: swagger 2.0
+    host: default.stagingtap.thinksmart.com
+    base_path: /default/api
+    gated: false
+    note: Spec document is served anonymously; calling the operations requires an OAuth 2.0 password-grant
+      bearer token and a TAP tenant account.
+  graphql: null
+  mcp:
+    url: https://mitratech.com/wp-json/mcp/mcp-oauth-server
+    gated: true
+    note: tools/list returns HTTP 401 mcp_unauthorized anonymously; tool names and inputSchemas are not
+      public.
+crosswalk: []
+mcp_only: []
+mcp_only_note: Unknown — the tool list is auth-gated. This is not an assertion that the MCP server exposes
+  no unique capability; it is an assertion that we could not read it without credentials.
+rest_only:
+- operationId: HealthCheck_Get
+  method: GET
+  path: /healthcheck
+  summary: null
+  tag: HealthCheck
+  reason: No public MCP tool manifest to bind against.
+- operationId: Dashboard_Columns
+  method: GET
+  path: /v1/dashboard/columns
+  summary: Grid Columns
+  tag: Dashboard
+  reason: No public MCP tool manifest to bind against.
+- operationId: Files_Get
+  method: GET
+  path: /v1/files/{id}
+  summary: Download by ID
+  tag: Files
+  reason: No public MCP tool manifest to bind against.
+- operationId: GridConfigurations_GetByTenant
+  method: GET
+  path: /v1/gridconfigurations/tenant
+  summary: Tenant Configurations
+  tag: GridConfigurations
+  reason: No public MCP tool manifest to bind against.
+- operationId: GridConfigurations_GetByUser
+  method: GET
+  path: /v1/gridconfigurations/user
+  summary: User Configurations
+  tag: GridConfigurations
+  reason: No public MCP tool manifest to bind against.
+- operationId: GridConfigurations_Get
+  method: GET
+  path: /v1/gridconfigurations/{id}
+  summary: Get by ID
+  tag: GridConfigurations
+  reason: No public MCP tool manifest to bind against.
+- operationId: Templates_Get
+  method: GET
+  path: /v1/templates/dashboard
+  summary: Available templates
+  tag: Templates
+  reason: No public MCP tool manifest to bind against.
+- operationId: Users_Get
+  method: GET
+  path: /v1/users
+  summary: All Users
+  tag: Users
+  reason: No public MCP tool manifest to bind against.
+- operationId: Users_CreateUser
+  method: POST
+  path: /v1/users
+  summary: Create User
+  tag: Users
+  reason: No public MCP tool manifest to bind against.
+- operationId: Users_DeleteUser
+  method: DELETE
+  path: /v1/users
+  summary: Delete Users
+  tag: Users
+  reason: No public MCP tool manifest to bind against.
+- operationId: Users_UpdateUser
+  method: PATCH
+  path: /v1/users
+  summary: Update User
+  tag: Users
+  reason: No public MCP tool manifest to bind against.
+- operationId: Users_getDepartments
+  method: GET
+  path: /v1/users/Departments
+  summary: User Departments
+  tag: Users
+  reason: No public MCP tool manifest to bind against.
+- operationId: Users_getRoles
+  method: GET
+  path: /v1/users/Roles
+  summary: User Roles
+  tag: Users
+  reason: No public MCP tool manifest to bind against.
+- operationId: Users_GetCurrent
+  method: GET
+  path: /v1/users/current
+  summary: Current User
+  tag: Users
+  reason: No public MCP tool manifest to bind against.
+- operationId: Users_Get
+  method: GET
+  path: /v1/users/{id}
+  summary: Get by ID
+  tag: Users
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_GetActionRequired
+  method: GET
+  path: /v1/workflows/actionrequired
+  summary: Action Required Workflows
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_GetAll
+  method: GET
+  path: /v1/workflows/all
+  summary: All Workflows
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_ArchiveRecord
+  method: POST
+  path: /v1/workflows/archive
+  summary: Archive by ID
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_ArchiveRecord
+  method: POST
+  path: /v1/workflows/archive/filter
+  summary: Archive by Filter
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_ArchiveRecord
+  method: POST
+  path: /v1/workflows/archive/name
+  summary: Archive by Name
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_GetComments
+  method: GET
+  path: /v1/workflows/comments
+  summary: Comments by Workflow ID
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_GetComments
+  method: GET
+  path: /v1/workflows/comments/all
+  summary: Comments by Filter Id
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_GetComments
+  method: GET
+  path: /v1/workflows/comments/name
+  summary: Comments by Workflow Names
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_DeleteRecords
+  method: POST
+  path: /v1/workflows/delete
+  summary: Delete by ID
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_DeleteRecord
+  method: POST
+  path: /v1/workflows/delete/filter
+  summary: Delete by Filter
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_DeleteRecords
+  method: POST
+  path: /v1/workflows/delete/name
+  summary: Delete by Name
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_GetCollabCommentsById
+  method: GET
+  path: /v1/workflows/discussion
+  summary: Discussion by Workflow ID
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_GetCollabComments
+  method: GET
+  path: /v1/workflows/discussion/all
+  summary: Discussion by Filter Id
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_GetCollabCommentsByName
+  method: GET
+  path: /v1/workflows/discussion/name
+  summary: Discussion by Workflow Names
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_GetWorkflowForm
+  method: GET
+  path: /v1/workflows/form
+  summary: Form Info
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_GetArchivedRecords
+  method: GET
+  path: /v1/workflows/getarchivedrecords
+  summary: GetArchivedRecords
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_GetAuditTrail
+  method: GET
+  path: /v1/workflows/getaudittrail
+  summary: Audit Trail by ID
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_GetAuditTrail
+  method: GET
+  path: /v1/workflows/getaudittrail/filter
+  summary: Audit Trail by Filter
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_GetAuditTrail
+  method: GET
+  path: /v1/workflows/getaudittrail/name
+  summary: Audit Trail by Name
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_GetAuditTrailDetailsWithFilter
+  method: GET
+  path: /v1/workflows/getaudittraildetails/filter
+  summary: Audit Trail Log by Filter
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_GetMy
+  method: GET
+  path: /v1/workflows/my
+  summary: Assigned Workflows
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_RestoreRecord
+  method: POST
+  path: /v1/workflows/restore
+  summary: Restore by ID
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_RestoreRecord
+  method: POST
+  path: /v1/workflows/restore/filter
+  summary: Restore by Filter
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_RestoreRecord
+  method: POST
+  path: /v1/workflows/restore/name
+  summary: Restore by Name
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_SaveWorkflow
+  method: PUT
+  path: /v1/workflows/saveform
+  summary: Save Workflow
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_Terminate
+  method: DELETE
+  path: /v1/workflows/{resultSetId}/cancel
+  summary: Cancel Workflow
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_GetDocuments
+  method: GET
+  path: /v1/workflows/{resultSetId}/docs
+  summary: Signed Documents
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_CancelDocuments
+  method: DELETE
+  path: /v1/workflows/{resultSetId}/docs
+  summary: Cancel Sent Documents
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_GetFiles
+  method: GET
+  path: /v1/workflows/{resultSetId}/files
+  summary: File Attachments
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_GetTaskValues
+  method: GET
+  path: /v1/workflows/{taskId}/view
+  summary: Task Values
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_InitiateWorkflow
+  method: POST
+  path: /v1/workflows/{templateId}/form
+  summary: Initiate
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_Assign
+  method: PUT
+  path: /v1/workflows/{tokenId}/assign/{userId}
+  summary: Re-assign Workflow
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflows_ContinueWorkflow
+  method: PUT
+  path: /v1/workflows/{tokenId}/form
+  summary: Continue
+  tag: Workflows
+  reason: No public MCP tool manifest to bind against.
+- operationId: Workflow_SearchAuditTrailDetails
+  method: POST
+  path: /v2/workflows/audittrail/details
+  summary: Returns audit trail details for each provided workflow name.
+  tag: Workflow
+  reason: No public MCP tool manifest to bind against.
+coverage:
+  rest_operations: 49
+  mcp_tools_known: 0
+  bound: 0
+  rest_only: 49
+  mcp_only: null
+  confidence: n/a — no bindings asserted

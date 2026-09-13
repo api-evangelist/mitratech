@@ -1,0 +1,29 @@
+# Mitratech
+
+> Mitratech empowers legal, risk, and HR teams with connected SaaS compliance, analytics, and AI-driven automation.
+Our robust suite of cloud-based, automation-driven solutions empowers enterprises to reduce complexity, eliminate silos, and scale more quickly, while staying ahead of regulatory, technological, and competitive changes.
+
+
+## Solutions & Platform
+- [Enterprise Compliance Platform](https://mitratech.com/platform/): Overview of Mitratech’s compliance management platform.  
+- [Legal, Risk, HR Solutions](https://mitratech.com/solutions/): Mitigate risk, optimize talent, and accelerate growth with Mitratech's integrated compliance solutions.  
+
+## Resource Hub
+- [Resource Hub Main](https://mitratech.com/resource-hub/): Central library of Mitratech’s guides, reports, and insights.  
+- [Case Studies](https://mitratech.com/resource-hub/case-studies/): Real-world client success stories.  
+- [Blog](https://mitratech.com/resource-hub/mitratech-blog/): Compliance, legal ops, HR tech, and industry trends.  
+- [Webinars](https://mitratech.com/resource-hub/webinars/): On-demand and upcoming educational sessions.  
+- [Whitepapers](https://mitratech.com/resource-hub/white-papers/): In-depth research and expert guidance.  
+- [Infographics](https://mitratech.com/resource-hub/infographics/): Visual insights on compliance and risk.  
+
+## Company
+- [About Mitratech](https://mitratech.com/about-us/): Vision, mission, and company overview.  
+- [Why Mitratech](https://mitratech.com/about-us/why-mitratech/): Why 24K+ organizations trust Mitratech.  
+- [Press Center](https://mitratech.com/about-us/press-center/): News and official announcements.  
+- [Careers](https://mitratech.com/about-us/careers/): Explore open roles and culture.  
+
+## Technical
+- [Sitemap](https://mitratech.com/sitemap.xml): Full content index.  
+
+## AI & Innovation
+- [Automation, Analytics & AI](https://mitratech.com/solutions/automation-analytics-ai/): Leveraging AI for contract lifecycle management, risk analytics, and compliance automation.   

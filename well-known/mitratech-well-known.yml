@@ -1,0 +1,140 @@
+generated: '2026-09-13'
+method: probed
+source: >-
+  Direct HTTP probes of the named /.well-known/ path list on every host this record knows —
+  the registrable domain and www, the docs/support host, the TAP production and staging API hosts,
+  and thinksmart.com (the legacy TAP brand domain).
+notes: >-
+  Two real documents were found, both on mitratech.com and both describing the same thing: an
+  OAuth-protected Model Context Protocol server at https://mitratech.com/wp-json/mcp/mcp-oauth-server.
+  The security.txt served on success.mitratech.com is the documentation PLATFORM vendor's file, not
+  Mitratech's — it names ExpertSecurity@nice.com and a NICE disclosure policy, because the Success
+  Center runs on NiCE Knowledge Management (formerly MindTouch). It is recorded here as probed but no
+  SecurityTxt pointer is emitted for Mitratech, because the document does not assert a Mitratech
+  disclosure program. thinksmart.com answers HTTP 200 with an HTML meta-refresh "Redirecting to
+  Mitratech" page for EVERY path probed, including /.well-known/agent-card.json — a catch-all soft-200,
+  not a served document set; every one of those is recorded as a miss.
+hosts:
+- host: mitratech.com
+  documents:
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: well-known/mitratech-oauth-authorization-server.json
+    note: >-
+      RFC 8414 authorization-server metadata. issuer https://mitratech.com, PKCE S256, single `mcp`
+      scope, token_endpoint_auth_methods_supported ["none"] (public clients),
+      client_id_metadata_document_supported true. Served after a 301 to the trailing-slash URL.
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    file: well-known/mitratech-oauth-protected-resource.json
+    note: >-
+      RFC 9728 protected-resource metadata naming the MCP server resource
+      https://mitratech.com/wp-json/mcp/mcp-oauth-server. Served after a 301 to the trailing-slash URL.
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: www.mitratech.com
+  documents:
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: well-known/mitratech-oauth-authorization-server.json
+    note: Same document as the apex host; www redirects to mitratech.com.
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: success.mitratech.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    file: well-known/mitratech-security.txt
+    note: >-
+      Belongs to NiCE (the Success Center's documentation platform), not Mitratech —
+      Contact mailto:ExpertSecurity@nice.com, Policy https://expert-help.nice.com/Admin/Contact/Disclosure.
+      Recorded as probed; NOT credited to Mitratech and no SecurityTxt pointer emitted.
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: default.tap.thinksmart.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: default.stagingtap.thinksmart.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: thinksmart.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    note: >-
+      SOFT-200, not a document. thinksmart.com answers every path with the same HTML meta-refresh
+      page titled "Redirecting to Mitratech". Treated as a miss.
+  - path: /.well-known/agent-card.json
+    status: 200
+    note: Same catch-all redirect HTML. Not an AgentCard. Treated as a miss.
+  - path: /.well-known/agent.json
+    status: 200
+    note: Same catch-all redirect HTML. Treated as a miss.
+  - path: /.well-known/openid-configuration
+    status: 200
+    note: Same catch-all redirect HTML. Treated as a miss.
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    note: Same catch-all redirect HTML. Treated as a miss.
+  - path: /.well-known/api-catalog
+    status: 200
+    note: Same catch-all redirect HTML. Treated as a miss.
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    note: Same catch-all redirect HTML. Treated as a miss.

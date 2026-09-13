@@ -1,0 +1,58 @@
+generated: '2026-09-13'
+method: searched
+source: >-
+  https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation +
+  live probes of default.stagingtap.thinksmart.com and demo.tap.thinksmart.com, 2026-09-13
+summary: >-
+  TAP ships a genuine two-environment model — a staging environment alongside production — and the
+  published API documentation makes the environment an explicit toggle on every endpoint. What it does
+  NOT ship is a self-serve sandbox: both environments are per-customer tenants that require a real TAP
+  user account and a client_id/client_secret pair issued by Mitratech. There are no public test
+  credentials, no magic test identifiers and no fixture data.
+environments:
+- name: production
+  host_pattern: https://{tenant}.tap.thinksmart.com
+  path_pattern: /{tenant}/api
+  example_host: demo.tap.thinksmart.com
+  example_base: https://demo.tap.thinksmart.com/prod/api
+- name: staging
+  host_pattern: https://{tenant}.stagingtap.thinksmart.com
+  path_pattern: /{tenant}/api
+  example_host: default.stagingtap.thinksmart.com
+  example_base: https://default.stagingtap.thinksmart.com/default/api
+  note: >-
+    Every sample request in the published TAP API documentation targets
+    default.stagingtap.thinksmart.com, and the "Environment: Staging / Production" selector appears on
+    each documented endpoint.
+interactive_console:
+  available: true
+  type: Swagger UI ("TAP API Explorer")
+  urls:
+  - https://default.stagingtap.thinksmart.com/default/api/swagger/ui/index
+  - https://demo.tap.thinksmart.com/prod/api/swagger/ui/index
+  auth: >-
+    The Explorer stores a bearer token in browser localStorage under `swagger_token`; the token must
+    be obtained separately from /auth/identity/connect/token. The Explorer itself loads anonymously.
+  note: >-
+    The published documentation page also renders inline "Try it Out!" / "Live Response" widgets
+    against the staging host, gated behind "Need Access Token".
+test_credentials:
+  published: false
+  note: >-
+    The documentation's sample requests use obvious placeholder values (test@test.com / UserPassWord)
+    rather than working shared test credentials. client_id and client_secret are documented as
+    "To be obtained from Mitratech", and redirect_uri as a default value to "reach out to Mitratech to
+    confirm". There is no signup flow that yields a working key.
+test_data:
+  fixtures: none
+  magic_identifiers: none
+  time_simulation: none
+  triggers: none
+health_probe:
+  operation: HealthCheck_Get
+  method: GET
+  path: /healthcheck
+  note: >-
+    The one operation in the contract with no declared 404 and no parameters. Whether it answers
+    without a bearer token was not established, because a probe against a tenant that is not ours is
+    out of bounds for this pipeline.

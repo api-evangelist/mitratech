@@ -1,0 +1,18 @@
+generated: '2026-09-13'
+method: searched
+source: https://mitratech.com/
+plan_count: 0
+plans: []
+note: >-
+  Mitratech publishes no pricing. https://mitratech.com/pricing/ returns HTTP 404, no product page
+  carries a price, tier table or quota, and every product call-to-action across the site routes to
+  https://mitratech.com/contact-us/ for a demo or a sales conversation. This is a classic enterprise
+  contact-us motion: legal-operations, GRC and HR-compliance platforms are sold on negotiated
+  multi-year contracts sized by seats, matters and modules. There is also no self-serve API tier —
+  TAP client_id and client_secret are issued by Mitratech on request, and TeamConnect API clients are
+  registered inside a customer's own instance, so there is no path from public pricing to an API key.
+probes:
+- url: https://mitratech.com/pricing/
+  status: 404
+- url: https://mitratech.com/contact-us/
+  status: 200

@@ -1,0 +1,89 @@
+generated: '2026-09-13'
+method: searched
+source: >-
+  https://success.mitratech.com/TAP/ReleaseNotes +
+  https://success.mitratech.com/TeamConnect/All_TeamConnect_Products_Release_Notes +
+  https://success.mitratech.com/TeamConnect/TeamConnect_Setup_and_Development/TeamConnect_REST_API_Modernization_(TCE_7.2) +
+  openapi/_original/mitratech-tap-swagger.json
+versioning:
+  tap_api:
+    style: path
+    current: v1 (48 of 49 operations); v2 exists for one audit-trail operation
+    note: >-
+      No version negotiation header, no version in the Accept media type, and no published policy for
+      how long v1 remains supported once v2 expands.
+  teamconnect_api:
+    style: path
+    current: v1 under /webservice/enterprise/
+    note: The pre-7.2 REST API lives at a separate path and is documented separately.
+  product:
+    style: semver-like three-part
+    tap_current: 1.24.9
+    teamconnect_current: 8.0
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  deprecated_operations_in_spec: 0
+  breaking_change_precedent:
+    event: TeamConnect REST API modernization (TCE 7.2)
+    statement: >-
+      "Due to significant architectural changes, backward compatibility with earlier TeamConnect
+      versions is not feasible. Upgrading to TeamConnect 7.2 or later is required to access these new
+      features."
+    source: https://success.mitratech.com/TeamConnect/TeamConnect_Setup_and_Development/TeamConnect_REST_API_Modernization_(TCE_7.2)
+    assessment: >-
+      A documented hard break with no migration window, no dual-running period and no sunset dates.
+      There is a real deprecation EVENT on the record but no deprecation POLICY, so no `Deprecation`
+      pointer is emitted.
+status_page:
+  published: false
+  probes:
+  - url: https://status.mitratech.com/
+    status: 0
+    note: Does not resolve.
+  - url: https://mitratech.statuspage.io/
+    status: 200
+    note: >-
+      Redirects to https://www.atlassian.com/software/statuspage — the unclaimed-subdomain marketing
+      page, not a provisioned status page. A false positive; treated as absent.
+  - url: https://status.thinksmart.com/
+    status: 0
+    note: TLS handshake failure; not served.
+  assessment: >-
+    No public system-status or uptime page was found on any Mitratech host. Incident communication
+    appears to run through the authenticated Success Center / CustomerConnect. No `StatusPage`
+    pointer is emitted.
+sla:
+  published: false
+  note: No public uptime commitment, support-response matrix or service-level document was found.
+release_cadence:
+  tap: >-
+    Frequent point releases with dated public release notes — 1.24.9 (2026-09-11), 1.24.7
+    (2026-07-10), 1.24.6 (2026-06-26). Roughly one release every 4-8 weeks through 2026.
+  teamconnect: Major annual releases; 8.0 shipped November 2025.
+  see: changelog/mitratech-changelog.yml
+legacy_surfaces:
+- name: TeamConnect SOAP / Web Services API
+  docs: https://success.mitratech.com/TeamConnect/TeamConnect_Setup_and_Development/SOAP%2F%2FWeb_Services_Help/Web_Service_API_Reference
+  status: superseded
+  note: >-
+    TeamConnect shipped a SOAP web-services API and a pre-7.2 REST API before the 7.2 modernization,
+    and the Success Center still carries their reference trees. No WSDL was harvested: the contract is
+    served from each customer's own TeamConnect instance, so there is no public host to fetch
+    ?wsdl / ?singleWsdl from. Probed 2026-09-13 against the TAP hosts (the only Mitratech-operated
+    API hosts reachable without a tenant) — no SOAP endpoint there, as expected.
+- name: ThinkSmart Apiary documentation
+  url: http://docs.thinksmart1.apiary.io/
+  status: stale
+  note: >-
+    Still served (HTTP 200) and still linked from the ThinkSmart GitHub README, but it predates the
+    Mitratech acquisition and is superseded by the Success Center TAP documentation. Its TLS
+    certificate does not match the hostname, so it is reachable over HTTP only.
+
+support:
+  channel: https://success.mitratech.com/
+  note: >-
+    Public knowledge base plus an authenticated ticketing tier (CustomerConnect). Ticket creation,
+    case status and success-plan detail require a customer login.

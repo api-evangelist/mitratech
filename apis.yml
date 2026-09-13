@@ -1,20 +1,229 @@
 aid: mitratech
 name: Mitratech
-description: 'Mitratech is a company surfaced via the API Evangelist harvest backlog (source: absent-parent)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  Mitratech is an Austin, Texas based enterprise software company supplying legal operations, governance,
+  risk and compliance, and HR compliance software to corporate legal departments, compliance teams and
+  human resources organizations. Its platform spans enterprise legal management and matter management
+  (TeamConnect), legal spend and e-billing, no-code workflow automation and intake (TAP Workflow Automation,
+  acquired with ThinkSmart), policy and risk management (PolicyHub, Alyne), immigration case management
+  (INSZoom), HR compliance, talent and background screening (Mineral, Trakstar, AssureHire, Circa), and
+  contract lifecycle management. Programmatic access is delivered per-product and per-tenant rather than
+  through a single public developer portal: TAP publishes an OData-style REST API with a live Swagger 2.0
+  API Explorer, TeamConnect 7.2+ ships a modernized OAuth 2.0 REST API on each customer instance, and
+  mitratech.com itself serves an OAuth-protected Model Context Protocol server.
 url: https://raw.githubusercontent.com/api-evangelist/mitratech/refs/heads/main/apis.yml
+image: https://mitratech.com/wp-content/uploads/Mitratech_Web-Assets_Home-Feature-Image-HD-1024x577.png
 x-type: company
 x-source: harvest:absent-parent
-x-tier: stub
-x-tier-reason: harvest
+x-tier: profiled
+x-tier-reason: 'enrichment pass 2026-09-13: TAP Swagger 2.0 harvested, OAuth-gated MCP server probed, docs public'
 specificationVersion: '0.20'
 created: '2026-09-13'
 modified: '2026-09-13'
 tags:
-- Company
-apis: []
+- Legal
+- Legal Operations
+- Enterprise Legal Management
+- Matter Management
+- Governance Risk and Compliance
+- Compliance
+- Workflow Automation
+- Contract Lifecycle Management
+- HR Compliance
+- Risk Management
+- Immigration
+- OData
+- MCP
+tags_raw:
+- legal
+- legal-operations
+- enterprise-legal-management
+- matter-management
+- governance-risk-and-compliance
+- compliance
+- workflow-automation
+- contract-lifecycle-management
+- hr-compliance
+- risk-management
+- immigration
+- odata
+- mcp
+apis:
+- name: Mitratech TAP Workflow Automation API
+  description: >-
+    REST API for the TAP (ThinkSmart Automation Platform) no-code workflow automation product. Covers
+    workflow initiation and continuation, form retrieval and save, task assignment and re-assignment,
+    dashboard and grid configuration, comments and collaboration discussions, audit trail retrieval,
+    file attachments and signed-document handling, archive/restore/delete of workflow records, and user,
+    role and department administration including bulk add-or-update. URL elements and query parameters
+    follow Microsoft's OData conventions ($top, $skip, $filter, $orderby). Auth is OAuth 2.0 resource
+    owner password credentials against /auth/identity/connect/token with scope `api`; tokens are bearer
+    tokens valid for 3600 seconds.
+  humanURL: https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
+  baseURL: https://{tenant}.tap.thinksmart.com/{tenant}/api
+  image: https://mitratech.com/wp-content/uploads/Mitratech_Web-Assets_Home-Feature-Image-HD-1024x577.png
+  position: Producing
+  tags:
+  - Workflow Automation
+  - Legal Operations
+  - Compliance
+  - OData
+  tags_raw:
+  - workflow-automation
+  - legal-operations
+  - compliance
+  - odata
+  properties:
+  - type: Documentation
+    url: https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
+  - type: APIReference
+    url: https://default.stagingtap.thinksmart.com/default/api/swagger/ui/index
+  - type: OpenAPI
+    url: openapi/_original/mitratech-tap-swagger.json
+  - type: Console
+    url: https://default.stagingtap.thinksmart.com/default/api/swagger/ui/index
+  - type: OpenAPI
+    url: openapi/_original/mitratech-tap-prod-swagger.json
+  - type: Overlay
+    url: overlays/mitratech-tap-overlay.yaml
+  - type: Authentication
+    url: authentication/mitratech-authentication.yml
+  - type: OAuthScopes
+    url: scopes/mitratech-scopes.yml
+  - type: Conventions
+    url: conventions/mitratech-conventions.yml
+  - type: ErrorCatalog
+    url: errors/mitratech-problem-types.yml
+  - type: DataModel
+    url: data-model/mitratech-data-model.yml
+  - type: Sandbox
+    url: sandbox/mitratech-sandbox.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: Examples
+    url: https://github.com/ThinkSmart/API_Examples
+- name: Mitratech TeamConnect REST API
+  description: >-
+    Modernized REST API shipped with TeamConnect Enterprise 7.2 and later, served from each customer's own
+    TeamConnect instance at /webservice/enterprise/. Exposes Accounts, Appointments, Contacts, Documents,
+    Expenses, Groups, Histories, Invoices, Involved Parties, Projects (custom objects / matters), Tasks,
+    Users, Workflows and System Design, with pagination, filtering and record-level search. Authentication
+    is OAuth 2.0 Authorization Code or Client Credentials against the instance's own /oauth/authorize and
+    /oauth/token endpoints; access tokens use a rolling 30-day idle expiration. The endpoint reference and
+    Postman collections are published behind a customer login on the Mitratech Success Center.
+  humanURL: https://success.mitratech.com/TeamConnect/TeamConnect_Setup_and_Development/TeamConnect_REST_API_Modernization_(TCE_7.2)
+  baseURL: https://{your-tc-instance}/webservice/enterprise/v1
+  image: https://mitratech.com/wp-content/uploads/Mitratech_Web-Assets_Home-Feature-Image-HD-1024x577.png
+  position: Producing
+  tags:
+  - Enterprise Legal Management
+  - Matter Management
+  - Legal Operations
+  tags_raw:
+  - enterprise-legal-management
+  - matter-management
+  - legal-operations
+  properties:
+  - type: Documentation
+    url: https://success.mitratech.com/TeamConnect/TeamConnect_Setup_and_Development/TeamConnect_REST_API_Modernization_(TCE_7.2)
+  - type: Authentication
+    url: https://success.mitratech.com/TeamConnect/TeamConnect_Setup_and_Development/TeamConnect_REST_API_Modernization_(TCE_7.2)/TeamConnect_RESTAPIs_-_Authentication
+- name: Mitratech MCP Server
+  description: >-
+    Remote Model Context Protocol server served from mitratech.com over Streamable HTTP. Advertises OAuth
+    2.0 authorization-server metadata at /.well-known/oauth-authorization-server and protected-resource
+    metadata at /.well-known/oauth-protected-resource, with PKCE S256, dynamic client-id metadata documents
+    and a single `mcp` scope. tools/list returns HTTP 401 `mcp_unauthorized` anonymously, so the tool
+    manifest requires an authenticated OAuth introspection; the endpoint itself is live and probed.
+  humanURL: https://mitratech.com/
+  baseURL: https://mitratech.com/wp-json/mcp/mcp-oauth-server
+  image: https://mitratech.com/wp-content/uploads/Mitratech_Web-Assets_Home-Feature-Image-HD-1024x577.png
+  position: Producing
+  tags:
+  - MCP
+  - Compliance
+  tags_raw:
+  - mcp
+  - compliance
+  properties:
+  - type: MCPServer
+    url: mcp/mitratech-mcp.yml
+  - type: MCPServer
+    url: https://mitratech.com/wp-json/mcp/mcp-oauth-server
+  - type: ToolCrosswalk
+    url: mcp/mitratech-tool-crosswalk.yml
+  - type: OAuthScopes
+    url: scopes/mitratech-scopes.yml
+common:
+- type: DomainSecurity
+  url: security/mitratech-domain-security.yml
+- type: Website
+  url: https://mitratech.com/
+- type: DeveloperPortal
+  url: https://success.mitratech.com/
+- type: Documentation
+  url: https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
+- type: APIReference
+  url: https://default.stagingtap.thinksmart.com/default/api/swagger/ui/index
+- type: GettingStarted
+  url: https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations
+- type: Support
+  url: https://success.mitratech.com/
+- type: Blog
+  url: https://mitratech.com/resource-hub/mitratech-blog/
+- type: PrivacyPolicy
+  url: https://mitratech.com/privacy-policy/
+- type: TermsOfService
+  url: https://mitratech.com/legal-notice/
+- type: SignUp
+  url: https://mitratech.com/contact-us/
+- type: ChangeLog
+  url: https://success.mitratech.com/TAP/ReleaseNotes
+- type: ChangeLog
+  url: changelog/mitratech-changelog.yml
+- type: Lifecycle
+  url: lifecycle/mitratech-lifecycle.yml
+- type: Authentication
+  url: authentication/mitratech-authentication.yml
+- type: OAuthScopes
+  url: scopes/mitratech-scopes.yml
+- type: Conventions
+  url: conventions/mitratech-conventions.yml
+- type: ErrorCatalog
+  url: errors/mitratech-problem-types.yml
+- type: Conformance
+  url: conformance/mitratech-conformance.yml
+- type: DataModel
+  url: data-model/mitratech-data-model.yml
+- type: Sandbox
+  url: sandbox/mitratech-sandbox.yml
+- type: MCPServer
+  url: mcp/mitratech-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/mitratech-tool-crosswalk.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/mitratech-llms.txt
+- type: WellKnown
+  url: well-known/mitratech-well-known.yml
+- type: Packages
+  url: packages/mitratech-packages.yml
+- type: Plans
+  url: plans/mitratech-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/mitratech-rate-limits.yml
+- type: GitHubOrganization
+  url: https://github.com/ThinkSmart
+- type: Examples
+  url: https://github.com/ThinkSmart/API_Examples
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+x-enrichment:
+  date: '2026-09-13'
+  status: enriched
+  artifacts_added: 27
+  pass: local-v3

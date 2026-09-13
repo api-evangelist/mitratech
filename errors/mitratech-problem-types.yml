@@ -1,0 +1,95 @@
+generated: '2026-09-13'
+method: derived
+source: openapi/_original/mitratech-tap-swagger.json
+summary: >-
+  Error catalog derived from the declared responses of the 49 operations in the harvested TAP
+  Swagger 2.0 document. Mitratech publishes no error-code reference and no error-envelope schema, so
+  this catalog records what the contract declares and nothing more.
+format:
+  rfc9457: false
+  media_type: undocumented
+  envelope_schema: none
+  note: >-
+    Not one 4xx or 5xx response in the document carries a schema — every error response is declared
+    as a bare status code with a one-word description. A client cannot know the shape of a TAP error
+    body from the contract.
+coverage:
+  operations: 49
+  operations_declaring_any_4xx: 18
+  operations_declaring_only_200: 31
+  note: >-
+    31 of 49 operations declare a success response and nothing else — including every mutating
+    operation on /v1/users and every archive, restore and delete operation. A generated client has no
+    declared failure path for the most destructive calls in the API.
+problem_types:
+- status: 400
+  title: Bad Request
+  declared_on:
+  - Workflow_SearchAuditTrailDetails
+  description: 'The input was invalid (e.g., null or empty list).'
+  remediation: Send a non-empty JSON array of workflow names in the request body.
+- status: 401
+  title: Unauthorized
+  declared_on:
+  - Workflow_SearchAuditTrailDetails
+  description: Authentication is required or has failed.
+  remediation: >-
+    Obtain a bearer token from /auth/identity/connect/token with grant_type=password and scope=api,
+    then send it as `Authorization: Bearer <token>`.
+  note: >-
+    Declared on exactly one of 49 operations. The other 48 do not declare a 401 even though every one
+    of them requires a bearer token.
+- status: 403
+  title: Forbidden
+  declared_on:
+  - Workflow_SearchAuditTrailDetails
+  description: The caller is not authorized for the current tenant.
+  remediation: Verify the token was issued for the tenant named in the URL path segment.
+- status: 404
+  title: Not Found
+  declared_on:
+  - Dashboard_Columns
+  - Files_Get
+  - GridConfigurations_Get
+  - GridConfigurations_GetByTenant
+  - GridConfigurations_GetByUser
+  - Users_Get
+  - Workflows_GetActionRequired
+  - Workflows_GetAll
+  - Workflows_GetArchivedRecords
+  - Workflows_GetMy
+  - Workflows_GetWorkflowForm
+  - Workflows_Terminate
+  - Workflows_GetDocuments
+  - Workflows_CancelDocuments
+  - Workflows_GetFiles
+  - Workflows_GetTaskValues
+  - Workflows_Assign
+  description: Not Found
+  remediation: >-
+    Check the identifier. Note that TAP also returns 404 from COLLECTION endpoints
+    (/v1/workflows/all, /v1/workflows/my) — an empty result set is not distinguished from a missing
+    resource in the contract.
+- status: 500
+  title: Internal Server Error
+  declared_on:
+  - Workflow_SearchAuditTrailDetails
+  description: An unexpected error occurred.
+  remediation: Retry with backoff. Note there is no idempotency key, so do not retry mutating calls blindly.
+authorization_hazard:
+  severity: high
+  description: >-
+    Mitratech's own TAP API documentation warns that the API "is subject to the same permission
+    limitations as this user account" and that with a non-Super-Admin account "there is the potential
+    that some results may not be included in the response due to limited security privileges." The
+    under-privileged case is therefore a SILENT partial success (HTTP 200 with fewer rows), not a 403.
+  agent_impact: >-
+    An agent reconciling legal matters or compliance workflows cannot distinguish "no records exist"
+    from "you are not allowed to see these records" from the response alone.
+  source: https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
+docs_searched:
+  result: none
+  note: >-
+    No error-code reference, status-code table or troubleshooting page exists under the public TAP or
+    TeamConnect documentation trees. The TeamConnect endpoint reference — which might carry one — is
+    behind a customer login.

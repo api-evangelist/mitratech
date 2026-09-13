@@ -1,0 +1,26 @@
+generated: '2026-09-13'
+method: searched
+source: >-
+  https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation +
+  openapi/_original/mitratech-tap-swagger.json
+limit_count: 0
+rate_limits: []
+headers: []
+note: >-
+  No rate limits are published for any Mitratech API. The TAP API documentation page contains no
+  occurrence of "rate limit", "throttle", "Retry-After" or any X-RateLimit/RateLimit-* header, and the
+  135KB TAP Swagger document declares no 429 response on any of its 49 operations. The only
+  quantitative guardrails Mitratech publishes are UI-side: a dashboard warning above 30 columns and a
+  minimum three-character search term. An agent has no published budget to plan against and no
+  runtime signal to back off on.
+observed:
+  note: >-
+    Not probed against a live tenant — every TAP operation requires an OAuth token issued against a
+    customer tenant, and API Evangelist holds no Mitratech credentials. The only anonymous responses
+    available (HTTP 401 from the MCP endpoint, HTTP 200 on the Swagger document) carried no
+    rate-limit headers.
+related:
+  outbound_retry: >-
+    TAP 1.20 added automatic retry of TAP's own OUTBOUND calls to customer endpoints on transient
+    errors. That is TAP behaving as a client, not a limit on inbound API consumers.
+  source: https://success.mitratech.com/TAP/ReleaseNotes/TAP_1.20_Release_Notes

@@ -1,0 +1,53 @@
+generated: '2026-09-13'
+method: searched
+source: >-
+  npm registry search, PyPI, RubyGems, NuGet, Maven Central and the published Mitratech Success
+  Center documentation — all probed 2026-09-13
+packages: []
+package_count: 0
+official_sdk_count: 0
+note: >-
+  Mitratech publishes no first-party client libraries in any public package registry. No SDK or helper
+  library in any language is offered in the public TAP or TeamConnect documentation, and the only
+  packaged client artifact Mitratech mentions — a Postman collection — sits behind the customer login
+  on the Success Center. The nearest thing to published client code is the legacy ThinkSmart
+  API_Examples GitHub repository, three Python OAuth examples last touched in June 2017, which is
+  sample code rather than a distributable package. Integrators are expected to call the HTTP surface
+  directly.
+registries_probed:
+- registry: npm
+  query: mitratech
+  result: 0 matches
+  url: https://registry.npmjs.org/-/v1/search?text=mitratech
+- registry: npm
+  query: thinksmart tap
+  result: 0 first-party matches (results were unrelated Test Anything Protocol packages)
+- registry: pypi
+  query: mitratech
+  result: HTTP 404
+  url: https://pypi.org/pypi/mitratech/json
+- registry: rubygems
+  query: mitratech
+  result: HTTP 404
+  url: https://rubygems.org/api/v1/gems/mitratech.json
+- registry: nuget
+  query: mitratech
+  result: totalHits 0
+  url: https://azuresearch-usnc.nuget.org/query?q=mitratech
+- registry: github
+  query: github.com/mitratech
+  result: >-
+    Organization exists (created 2017-09-21) but publishes ZERO public repositories and carries no
+    name, blog or description.
+- registry: github
+  query: github.com/ThinkSmart
+  result: >-
+    The legacy TAP vendor organization (ThinkSmart, acquired by Mitratech in 2019). Two public repos:
+    API_Examples (Python, 3 OAuth flow examples plus a CSV-driven workflow initiator, last commit
+    2017-06-28) and Fedlet (C#, 2018). Not packages — sample code, unversioned, unpublished to any
+    registry, and nine years stale. Its README still points at
+    http://docs.thinksmart1.apiary.io/ and https://demo.tap.thinksmart.com/prod/api/swagger/ui/index,
+    which is how the production TAP Swagger host was confirmed.
+note_no_sdks_pointer: >-
+  No `SDKs` pointer is emitted. An empty packages artifact records a checked absence, not a
+  publication.

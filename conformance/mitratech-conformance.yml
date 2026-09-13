@@ -1,0 +1,141 @@
+generated: '2026-09-13'
+method: searched
+source: >-
+  openapi/_original/mitratech-tap-swagger.json +
+  https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation +
+  https://mitratech.com/.well-known/oauth-authorization-server +
+  https://mitratech.com/.well-known/oauth-protected-resource +
+  https://mitratech.com/security/ +
+  live probes 2026-09-13
+summary: >-
+  Mitratech's strongest conformance signal is on the MCP surface, where it serves both RFC 8414 and
+  RFC 9728 discovery documents correctly. The TAP REST API declares OData query conventions in its own
+  contract but ships no OData service document, and the TeamConnect surface is documented as OAuth 2.0
+  but its contract is not public.
+conformance:
+- id: oauth2
+  label: OAuth 2.0 (RFC 6749)
+  conforms: true
+  evidence: >-
+    All three surfaces authenticate with OAuth 2.0. TAP documents the resource owner password
+    credentials grant at /auth/identity/connect/token; TeamConnect documents authorization code and
+    client credentials at /webservice/enterprise/oauth/token; the MCP server advertises
+    authorization_code + refresh_token.
+  sources:
+  - https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
+  - https://success.mitratech.com/TeamConnect/TeamConnect_Setup_and_Development/TeamConnect_REST_API_Modernization_(TCE_7.2)/TeamConnect_RESTAPIs_-_Authentication
+  - https://mitratech.com/.well-known/oauth-authorization-server
+- id: rfc6750
+  label: OAuth 2.0 Bearer Token Usage
+  conforms: true
+  evidence: >-
+    TAP returns {"token_type":"Bearer"} and documents `Authorization: Bearer <token>` on every sample
+    request. The MCP protected-resource metadata declares bearer_methods_supported ["header"].
+- id: rfc8414
+  label: OAuth 2.0 Authorization Server Metadata
+  conforms: true
+  evidence: 'https://mitratech.com/.well-known/oauth-authorization-server — HTTP 200, well-formed metadata with issuer, authorization_endpoint, token_endpoint, revocation_endpoint, grant_types_supported and code_challenge_methods_supported.'
+  file: well-known/mitratech-oauth-authorization-server.json
+- id: rfc9728
+  label: OAuth 2.0 Protected Resource Metadata
+  conforms: true
+  evidence: 'https://mitratech.com/.well-known/oauth-protected-resource — HTTP 200, names the MCP resource and its authorization_servers.'
+  file: well-known/mitratech-oauth-protected-resource.json
+- id: rfc7636
+  label: PKCE (Proof Key for Code Exchange)
+  conforms: true
+  evidence: 'code_challenge_methods_supported: ["S256"] on the mitratech.com authorization-server metadata.'
+- id: rfc7009
+  label: OAuth 2.0 Token Revocation
+  conforms: true
+  evidence: 'revocation_endpoint: https://mitratech.com/oauth/revoke declared in the authorization-server metadata.'
+- id: mcp
+  label: Model Context Protocol
+  conforms: true
+  evidence: >-
+    A live JSON-RPC endpoint at https://mitratech.com/wp-json/mcp/mcp-oauth-server answering a
+    tools/list POST with the MCP-specific error {"code":"mcp_unauthorized"} and HTTP 401, backed by
+    RFC 9728 protected-resource metadata. Transport is Streamable HTTP.
+  note: Conformance to the tool schema could not be graded — tools/list is auth-gated.
+- id: openid-connect
+  label: OpenID Connect Discovery
+  conforms: false
+  evidence: /.well-known/openid-configuration returns HTTP 404 on mitratech.com, www.mitratech.com and success.mitratech.com.
+- id: rfc9457
+  label: 'RFC 9457: Problem Details for HTTP APIs'
+  conforms: false
+  evidence: >-
+    No application/problem+json media type and no error schema appears anywhere in the 135KB TAP
+    Swagger document; every 4xx/5xx response is a bare status code.
+- id: rfc9116
+  label: 'RFC 9116: security.txt'
+  conforms: false
+  evidence: >-
+    /.well-known/security.txt returns 404 on mitratech.com and www.mitratech.com. The file served on
+    success.mitratech.com belongs to NiCE, the documentation platform vendor, and names
+    ExpertSecurity@nice.com — it is not a Mitratech disclosure program.
+- id: rfc8594
+  label: 'RFC 8594: Sunset HTTP Header'
+  conforms: false
+  evidence: No Sunset or Deprecation header is documented, and no operation in the spec is marked deprecated.
+- id: openapi
+  label: OpenAPI / Swagger
+  conforms: true
+  version: Swagger 2.0
+  evidence: >-
+    https://default.stagingtap.thinksmart.com/default/api/swagger-docs/v1 — HTTP 200, 135KB, parses as
+    Swagger 2.0 with 45 paths, 49 operations and 91 definitions.
+  gap: >-
+    The document is two major versions behind (Swagger 2.0, superseded by OpenAPI 3.0 in 2017) and
+    declares no securityDefinitions, so the OAuth model it depends on is absent from the contract.
+domain_standards:
+- id: odata-uri-conventions
+  label: OData URI conventions (query)
+  conforms: true
+  market: Enterprise data query
+  evidence_type: contract
+  evidence: >-
+    The TAP contract itself declares the OData $-prefixed query vocabulary on its collection
+    operations — GET /v1/users in openapi/_original/mitratech-tap-swagger.json carries $top, $skip,
+    $filter, $select, $orderby and $inlinecount as named query parameters. Mitratech's own
+    documentation states "The TAP API follows Microsoft's OData standard for all URL Elements &
+    parameters" and links the OData 2.0 URI-conventions specification.
+  corroborating_evidence: >-
+    The document's definitions block also carries ten OData model types from the ASP.NET Web API OData
+    stack — ODataQueryOptions, ODataQueryOptions[GridConfiguration],
+    ODataQueryOptions[AdvancedUserModel], ODataQueryOptions[WorkflowTemplate], ODataQueryContext,
+    ODataRawQueryOptions, ODataQueryValidator, ODataQuerySettings, ODataPath and ODataPathSegment —
+    so the OData layer is in the implementation, not just in the prose.
+  sources:
+  - openapi/_original/mitratech-tap-swagger.json
+  - https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
+  - https://www.odata.org/documentation/odata-version-2-0/uri-conventions/
+  buyer_impact: >-
+    A consumer who already speaks OData can filter and page TAP's user collection with no bespoke
+    connector — but only that collection. The workflow collections, which are the product's centre of
+    gravity, use a separate bespoke vocabulary (page, pageSize, search, orderBy, orderDirection,
+    advancedFilter), so the standard covers a minority of the surface.
+- id: odata-metadata
+  label: OData service document / $metadata (CSDL)
+  conforms: false
+  evidence: >-
+    Probed 2026-09-13 — /default/api/$metadata, /default/api/v1/$metadata and
+    /default/api/v1/users/$metadata all return HTTP 404 on default.stagingtap.thinksmart.com. Without
+    a CSDL document, generic OData tooling cannot bind to the service; the OData claim is
+    URI-convention-level only.
+security_claims:
+- id: fips-140-2
+  label: FIPS 140-2 compliant encryption at rest
+  conforms: vendor-claimed
+  evidence: >-
+    https://mitratech.com/security/ — "We've partnered with the industry leading cryptography provider
+    for our FIPS 140-2 compliant encryption at-rest solution, protecting client data within
+    Mitratech's cloud environment."
+  note: >-
+    A self-asserted product claim about a third-party cryptography module, not a Mitratech
+    certification, attestation or audit report. No SOC 2, ISO 27001, HIPAA, PCI or FedRAMP claim
+    appears on any first-party Mitratech page, and no trust centre is served at
+    mitratech.com/trust/, /trust-center/, /compliance/ or trust.mitratech.com (all probed
+    2026-09-13; 404 or no DNS). NO `Compliance` or `TrustCenter` pointer is emitted — the ISO 27001
+    and SOC 2 mentions on mitratech.com are frameworks the Alyne GRC PRODUCT helps customers assess
+    against, not certifications Mitratech holds.

@@ -1,0 +1,34 @@
+generated: '2026-09-13'
+method: searched
+source: >-
+  https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation +
+  https://mitratech.com/.well-known/oauth-authorization-server +
+  https://mitratech.com/.well-known/oauth-protected-resource
+docs: https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
+summary: >-
+  Mitratech's OAuth surfaces are scope-bearing but scope-poor. Both published scope vocabularies are a
+  single opaque value, and neither is a permission vocabulary — authorization on TAP is carried by the
+  TAP user account behind the token, not by the scope.
+scopes:
+- name: api
+  api: Mitratech TAP Workflow Automation API
+  description: >-
+    The only scope value documented for the TAP token request. Sent as `scope=api` in the
+    password-grant body to /auth/identity/connect/token.
+  source: https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
+- name: mcp
+  api: Mitratech MCP Server
+  description: >-
+    The only scope in scopes_supported on both the RFC 8414 authorization-server metadata and the
+    RFC 9728 protected-resource metadata at mitratech.com.
+  source: https://mitratech.com/.well-known/oauth-authorization-server
+scope_count: 2
+notes:
+- >-
+  TeamConnect's OAuth documentation describes scope as "(Optional) Specify the scope required for
+  access" and publishes no scope values at all. No TeamConnect scopes are recorded here because none
+  are published — an honest absence, not an omission.
+- >-
+  Least privilege is not expressible on TAP. Mitratech's own guidance is to use a Super Admin account
+  to obtain the token, warning that a narrower account may silently return incomplete results. An
+  agent therefore cannot be granted a read-only or single-object token.

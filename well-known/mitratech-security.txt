@@ -1,0 +1,4 @@
+Canonical: https://success.mitratech.com/.well-known/security.txt
+Contact: mailto:ExpertSecurity@nice.com
+Policy: https://expert-help.nice.com/Admin/Contact/Disclosure
+Preferred-Languages: en

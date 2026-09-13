@@ -1,0 +1,127 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enrichment overlay for the Mitratech TAP API
+  version: 1.0.0
+x-provenance:
+  generated: '2026-09-13'
+  method: generated
+  source: openapi/_original/mitratech-tap-swagger.json
+  extends: openapi/_original/mitratech-tap-swagger.json
+  note: >-
+    Non-destructive Overlay 1.0.0 capturing API Evangelist's enrichment of the harvested TAP
+    Swagger 2.0 document. It adds the auth model the original omits entirely, declares the missing
+    401/403 responses, and marks the destructive and irreversible operations. The original document
+    is never mutated. Note the base document is Swagger 2.0, so `securityDefinitions` is the correct
+    target key rather than `components.securitySchemes`.
+actions:
+- target: $.info
+  update:
+    description: >-
+      REST API for Mitratech TAP (ThinkSmart Automation Platform) no-code workflow automation.
+      Multi-tenant: the host and the first path segment are both the tenant name
+      (https://{tenant}.tap.thinksmart.com/{tenant}/api, staging {tenant}.stagingtap.thinksmart.com).
+      All requests require an OAuth 2.0 bearer token from /auth/identity/connect/token.
+    contact:
+      name: Mitratech Support
+      url: https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
+    x-api-evangelist-enrichment: https://github.com/api-evangelist/mitratech
+- target: $
+  update:
+    securityDefinitions:
+      tap_oauth2:
+        type: oauth2
+        flow: password
+        tokenUrl: https://{tenant}.tap.thinksmart.com/{tenant}/auth/identity/connect/token
+        scopes:
+          api: Full API access, bounded by the permissions of the TAP user account the token was issued for.
+        description: >-
+          Added by overlay. The original document declares no securityDefinitions at all even though
+          every operation requires a bearer token. Source:
+          https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
+    security:
+    - tap_oauth2:
+      - api
+    x-domain-standard:
+      id: odata
+      level: uri-conventions-only
+      metadata_document: false
+      note: >-
+        $top/$skip/$filter/$select/$orderby/$inlinecount are declared on the user collection and the
+        definitions block carries ASP.NET Web API OData model types, but no $metadata (CSDL) document
+        is served — probed 2026-09-13, HTTP 404.
+- target: $.paths['/v1/workflows/delete'].post
+  update:
+    x-consequence: irreversible
+    x-agentic-access:
+      action_class: destroy
+      consequence: irreversible
+      escalation: human-approval-required
+    description: >-
+      Deletes records by resultSetId. Deleted records are removed permanently. THERE IS NO REVERSAL
+      OPERATION: unlike /v1/workflows/archive, which is undone by /v1/workflows/restore, delete is
+      terminal. No dry-run mode, no idempotency key, and the 200 response carries no schema, so the
+      caller receives no manifest of what was destroyed.
+- target: $.paths['/v1/workflows/delete/filter'].post
+  update:
+    x-consequence: irreversible
+    x-agentic-access:
+      action_class: destroy
+      consequence: irreversible
+      scope: unbounded
+      escalation: human-approval-required
+    description: >-
+      Deletes every workflow record matching the supplied filter, permanently. The blast radius is
+      defined by a saved filter the caller may not be able to enumerate first. Highest-risk operation
+      in the contract.
+- target: $.paths['/v1/workflows/delete/name'].post
+  update:
+    x-consequence: irreversible
+    x-agentic-access:
+      action_class: destroy
+      consequence: irreversible
+      escalation: human-approval-required
+- target: $.paths['/v1/workflows/archive'].post
+  update:
+    x-consequence: reversible
+    x-reversal:
+      operationId: Workflows_RestoreRecord
+      path: /v1/workflows/restore
+      window: undocumented
+- target: $.paths['/v1/users'].delete
+  update:
+    x-consequence: irreversible
+    x-agentic-access:
+      action_class: destroy
+      consequence: unknown
+      escalation: human-approval-required
+    description: >-
+      Deletes one or more TAP users, identified by Login. No restore-user operation exists in the
+      contract and no reversal window is documented.
+- target: $.paths['/v1/workflows/{templateId}/form'].post
+  update:
+    x-idempotency: none
+    x-agentic-access:
+      action_class: create
+      consequence: billable-or-material
+      retry_safety: unsafe
+    description: >-
+      Initiates a workflow instance from a template. NOT IDEMPOTENT and no idempotency key exists:
+      a retry after a timeout starts a second legal intake, contract request or compliance workflow,
+      with no way to detect or collapse the duplicate.
+- target: $.paths['/healthcheck'].get
+  update:
+    x-agentic-access:
+      action_class: read
+      consequence: none
+x-unresolved-gaps:
+- >-
+  operationId collisions: Workflows_ArchiveRecord, Workflows_RestoreRecord, Workflows_GetComments,
+  Workflows_GetAuditTrail and Workflows_DeleteRecords are each reused across two or three distinct
+  paths. OpenAPI requires operationId to be unique across the document. Client generators will either
+  collide or silently rename, so an agent cannot reliably address these operations by id. Fixing this
+  requires renaming operations in the source document and is out of scope for a non-destructive
+  overlay.
+- >-
+  31 of 49 operations declare only a 200 response and no response schema, including every mutating
+  user and workflow operation. The overlay cannot invent the response bodies.
+- The document is Swagger 2.0; an upgrade to OpenAPI 3.1 would be a conversion, not an overlay.

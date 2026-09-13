@@ -1,0 +1,181 @@
+generated: '2026-09-13'
+method: searched
+source: >-
+  https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation +
+  openapi/_original/mitratech-tap-swagger.json +
+  https://success.mitratech.com/TeamConnect/TeamConnect_Setup_and_Development/TeamConnect_REST_API_Modernization_(TCE_7.2)
+summary: >-
+  Cross-cutting request/response semantics for the Mitratech TAP REST API, read from the published
+  Success Center documentation and confirmed against the harvested Swagger 2.0 document, with the
+  TeamConnect REST API's published conventions recorded alongside where they differ.
+authentication:
+  style: oauth2_bearer
+  tap_grant: password (resource owner credentials), scope=api
+  teamconnect_grants: [authorization_code, client_credentials]
+  see: authentication/mitratech-authentication.yml
+query_language:
+  standard: OData
+  version_referenced: OData 2.0 URI conventions
+  docs: https://www.odata.org/documentation/odata-version-2-0/uri-conventions/
+  statement_in_docs: "The TAP API follows Microsoft's OData standard for all URL Elements & parameters."
+  parameters_in_spec:
+  - $top
+  - $skip
+  - $filter
+  - $select
+  - $orderby
+  - $inlinecount
+  spec_evidence: >-
+    openapi/_original/mitratech-tap-swagger.json — GET /v1/users declares all six as query parameters.
+  note: >-
+    The OData surface is partial. The collection endpoints under /v1/users accept the $-prefixed
+    parameters; the workflow dashboard endpoints use a separate bespoke vocabulary
+    (page, pageSize, search, orderBy, orderDirection, advancedFilter, additionalDynamicColumns).
+    There is no $metadata document and no OData service root, so this is OData-flavoured querying,
+    not an OData service.
+pagination:
+  styles:
+  - style: page-number
+    params: [page, pageSize]
+    applies_to: >-
+      Workflow collections — /v1/workflows/all, /v1/workflows/my, /v1/workflows/actionrequired,
+      /v1/workflows/getarchivedrecords. Both parameters are REQUIRED, not optional.
+    response_envelope: BasicWorkflowDetailsList
+  - style: odata-offset
+    params: [$top, $skip, $inlinecount]
+    applies_to: /v1/users
+    response_envelope: 'PageResult[AdvancedUserModel]'
+  cursor: false
+  note: >-
+    Two different pagination idioms in one 49-operation API, with no shared envelope. A generic client
+    cannot page this API without per-endpoint special-casing.
+field_selection:
+  supported: partial
+  mechanism: $select on /v1/users; additionalDynamicColumns on workflow collections.
+naming:
+  main_fields: >-
+    TAP "Main Fields" are returned with two underscores as prefix and suffix — __WorkflowName__,
+    __WorkflowDescription__, __CurrentAssignee__, __DateCreated__ — and are always present in
+    workflow responses regardless of column selection.
+  casing: PascalCase JSON property names throughout the Swagger definitions.
+content_types:
+  request:
+  - application/json
+  - application/x-www-form-urlencoded
+  - multipart/form-data
+  note: >-
+    Workflows_InitiateWorkflow and Workflows_ContinueWorkflow accept all three; multipart/form-data is
+    documented as the only way to submit files. The token endpoint requires
+    application/x-www-form-urlencoded.
+  response: application/json, plus an octet stream for Files_Get and workflow file downloads.
+versioning:
+  style: path
+  versions_live: [v1, v2]
+  note: >-
+    48 of 49 operations are /v1. A single /v2 operation exists —
+    POST /v2/workflows/audittrail/details — and it is the only operation in the entire document with a
+    modern response set (400/401/403/500 with distinct descriptions). The v1 surface was not migrated.
+  product_versioning: >-
+    The product itself versions on a separate three-part scheme (TAP 1.24.9 as of 2026-09-11);
+    product releases and API path versions are not correlated.
+error_envelope:
+  format: undocumented
+  rfc9457: false
+  see: errors/mitratech-problem-types.yml
+request_tracing:
+  documented: false
+  note: No correlation-id or request-id header is documented or declared in the spec.
+rate_limit_signaling:
+  documented: false
+  see: rate-limits/mitratech-rate-limits.yml
+idempotency:
+  documented: false
+  header: null
+  coverage: none
+  scope: []
+  mutating_operations: 22
+  evidence: >-
+    Zero occurrences of "idempoten" in the 135KB TAP Swagger document and zero in the published TAP
+    API documentation page. No Idempotency-Key header, no client-supplied request identifier, and no
+    conditional-request support (no ETag/If-Match) on any of the 22 mutating operations.
+  agent_risk: >-
+    Workflows_InitiateWorkflow (POST /v1/workflows/{templateId}/form) creates a new workflow instance
+    on every call and returns 201 with a WorkflowSubmitResult. An agent that retries after a timeout
+    starts a second legal intake, contract request or compliance workflow with no way to detect or
+    collapse the duplicate. Users_CreateUser has the same shape. NO `Idempotency` pointer is emitted
+    for this provider — the agent-readiness idempotency dimension is a genuine zero, not a missing
+    pointer.
+reversibility:
+  grade: documented
+  credit: 0.4
+  basis: >-
+    A reversal path exists and is named in the contract's own operation descriptions, but no time
+    window is stated anywhere in the public documentation. Per the pipeline rubric that is
+    `documented`, not `verified` — and no window is asserted here, because inventing one on a legal
+    records system could cost a user real data.
+  write_surfaces:
+  - operation: Workflows_ArchiveRecord
+    method: POST
+    path: /v1/workflows/archive
+    reversal:
+      operation: Workflows_RestoreRecord
+      method: POST
+      path: /v1/workflows/restore
+      evidence: >-
+        The spec's own description states "Archives records by resultSetId. Archived records can be
+        restored with Restore calls."
+    window: null
+    window_note: >-
+      Neither the spec nor the Success Center states a retention period for archived records.
+      GET /v1/workflows/getarchivedrecords lists what is still restorable, so an agent can verify
+      reversibility empirically, but it cannot plan against a documented deadline.
+  - operation: Workflows_DeleteRecords
+    method: POST
+    path: /v1/workflows/delete
+    reversal: null
+    irreversible: true
+    evidence: >-
+      The spec's own description states "Deletes records by resultSetId. Deleted records are removed
+      permanently." Also applies to Workflows_DeleteRecord (by filter) and the by-name variant.
+    agent_risk: >-
+      Delete-by-filter (POST /v1/workflows/delete/filter) permanently destroys every workflow record
+      matching a saved filter in one unauthenticated-to-the-agent call, with no dry run, no
+      confirmation step, no returned manifest of what was destroyed (the response is a bare 200 with
+      no schema), and no undo. This is the single most dangerous operation in the Mitratech surface.
+  - operation: Workflows_Terminate
+    method: DELETE
+    path: /v1/workflows/{resultSetId}/cancel
+    reversal: null
+    irreversible: unknown
+    evidence: 'Description: "Cancels workflow instance by resultSetId". No un-cancel operation exists.'
+  - operation: Workflows_CancelDocuments
+    method: DELETE
+    path: /v1/workflows/{resultSetId}/docs
+    reversal: null
+    irreversible: unknown
+    evidence: 'Summary: "Cancel Sent Documents". No re-send operation exists in the contract.'
+  - operation: Users_DeleteUser
+    method: DELETE
+    path: /v1/users
+    reversal: null
+    irreversible: unknown
+    evidence: Bulk delete by Login. No restore-user operation exists in the contract.
+dry_run_mode:
+  supported: false
+  note: No preview, validate-only, or simulate parameter exists on any operation.
+integrations_outbound:
+  mechanism: TAP External API
+  docs: https://success.mitratech.com/TAP/KnowledgeBase/Relationship_Properties/External_API
+  note: >-
+    TAP can call OUT to a customer-supplied endpoint from a workflow stage (Relationship Ext API,
+    Stage Ext API, External Datasource, External Grid Datasource), and since TAP 1.20 automatically
+    retries those outbound calls on transient errors. This is an outbound HTTP integration point, not
+    a webhook subscription surface — there is no event catalog, no subscription API and no delivery
+    signature scheme published, so no Webhooks or AsyncAPI pointer is emitted.
+cross_links:
+  errors: errors/mitratech-problem-types.yml
+  lifecycle: lifecycle/mitratech-lifecycle.yml
+  authentication: authentication/mitratech-authentication.yml
+  scopes: scopes/mitratech-scopes.yml
+  rate_limits: rate-limits/mitratech-rate-limits.yml
+  conformance: conformance/mitratech-conformance.yml
