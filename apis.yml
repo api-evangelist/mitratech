@@ -27,7 +27,7 @@ tags:
 - Matter Management
 - Governance Risk and Compliance
 - Compliance
-- Workflow Automation
+- Workflow-Automation
 - Contract Lifecycle Management
 - HR Compliance
 - Risk Management
@@ -49,71 +49,20 @@ tags_raw:
 - odata
 - mcp
 apis:
-- name: Mitratech TAP Workflow Automation API
-  description: >-
-    REST API for the TAP (ThinkSmart Automation Platform) no-code workflow automation product. Covers
-    workflow initiation and continuation, form retrieval and save, task assignment and re-assignment,
-    dashboard and grid configuration, comments and collaboration discussions, audit trail retrieval,
-    file attachments and signed-document handling, archive/restore/delete of workflow records, and user,
-    role and department administration including bulk add-or-update. URL elements and query parameters
-    follow Microsoft's OData conventions ($top, $skip, $filter, $orderby). Auth is OAuth 2.0 resource
-    owner password credentials against /auth/identity/connect/token with scope `api`; tokens are bearer
-    tokens valid for 3600 seconds.
-  humanURL: https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
-  baseURL: https://{tenant}.tap.thinksmart.com/{tenant}/api
-  image: https://mitratech.com/wp-content/uploads/Mitratech_Web-Assets_Home-Feature-Image-HD-1024x577.png
-  position: Producing
-  tags:
-  - Workflow Automation
-  - Legal Operations
-  - Compliance
-  - OData
-  tags_raw:
-  - workflow-automation
-  - legal-operations
-  - compliance
-  - odata
-  properties:
-  - type: Documentation
-    url: https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
-  - type: APIReference
-    url: https://default.stagingtap.thinksmart.com/default/api/swagger/ui/index
-  - type: OpenAPI
-    url: openapi/_original/mitratech-tap-swagger.json
-  - type: Console
-    url: https://default.stagingtap.thinksmart.com/default/api/swagger/ui/index
-  - type: OpenAPI
-    url: openapi/_original/mitratech-tap-prod-swagger.json
-  - type: Overlay
-    url: overlays/mitratech-tap-overlay.yaml
-  - type: Authentication
-    url: authentication/mitratech-authentication.yml
-  - type: OAuthScopes
-    url: scopes/mitratech-scopes.yml
-  - type: Conventions
-    url: conventions/mitratech-conventions.yml
-  - type: ErrorCatalog
-    url: errors/mitratech-problem-types.yml
-  - type: DataModel
-    url: data-model/mitratech-data-model.yml
-  - type: Sandbox
-    url: sandbox/mitratech-sandbox.yml
-  - type: AgentSkill
-    url: skills/_index.yml
-  - type: Examples
-    url: https://github.com/ThinkSmart/API_Examples
 - name: Mitratech TeamConnect REST API
   description: >-
-    Modernized REST API shipped with TeamConnect Enterprise 7.2 and later, served from each customer's own
-    TeamConnect instance at /webservice/enterprise/. Exposes Accounts, Appointments, Contacts, Documents,
+    Modernized REST API shipped with TeamConnect Enterprise 7.2 and later, served from each customer's
+    own TeamConnect instance at /webservice/enterprise/. Exposes Accounts, Appointments, Contacts, Documents,
     Expenses, Groups, Histories, Invoices, Involved Parties, Projects (custom objects / matters), Tasks,
     Users, Workflows and System Design, with pagination, filtering and record-level search. Authentication
-    is OAuth 2.0 Authorization Code or Client Credentials against the instance's own /oauth/authorize and
-    /oauth/token endpoints; access tokens use a rolling 30-day idle expiration. The endpoint reference and
-    Postman collections are published behind a customer login on the Mitratech Success Center.
-  humanURL: https://success.mitratech.com/TeamConnect/TeamConnect_Setup_and_Development/TeamConnect_REST_API_Modernization_(TCE_7.2)
+    is OAuth 2.0 Authorization Code or Client Credentials against the instance's own /oauth/authorize
+    and /oauth/token endpoints; access tokens use a rolling 30-day idle expiration. The endpoint reference
+    and Postman collections are published behind a customer login on the Mitratech Success Center.
+  humanURL: >-
+    https://success.mitratech.com/TeamConnect/TeamConnect_Setup_and_Development/TeamConnect_REST_API_Modernization_(TCE_7.2)
   baseURL: https://{your-tc-instance}/webservice/enterprise/v1
-  image: https://mitratech.com/wp-content/uploads/Mitratech_Web-Assets_Home-Feature-Image-HD-1024x577.png
+  image: >-
+    https://mitratech.com/wp-content/uploads/Mitratech_Web-Assets_Home-Feature-Image-HD-1024x577.png
   position: Producing
   tags:
   - Enterprise Legal Management
@@ -125,9 +74,11 @@ apis:
   - legal-operations
   properties:
   - type: Documentation
-    url: https://success.mitratech.com/TeamConnect/TeamConnect_Setup_and_Development/TeamConnect_REST_API_Modernization_(TCE_7.2)
+    url: >-
+      https://success.mitratech.com/TeamConnect/TeamConnect_Setup_and_Development/TeamConnect_REST_API_Modernization_(TCE_7.2)
   - type: Authentication
-    url: https://success.mitratech.com/TeamConnect/TeamConnect_Setup_and_Development/TeamConnect_REST_API_Modernization_(TCE_7.2)/TeamConnect_RESTAPIs_-_Authentication
+    url: >-
+      https://success.mitratech.com/TeamConnect/TeamConnect_Setup_and_Development/TeamConnect_REST_API_Modernization_(TCE_7.2)/TeamConnect_RESTAPIs_-_Authentication
 - name: Mitratech MCP Server
   description: >-
     Remote Model Context Protocol server served from mitratech.com over Streamable HTTP. Advertises OAuth
@@ -137,7 +88,8 @@ apis:
     manifest requires an authenticated OAuth introspection; the endpoint itself is live and probed.
   humanURL: https://mitratech.com/
   baseURL: https://mitratech.com/wp-json/mcp/mcp-oauth-server
-  image: https://mitratech.com/wp-content/uploads/Mitratech_Web-Assets_Home-Feature-Image-HD-1024x577.png
+  image: >-
+    https://mitratech.com/wp-content/uploads/Mitratech_Web-Assets_Home-Feature-Image-HD-1024x577.png
   position: Producing
   tags:
   - MCP
@@ -154,7 +106,265 @@ apis:
     url: mcp/mitratech-tool-crosswalk.yml
   - type: OAuthScopes
     url: scopes/mitratech-scopes.yml
+- aid: mitratech:mitratech-dashboard-api
+  name: Mitratech Dashboard API
+  description: The Dashboard API from Mitratech — 1 operation(s) for dashboard.
+  humanURL: >-
+    https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
+  baseURL: https://{tenant}.tap.thinksmart.com/{tenant}/api
+  tags:
+  - Dashboard
+  properties:
+  - type: OpenAPI
+    url: openapi/mitratech-dashboard-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
+  - type: APIReference
+    url: https://default.stagingtap.thinksmart.com/default/api/swagger/ui/index
+  - type: Console
+    url: https://default.stagingtap.thinksmart.com/default/api/swagger/ui/index
+  - type: Authentication
+    url: authentication/mitratech-authentication.yml
+  - type: OAuthScopes
+    url: scopes/mitratech-scopes.yml
+  - type: Conventions
+    url: conventions/mitratech-conventions.yml
+  - type: ErrorCatalog
+    url: errors/mitratech-problem-types.yml
+  - type: DataModel
+    url: data-model/mitratech-data-model.yml
+  - type: Sandbox
+    url: sandbox/mitratech-sandbox.yml
+  - type: Examples
+    url: https://github.com/ThinkSmart/API_Examples
+- aid: mitratech:mitratech-files-api
+  name: Mitratech Files API
+  description: The Files API from Mitratech — 1 operation(s) for files.
+  humanURL: >-
+    https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
+  baseURL: https://{tenant}.tap.thinksmart.com/{tenant}/api
+  tags:
+  - Files
+  properties:
+  - type: OpenAPI
+    url: openapi/mitratech-files-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
+  - type: APIReference
+    url: https://default.stagingtap.thinksmart.com/default/api/swagger/ui/index
+  - type: Console
+    url: https://default.stagingtap.thinksmart.com/default/api/swagger/ui/index
+  - type: Authentication
+    url: authentication/mitratech-authentication.yml
+  - type: OAuthScopes
+    url: scopes/mitratech-scopes.yml
+  - type: Conventions
+    url: conventions/mitratech-conventions.yml
+  - type: ErrorCatalog
+    url: errors/mitratech-problem-types.yml
+  - type: DataModel
+    url: data-model/mitratech-data-model.yml
+  - type: Sandbox
+    url: sandbox/mitratech-sandbox.yml
+  - type: Examples
+    url: https://github.com/ThinkSmart/API_Examples
+- aid: mitratech:mitratech-gridconfigurations-api
+  name: Mitratech Grid Configurations API
+  description: The GridConfigurations API from Mitratech — 3 operation(s) for gridconfigurations.
+  humanURL: >-
+    https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
+  baseURL: https://{tenant}.tap.thinksmart.com/{tenant}/api
+  tags:
+  - GridConfigurations
+  properties:
+  - type: OpenAPI
+    url: openapi/mitratech-gridconfigurations-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
+  - type: APIReference
+    url: https://default.stagingtap.thinksmart.com/default/api/swagger/ui/index
+  - type: Console
+    url: https://default.stagingtap.thinksmart.com/default/api/swagger/ui/index
+  - type: Authentication
+    url: authentication/mitratech-authentication.yml
+  - type: OAuthScopes
+    url: scopes/mitratech-scopes.yml
+  - type: Conventions
+    url: conventions/mitratech-conventions.yml
+  - type: ErrorCatalog
+    url: errors/mitratech-problem-types.yml
+  - type: DataModel
+    url: data-model/mitratech-data-model.yml
+  - type: Sandbox
+    url: sandbox/mitratech-sandbox.yml
+  - type: Examples
+    url: https://github.com/ThinkSmart/API_Examples
+- aid: mitratech:mitratech-healthcheck-api
+  name: Mitratech Health Check API
+  description: The HealthCheck API from Mitratech — 1 operation(s) for healthcheck.
+  humanURL: >-
+    https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
+  baseURL: https://{tenant}.tap.thinksmart.com/{tenant}/api
+  tags:
+  - HealthCheck
+  properties:
+  - type: OpenAPI
+    url: openapi/mitratech-healthcheck-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
+  - type: APIReference
+    url: https://default.stagingtap.thinksmart.com/default/api/swagger/ui/index
+  - type: Console
+    url: https://default.stagingtap.thinksmart.com/default/api/swagger/ui/index
+  - type: Authentication
+    url: authentication/mitratech-authentication.yml
+  - type: OAuthScopes
+    url: scopes/mitratech-scopes.yml
+  - type: Conventions
+    url: conventions/mitratech-conventions.yml
+  - type: ErrorCatalog
+    url: errors/mitratech-problem-types.yml
+  - type: DataModel
+    url: data-model/mitratech-data-model.yml
+  - type: Sandbox
+    url: sandbox/mitratech-sandbox.yml
+  - type: Examples
+    url: https://github.com/ThinkSmart/API_Examples
+- aid: mitratech:mitratech-templates-api
+  name: Mitratech Templates API
+  description: The Templates API from Mitratech — 1 operation(s) for templates.
+  humanURL: >-
+    https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
+  baseURL: https://{tenant}.tap.thinksmart.com/{tenant}/api
+  tags:
+  - Templates
+  properties:
+  - type: OpenAPI
+    url: openapi/mitratech-templates-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
+  - type: APIReference
+    url: https://default.stagingtap.thinksmart.com/default/api/swagger/ui/index
+  - type: Console
+    url: https://default.stagingtap.thinksmart.com/default/api/swagger/ui/index
+  - type: Authentication
+    url: authentication/mitratech-authentication.yml
+  - type: OAuthScopes
+    url: scopes/mitratech-scopes.yml
+  - type: Conventions
+    url: conventions/mitratech-conventions.yml
+  - type: ErrorCatalog
+    url: errors/mitratech-problem-types.yml
+  - type: DataModel
+    url: data-model/mitratech-data-model.yml
+  - type: Sandbox
+    url: sandbox/mitratech-sandbox.yml
+  - type: Examples
+    url: https://github.com/ThinkSmart/API_Examples
+- aid: mitratech:mitratech-users-api
+  name: Mitratech Users API
+  description: The Users API from Mitratech — 5 operation(s) for users.
+  humanURL: >-
+    https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
+  baseURL: https://{tenant}.tap.thinksmart.com/{tenant}/api
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/mitratech-users-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
+  - type: APIReference
+    url: https://default.stagingtap.thinksmart.com/default/api/swagger/ui/index
+  - type: Console
+    url: https://default.stagingtap.thinksmart.com/default/api/swagger/ui/index
+  - type: Authentication
+    url: authentication/mitratech-authentication.yml
+  - type: OAuthScopes
+    url: scopes/mitratech-scopes.yml
+  - type: Conventions
+    url: conventions/mitratech-conventions.yml
+  - type: ErrorCatalog
+    url: errors/mitratech-problem-types.yml
+  - type: DataModel
+    url: data-model/mitratech-data-model.yml
+  - type: Sandbox
+    url: sandbox/mitratech-sandbox.yml
+  - type: Examples
+    url: https://github.com/ThinkSmart/API_Examples
+- aid: mitratech:mitratech-workflow-api
+  name: Mitratech Workflow API
+  description: The Workflow API from Mitratech — 1 operation(s) for workflow.
+  humanURL: >-
+    https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
+  baseURL: https://{tenant}.tap.thinksmart.com/{tenant}/api
+  tags:
+  - Workflow
+  properties:
+  - type: OpenAPI
+    url: openapi/mitratech-workflow-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
+  - type: APIReference
+    url: https://default.stagingtap.thinksmart.com/default/api/swagger/ui/index
+  - type: Console
+    url: https://default.stagingtap.thinksmart.com/default/api/swagger/ui/index
+  - type: Authentication
+    url: authentication/mitratech-authentication.yml
+  - type: OAuthScopes
+    url: scopes/mitratech-scopes.yml
+  - type: Conventions
+    url: conventions/mitratech-conventions.yml
+  - type: ErrorCatalog
+    url: errors/mitratech-problem-types.yml
+  - type: DataModel
+    url: data-model/mitratech-data-model.yml
+  - type: Sandbox
+    url: sandbox/mitratech-sandbox.yml
+  - type: Examples
+    url: https://github.com/ThinkSmart/API_Examples
+- aid: mitratech:mitratech-workflows-api
+  name: Mitratech Workflows API
+  description: The Workflows API from Mitratech — 32 operation(s) for workflows.
+  humanURL: >-
+    https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
+  baseURL: https://{tenant}.tap.thinksmart.com/{tenant}/api
+  tags:
+  - Workflows
+  properties:
+  - type: OpenAPI
+    url: openapi/mitratech-workflows-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
+  - type: APIReference
+    url: https://default.stagingtap.thinksmart.com/default/api/swagger/ui/index
+  - type: Console
+    url: https://default.stagingtap.thinksmart.com/default/api/swagger/ui/index
+  - type: Authentication
+    url: authentication/mitratech-authentication.yml
+  - type: OAuthScopes
+    url: scopes/mitratech-scopes.yml
+  - type: Conventions
+    url: conventions/mitratech-conventions.yml
+  - type: ErrorCatalog
+    url: errors/mitratech-problem-types.yml
+  - type: DataModel
+    url: data-model/mitratech-data-model.yml
+  - type: Sandbox
+    url: sandbox/mitratech-sandbox.yml
+  - type: Examples
+    url: https://github.com/ThinkSmart/API_Examples
 common:
+- type: Overlay
+  url: overlays/mitratech-tap-overlay.yaml
 - type: DomainSecurity
   url: security/mitratech-domain-security.yml
 - type: Website
