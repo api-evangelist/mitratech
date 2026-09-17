@@ -202,38 +202,6 @@ apis:
     url: sandbox/mitratech-sandbox.yml
   - type: Examples
     url: https://github.com/ThinkSmart/API_Examples
-- aid: mitratech:mitratech-healthcheck-api
-  name: Mitratech Health Check API
-  description: The HealthCheck API from Mitratech — 1 operation(s) for healthcheck.
-  humanURL: >-
-    https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
-  baseURL: https://{tenant}.tap.thinksmart.com/{tenant}/api
-  tags:
-  - HealthCheck
-  properties:
-  - type: OpenAPI
-    url: openapi/mitratech-healthcheck-api-openapi.yml
-  - type: Documentation
-    url: >-
-      https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
-  - type: APIReference
-    url: https://default.stagingtap.thinksmart.com/default/api/swagger/ui/index
-  - type: Console
-    url: https://default.stagingtap.thinksmart.com/default/api/swagger/ui/index
-  - type: Authentication
-    url: authentication/mitratech-authentication.yml
-  - type: OAuthScopes
-    url: scopes/mitratech-scopes.yml
-  - type: Conventions
-    url: conventions/mitratech-conventions.yml
-  - type: ErrorCatalog
-    url: errors/mitratech-problem-types.yml
-  - type: DataModel
-    url: data-model/mitratech-data-model.yml
-  - type: Sandbox
-    url: sandbox/mitratech-sandbox.yml
-  - type: Examples
-    url: https://github.com/ThinkSmart/API_Examples
 - aid: mitratech:mitratech-templates-api
   name: Mitratech Templates API
   description: The Templates API from Mitratech — 1 operation(s) for templates.
@@ -341,6 +309,38 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/mitratech-workflows-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
+  - type: APIReference
+    url: https://default.stagingtap.thinksmart.com/default/api/swagger/ui/index
+  - type: Console
+    url: https://default.stagingtap.thinksmart.com/default/api/swagger/ui/index
+  - type: Authentication
+    url: authentication/mitratech-authentication.yml
+  - type: OAuthScopes
+    url: scopes/mitratech-scopes.yml
+  - type: Conventions
+    url: conventions/mitratech-conventions.yml
+  - type: ErrorCatalog
+    url: errors/mitratech-problem-types.yml
+  - type: DataModel
+    url: data-model/mitratech-data-model.yml
+  - type: Sandbox
+    url: sandbox/mitratech-sandbox.yml
+  - type: Examples
+    url: https://github.com/ThinkSmart/API_Examples
+- aid: mitratech:mitratech-health-check-api
+  name: Mitratech Health Check API
+  description: The Health Check API from Mitratech — 1 operation(s) for health check.
+  humanURL: >-
+    https://success.mitratech.com/TeamConnect/TeamConnect_Setup_and_Development/TeamConnect_REST_API_Modernization_(TCE_7.2)
+  baseURL: https://{your-tc-instance}/webservice/enterprise/v1
+  tags:
+  - Health Check
+  properties:
+  - type: OpenAPI
+    url: openapi/mitratech-health-check-api-openapi.yml
   - type: Documentation
     url: >-
       https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
