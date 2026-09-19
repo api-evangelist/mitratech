@@ -113,6 +113,8 @@ apis:
     https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
   baseURL: https://{tenant}.tap.thinksmart.com/{tenant}/api
   tags:
+  - Dashboards
+  tags_raw:
   - Dashboard
   properties:
   - type: OpenAPI
@@ -145,6 +147,8 @@ apis:
     https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
   baseURL: https://{tenant}.tap.thinksmart.com/{tenant}/api
   tags:
+  - File
+  tags_raw:
   - Files
   properties:
   - type: OpenAPI
@@ -241,6 +245,8 @@ apis:
     https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
   baseURL: https://{tenant}.tap.thinksmart.com/{tenant}/api
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
@@ -273,6 +279,8 @@ apis:
     https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation
   baseURL: https://{tenant}.tap.thinksmart.com/{tenant}/api
   tags:
+  - Workflows
+  tags_raw:
   - Workflow
   properties:
   - type: OpenAPI
