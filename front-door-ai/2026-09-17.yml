@@ -1,0 +1,27 @@
+# Front Door AI Index — mitratech — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: mitratech
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: mitratech.com
+  final_host: mitratech.com
+  ownership: own
+  owner: mitratech
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 19
+  host_score: 19
+  density: 9.33
+  words: 2036
+  tiers:
+    agentic: 0
+    core: 19
+    model: 0
+  ambiguous: 31
+  top_terms:
+    automation: 28
+    AI: 19
+    intelligence: 3

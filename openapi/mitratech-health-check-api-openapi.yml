@@ -1,0 +1,32 @@
+openapi: 3.2.0
+info:
+  version: v1
+  title: TAP API Explorer Health Check API
+servers:
+- url: https://demo.tap.thinksmart.com/prod/api
+tags:
+- name: Health Check
+paths:
+  /healthcheck:
+    get:
+      tags:
+      - Health Check
+      operationId: HealthCheck_Get
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+            text/json:
+              schema:
+                type: object
+            application/xml:
+              schema:
+                type: object
+            text/xml:
+              schema:
+                type: object
+      summary: Health check get
+      x-summary-source: derived

@@ -1,0 +1,107 @@
+openapi: 3.2.0
+info:
+  version: v1
+  title: TAP API Explorer Templates API
+servers:
+- url: https://demo.tap.thinksmart.com/prod/api
+tags:
+- name: Templates
+paths:
+  /v1/templates/dashboard:
+    get:
+      tags:
+      - Templates
+      summary: Available templates
+      description: Returns available workflow templates for visible on dashboard
+      operationId: Templates_Get
+      parameters:
+      - name: $top
+        in: query
+        description: The max number of records
+        required: false
+        schema:
+          type: string
+      - name: $skip
+        in: query
+        description: The number of records to skip
+        required: false
+        schema:
+          type: string
+      - name: $filter
+        in: query
+        description: A function that must evaluate to true for a record to be returned
+        required: false
+        schema:
+          type: string
+      - name: $select
+        in: query
+        description: Specifies a subset of properties to return
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        description: Determines what values are used to order a collection of records
+        required: false
+        schema:
+          type: string
+      - name: $inlinecount
+        in: query
+        description: Set <b>'allpages'</b> if you want to have total count value in result
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageResult_WorkflowTemplate'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PageResult_WorkflowTemplate'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PageResult_WorkflowTemplate'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/PageResult_WorkflowTemplate'
+components:
+  schemas:
+    PageResult_WorkflowTemplate:
+      type: object
+      properties:
+        Items:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkflowTemplate'
+        NextPageLink:
+          type: string
+        Count:
+          format: int64
+          type: integer
+    WorkflowTemplate:
+      description: Workflow Template
+      type: object
+      properties:
+        ParentID:
+          format: uuid
+          description: ParentID - stays same for all templates of a workflow
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+        ID:
+          format: uuid
+          description: Template ID
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+        WorkflowName:
+          description: Template Name
+          type: string
+        InitialStage:
+          description: Initial stage name
+          type: string
+        DateCreated:
+          format: date-time
+          description: Creation date
+          type: string

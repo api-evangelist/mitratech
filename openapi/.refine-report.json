@@ -1,0 +1,47 @@
+{
+  "provider": "mitratech",
+  "sources": [
+    "_original/mitratech-tap-prod-swagger.json"
+  ],
+  "outputs": [
+    "mitratech-dashboard-api-openapi.yml",
+    "mitratech-files-api-openapi.yml",
+    "mitratech-gridconfigurations-api-openapi.yml",
+    "mitratech-healthcheck-api-openapi.yml",
+    "mitratech-templates-api-openapi.yml",
+    "mitratech-users-api-openapi.yml",
+    "mitratech-workflow-api-openapi.yml",
+    "mitratech-workflows-api-openapi.yml"
+  ],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "1 archived document(s) dropped as subsets of other archived documents",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "mitratech-tap-prod-swagger.json: upgraded swagger 2.0 -> OpenAPI 3.2.0; renamed 6 component key(s) illegal in 3.x (e.g. ODataQueryOptions[AdvancedUserModel])",
+    "mitratech-tap-prod-swagger.json: declared missing tag: Dashboard",
+    "mitratech-tap-prod-swagger.json: declared missing tag: Files",
+    "mitratech-tap-prod-swagger.json: declared missing tag: GridConfigurations",
+    "mitratech-tap-prod-swagger.json: declared missing tag: HealthCheck",
+    "mitratech-tap-prod-swagger.json: declared missing tag: Templates",
+    "mitratech-tap-prod-swagger.json: declared missing tag: Users",
+    "mitratech-tap-prod-swagger.json: declared missing tag: Workflow",
+    "mitratech-tap-prod-swagger.json: declared missing tag: Workflows",
+    "superseded outputs removed: mitratech-health-check-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 10 total)"
+  ],
+  "skipped": [
+    "_original/mitratech-tap-swagger.json: archived document superseded by a larger archived document",
+    "mitratech-dashboard-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "mitratech-files-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "mitratech-gridconfigurations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "mitratech-health-check-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "mitratech-templates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "mitratech-users-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "mitratech-workflow-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "mitratech-workflows-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

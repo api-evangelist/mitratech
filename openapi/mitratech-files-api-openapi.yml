@@ -1,0 +1,46 @@
+openapi: 3.2.0
+info:
+  version: v1
+  title: TAP API Explorer Files API
+servers:
+- url: https://demo.tap.thinksmart.com/prod/api
+tags:
+- name: Files
+paths:
+  /v1/files/{id}:
+    get:
+      tags:
+      - Files
+      summary: Download by ID
+      description: Method which will return a file by id. Use GET File Attachments to get the file ids from a specific workflow record.
+      operationId: Files_Get
+      parameters:
+      - name: id
+        in: path
+        description: File ID
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                format: byte
+                type: string
+            text/json:
+              schema:
+                format: byte
+                type: string
+            application/xml:
+              schema:
+                format: byte
+                type: string
+            text/xml:
+              schema:
+                format: byte
+                type: string
+        '404':
+          description: Not Found

@@ -1,0 +1,553 @@
+openapi: 3.2.0
+info:
+  version: v1
+  title: TAP API Explorer Users API
+servers:
+- url: https://demo.tap.thinksmart.com/prod/api
+tags:
+- name: Users
+paths:
+  /v1/users/{id}:
+    get:
+      tags:
+      - Users
+      summary: Get by ID
+      description: Returns user info by ID
+      operationId: Users_Get
+      parameters:
+      - name: id
+        in: path
+        description: User ID
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/User'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: Not Found
+  /v1/users/current:
+    get:
+      tags:
+      - Users
+      summary: Current User
+      description: Returns authenticated user info
+      operationId: Users_GetCurrent
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/User'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+  /v1/users/Roles:
+    get:
+      tags:
+      - Users
+      summary: User Roles
+      description: Get all existing roles. These role id’s further can be used for creating or updating users.
+      operationId: Users_getRoles
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Role'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Role'
+  /v1/users/Departments:
+    get:
+      tags:
+      - Users
+      summary: User Departments
+      description: Get all existing departments. These department id’s further can be used for creating or updating users.
+      operationId: Users_getDepartments
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Departmnt'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Departmnt'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Departmnt'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Departmnt'
+  /v1/users:
+    get:
+      tags:
+      - Users
+      summary: All Users
+      description: Returns TAP users info
+      operationId: Users_Get
+      parameters:
+      - name: $top
+        in: query
+        description: The max number of records
+        required: false
+        schema:
+          type: string
+      - name: $skip
+        in: query
+        description: The number of records to skip
+        required: false
+        schema:
+          type: string
+      - name: $filter
+        in: query
+        description: A function that must evaluate to true for a record to be returned
+        required: false
+        schema:
+          type: string
+      - name: $select
+        in: query
+        description: Specifies a subset of properties to return
+        required: false
+        schema:
+          type: string
+      - name: $orderby
+        in: query
+        description: Determines what values are used to order a collection of records
+        required: false
+        schema:
+          type: string
+      - name: $inlinecount
+        in: query
+        description: Set <b>'allpages'</b> if you want to have total count value in result
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageResult_AdvancedUserModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PageResult_AdvancedUserModel'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PageResult_AdvancedUserModel'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/PageResult_AdvancedUserModel'
+    post:
+      tags:
+      - Users
+      summary: Create User
+      description: 'Create users through Json. We can either create single or multiple users at a time.
+
+        Required fields to create a user is Login/Password/FirstName/LastName/Roles/Departments.'
+      operationId: Users_CreateUser
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+            text/csv:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
+            application/xml:
+              schema:
+                type: string
+            text/xml:
+              schema:
+                type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/UserDetail'
+          text/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/UserDetail'
+          application/xml:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/UserDetail'
+          text/xml:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/UserDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/UserDetail'
+        required: true
+    delete:
+      tags:
+      - Users
+      summary: Delete Users
+      description: 'Delete users through Json. We can either delete single or multiple users at a time.
+
+        Required fields to delete a user is Login.'
+      operationId: Users_DeleteUser
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+            text/csv:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
+            application/xml:
+              schema:
+                type: string
+            text/xml:
+              schema:
+                type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+          text/json:
+            schema:
+              type: array
+              items:
+                type: string
+          application/xml:
+            schema:
+              type: array
+              items:
+                type: string
+          text/xml:
+            schema:
+              type: array
+              items:
+                type: string
+          application/x-www-form-urlencoded:
+            schema:
+              type: array
+              items:
+                type: string
+        required: true
+    patch:
+      tags:
+      - Users
+      summary: Update User
+      description: 'Update users through Json. We can either update single or multiple users at a time.
+
+        Required fields to update a user is Login.'
+      operationId: Users_UpdateUser
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+            text/csv:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
+            application/xml:
+              schema:
+                type: string
+            text/xml:
+              schema:
+                type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/UserDetail'
+          text/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/UserDetail'
+          application/xml:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/UserDetail'
+          text/xml:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/UserDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/UserDetail'
+        required: true
+components:
+  schemas:
+    UserGenericFieldsMapData:
+      type: object
+      properties:
+        ID:
+          format: uuid
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+        UserGenericFieldID:
+          format: uuid
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+        FieldLabel:
+          type: string
+        FieldCode:
+          type: string
+        FieldValue:
+          type: string
+        UserCreated:
+          format: uuid
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+        DateCreated:
+          format: date-time
+          type: string
+    KeyValuePair:
+      description: ''
+      type: object
+      properties:
+        Key:
+          type: string
+        Value:
+          type: string
+    User:
+      description: TAP User
+      type: object
+      properties:
+        ID:
+          format: uuid
+          description: User ID
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+        FullName:
+          description: User name and surname
+          type: string
+        Email:
+          description: User email
+          type: string
+        Roles:
+          description: Roles assigned to user
+          type: array
+          items:
+            type: string
+        Departments:
+          description: Departments assigned to user
+          type: array
+          items:
+            type: string
+        ESignKey:
+          description: User`s esignature key
+          type: string
+        CustomFields:
+          description: Custom fields
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValuePair'
+    KeyValue:
+      type: object
+      properties:
+        Key:
+          type: string
+        Value:
+          type: string
+    PageResult_AdvancedUserModel:
+      type: object
+      properties:
+        Items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedUserModel'
+        NextPageLink:
+          type: string
+        Count:
+          format: int64
+          type: integer
+    AdvancedUserModel:
+      type: object
+      properties:
+        ID:
+          format: uuid
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+        FullName:
+          type: string
+        Email:
+          type: string
+        Roles:
+          type: array
+          items:
+            type: string
+        Departments:
+          type: array
+          items:
+            type: string
+        ESignKey:
+          type: string
+        CustomFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
+    Departmnt:
+      type: object
+      properties:
+        ID:
+          format: uuid
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+        Name:
+          type: string
+        Description:
+          type: string
+    Role:
+      type: object
+      properties:
+        ID:
+          format: uuid
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+        Name:
+          type: string
+        Rank:
+          format: int32
+          type: integer
+    UserDetail:
+      description: TAP User Detail
+      type: object
+      properties:
+        ID:
+          format: uuid
+          description: User ID
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+        Login:
+          description: Login
+          type: string
+        FirstName:
+          description: First Name property
+          maxLength: 50
+          minLength: 0
+          type: string
+        LastName:
+          description: Last Name property
+          maxLength: 50
+          minLength: 0
+          type: string
+        Password:
+          description: Password property (not mandatory for updates)
+          type: string
+        UserName:
+          description: UserName property
+          type: string
+        Roles:
+          description: AssignedRoles property
+          type: array
+          items:
+            format: uuid
+            type: string
+            example: 00000000-0000-0000-0000-000000000000
+        Departments:
+          description: AssignedDepartments property
+          type: array
+          items:
+            format: uuid
+            type: string
+            example: 00000000-0000-0000-0000-000000000000
+        IsPasswordChangeRequired:
+          description: IsPasswordChangeRequired property
+          type: boolean
+        GenericFields:
+          description: GenericFields property
+          type: array
+          items:
+            $ref: '#/components/schemas/UserGenericFieldsMapData'
+        IsDeleted:
+          description: IsDeleted property
+          type: boolean
+        IsLockedOut:
+          description: IsLockedOut property
+          type: boolean
+        CellNumber:
+          description: CellNumber property
+          type: string
+        FaxNumber:
+          description: FaxNumber
+          type: string
+        EmployeeID:
+          description: EmployeeID property
+          type: string
+        Type:
+          description: Type property
+          type: string
+        SisenseUserName:
+          description: Sisense User Name
+          type: string
+        SisenseUserPassword:
+          description: Sisense User Password
+          type: string

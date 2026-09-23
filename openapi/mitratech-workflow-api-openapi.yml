@@ -1,0 +1,132 @@
+openapi: 3.2.0
+info:
+  version: v1
+  title: TAP API Explorer Workflow API
+servers:
+- url: https://demo.tap.thinksmart.com/prod/api
+tags:
+- name: Workflow
+paths:
+  /v2/workflows/audittrail/details:
+    post:
+      tags:
+      - Workflow
+      summary: Returns audit trail details for each provided workflow name
+      description: 'Expects a JSON array of workflow names in the request body.
+
+        Example:
+
+
+        ["Request # 00020998","Request # 00020995","CNDA0207"]'
+      operationId: Workflow_SearchAuditTrailDetails
+      responses:
+        '200':
+          description: Audit trail information was found and returned.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AuditTrailDetailList'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AuditTrailDetailList'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AuditTrailDetailList'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AuditTrailDetailList'
+        '400':
+          description: The input was invalid (e.g., null or empty list).
+        '401':
+          description: Authentication is required or has failed.
+        '403':
+          description: The caller is not authorized for the current tenant.
+        '500':
+          description: An unexpected error occurred.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+          text/json:
+            schema:
+              type: array
+              items:
+                type: string
+          application/xml:
+            schema:
+              type: array
+              items:
+                type: string
+          text/xml:
+            schema:
+              type: array
+              items:
+                type: string
+          application/x-www-form-urlencoded:
+            schema:
+              type: array
+              items:
+                type: string
+        description: List of workflow names to query. Must not be null or empty.
+        required: true
+components:
+  schemas:
+    AuditTrailFieldLogStage:
+      description: Workflow Attachment
+      type: object
+      properties:
+        Stage:
+          description: Name of the stage
+          type: string
+        Date:
+          format: date-time
+          description: Timestamp when stage was saved
+          type: string
+        User:
+          description: User that saved the stage
+          type: string
+        Status:
+          description: Status of the stage
+          type: string
+        Fields:
+          description: Specific field log
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditTrailFieldLog'
+    AuditTrailDetailList:
+      description: Workflow Attachment
+      type: object
+      properties:
+        WorkflowName:
+          type: string
+        AuditTrailFieldLogStageList:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditTrailFieldLogStage'
+    AuditTrailFieldLog:
+      description: Workflow Attachment
+      type: object
+      properties:
+        Name:
+          description: Name of the field
+          type: string
+        Value:
+          description: Value of the field
+          type: string
+        Type:
+          description: Type of the field
+          type: string
+        Label:
+          description: Label of the field
+          type: string

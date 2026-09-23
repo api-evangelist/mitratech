@@ -1,0 +1,2257 @@
+openapi: 3.2.0
+info:
+  version: v1
+  title: TAP API Explorer Workflows API
+servers:
+- url: https://demo.tap.thinksmart.com/prod/api
+tags:
+- name: Workflows
+paths:
+  /v1/workflows/all:
+    get:
+      tags:
+      - Workflows
+      summary: All Workflows
+      description: Method that will return all dashboard workflows (does not support OData filtering yet)
+      operationId: Workflows_GetAll
+      parameters:
+      - name: pageSize
+        in: query
+        description: Page size
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: page
+        in: query
+        description: Number of displayed page
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: configurationId
+        in: query
+        description: Id of Workflow Dashboard configuration
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: search
+        in: query
+        description: Text for search filter
+        required: false
+        schema:
+          type: string
+      - name: orderBy
+        in: query
+        description: Field name for sorting
+        required: false
+        schema:
+          type: string
+      - name: orderDirection
+        in: query
+        description: 'Direction of sorting. Possible values: ASC, DESC'
+        required: false
+        schema:
+          type: string
+      - name: advancedFilter
+        in: query
+        description: 'Advanced filter for records (e.g. : column1~startswith~''value''~and~column2~eq~''value'')'
+        required: false
+        schema:
+          type: string
+      - name: dynamicColumns
+        in: query
+        description: Dynamic columns separated with comma to select and filter on
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardWorkflowsList'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/DashboardWorkflowsList'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/DashboardWorkflowsList'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/DashboardWorkflowsList'
+        '404':
+          description: Not Found
+  /v1/workflows/my:
+    get:
+      tags:
+      - Workflows
+      summary: Assigned Workflows
+      description: Method that will return workflows related to requestor (does not support OData filtering yet)
+      operationId: Workflows_GetMy
+      parameters:
+      - name: pageSize
+        in: query
+        description: Page size
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: page
+        in: query
+        description: Number of displayed page
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: configurationId
+        in: query
+        description: Id of Workflow Dashboard configuration
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: search
+        in: query
+        description: Text for search filter
+        required: false
+        schema:
+          type: string
+      - name: orderBy
+        in: query
+        description: Field name for sorting
+        required: false
+        schema:
+          type: string
+      - name: orderDirection
+        in: query
+        description: 'Direction of sorting. Possible values: ASC, DESC'
+        required: false
+        schema:
+          type: string
+      - name: advancedFilter
+        in: query
+        description: 'Advanced filter for records (e.g. : column1~startswith~''value''~and~column2~eq~''value'')'
+        required: false
+        schema:
+          type: string
+      - name: dynamicColumns
+        in: query
+        description: Dynamic columns separated with comma to select and filter on
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardWorkflowsList'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/DashboardWorkflowsList'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/DashboardWorkflowsList'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/DashboardWorkflowsList'
+        '404':
+          description: Not Found
+  /v1/workflows/actionrequired:
+    get:
+      tags:
+      - Workflows
+      summary: Action Required Workflows
+      description: Method that will return workflows that required action of requestor (does not support OData filtering yet)
+      operationId: Workflows_GetActionRequired
+      parameters:
+      - name: pageSize
+        in: query
+        description: Page size
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: page
+        in: query
+        description: Number of displayed page
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: configurationId
+        in: query
+        description: Id of Workflow Dashboard configuration
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: search
+        in: query
+        description: Text for search filter
+        required: false
+        schema:
+          type: string
+      - name: orderBy
+        in: query
+        description: Field name for sorting
+        required: false
+        schema:
+          type: string
+      - name: orderDirection
+        in: query
+        description: 'Direction of sorting. Possible values: ASC, DESC'
+        required: false
+        schema:
+          type: string
+      - name: advancedFilter
+        in: query
+        description: 'Advanced filter for records (e.g. : column1~startswith~''value''~and~column2~eq~''value'')'
+        required: false
+        schema:
+          type: string
+      - name: dynamicColumns
+        in: query
+        description: Dynamic columns separated with comma to select and filter on
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardWorkflowsList'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/DashboardWorkflowsList'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/DashboardWorkflowsList'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/DashboardWorkflowsList'
+        '404':
+          description: Not Found
+  /v1/workflows/getarchivedrecords:
+    get:
+      tags:
+      - Workflows
+      summary: GetArchivedRecords
+      description: Method that will return workflows that that have been archived
+      operationId: Workflows_GetArchivedRecords
+      parameters:
+      - name: pageSize
+        in: query
+        description: Page size
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: page
+        in: query
+        description: Number of displayed page
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: search
+        in: query
+        description: Text for search filter
+        required: false
+        schema:
+          type: string
+      - name: orderBy
+        in: query
+        description: Field name for sorting
+        required: false
+        schema:
+          type: string
+      - name: orderDirection
+        in: query
+        description: 'Direction of sorting. Possible values: ASC, DESC'
+        required: false
+        schema:
+          type: string
+      - name: advancedFilter
+        in: query
+        description: 'Advanced filter for records (e.g. : column1~startswith~''value''~and~column2~eq~''value'')'
+        required: false
+        schema:
+          type: string
+      - name: additionalDynamicColumns
+        in: query
+        description: Dynamic columns separated with comma to select and filter on
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BasicWorkflowDetailsList'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BasicWorkflowDetailsList'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/BasicWorkflowDetailsList'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/BasicWorkflowDetailsList'
+        '404':
+          description: Not Found
+  /v1/workflows/{taskId}/view:
+    get:
+      tags:
+      - Workflows
+      summary: Task Values
+      description: View values from specific workflow task by "taskId"
+      operationId: Workflows_GetTaskValues
+      parameters:
+      - name: taskId
+        in: path
+        description: ID of workflow task
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: include
+        in: query
+        description: Additional properties to include. Use "fieldCode" value to add EchoSign code to result.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TaskValue'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TaskValue'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TaskValue'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TaskValue'
+        '404':
+          description: Not Found
+  /v1/workflows/form:
+    get:
+      tags:
+      - Workflows
+      summary: Form Info
+      description: View form info for workflow initiation or continuation. If there is only templateId provided - will return info for start stage.
+      operationId: Workflows_GetWorkflowForm
+      parameters:
+      - name: templateId
+        in: query
+        description: ID of workflow template
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: tokenId
+        in: query
+        description: ID of workflow token (for continuation only)
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: additionalInfo
+        in: query
+        description: Adds additional field info into result
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowForm'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowForm'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/WorkflowForm'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/WorkflowForm'
+        '404':
+          description: Not Found
+  /v1/workflows/{templateId}/form:
+    post:
+      tags:
+      - Workflows
+      summary: Initiate
+      description: 'Initiates workflow by workflow template ID. Allowed content types:
+
+
+        multipart/form-data (only way to submit files) in structure fieldName:fieldValue
+
+
+        application/x-www-form-urlencoded in structure fieldName=fieldValue
+
+
+        application/json in structure { "fieldName" : "fieldValue" }'
+      operationId: Workflows_InitiateWorkflow
+      parameters:
+      - name: templateId
+        in: path
+        description: ID of workflow template
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: title
+        in: query
+        description: Workflow Instance title
+        required: false
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowSubmitResult'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowSubmitResult'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/WorkflowSubmitResult'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/WorkflowSubmitResult'
+  /v1/workflows/{tokenId}/form:
+    put:
+      tags:
+      - Workflows
+      summary: Continue
+      description: 'Submit active workflow by Token ID. Allowed content types:
+
+
+        multipart/form-data (only way to submit files) in structure fieldName:fieldValue
+
+
+        application/x-www-form-urlencoded in structure fieldName=fieldValue
+
+
+        application/json in structure { "fieldName" : "fieldValue" }'
+      operationId: Workflows_ContinueWorkflow
+      parameters:
+      - name: tokenId
+        in: path
+        description: ID of workflow token
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowSubmitResult'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowSubmitResult'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/WorkflowSubmitResult'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/WorkflowSubmitResult'
+  /v1/workflows/saveform:
+    put:
+      tags:
+      - Workflows
+      summary: Save Workflow
+      description: 'Save the form without submitting the stage.
+
+        Save workflow by resultSetId or workflowName. Allowed content types:
+
+
+        multipart/form-data (only way to submit files) in structure fieldName:fieldValue
+
+
+        application/x-www-form-urlencoded in structure fieldName=fieldValue
+
+
+        application/json in structure { "fieldName" : "fieldValue" }'
+      operationId: Workflows_SaveWorkflow
+      parameters:
+      - name: resultsetId
+        in: query
+        description: ''
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: workflowName
+        in: query
+        description: ''
+        required: false
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowSubmitResult'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowSubmitResult'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/WorkflowSubmitResult'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/WorkflowSubmitResult'
+  /v1/workflows/{resultSetId}/files:
+    get:
+      tags:
+      - Workflows
+      summary: File Attachments
+      description: View workflow attachments by "resultSetId"
+      operationId: Workflows_GetFiles
+      parameters:
+      - name: resultSetId
+        in: path
+        description: ID of workflow
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AttachedFile'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AttachedFile'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AttachedFile'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AttachedFile'
+        '404':
+          description: Not Found
+  /v1/workflows/{resultSetId}/docs:
+    get:
+      tags:
+      - Workflows
+      summary: Signed Documents
+      description: View workflow signed documents by "resultSetId"
+      operationId: Workflows_GetDocuments
+      parameters:
+      - name: resultSetId
+        in: path
+        description: ID of workflow
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SignedDocument'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SignedDocument'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SignedDocument'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SignedDocument'
+        '404':
+          description: Not Found
+    delete:
+      tags:
+      - Workflows
+      summary: Cancel Sent Documents
+      description: Terminates workflow instance by "resultSetId"
+      operationId: Workflows_CancelDocuments
+      parameters:
+      - name: resultSetId
+        in: path
+        description: Unique ID of workflow instance
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: onlyReminders
+        in: query
+        description: Resets only reminders of workflow ("cancel and continue" if false)
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                format: uuid
+                type: string
+                example: 00000000-0000-0000-0000-000000000000
+            text/json:
+              schema:
+                format: uuid
+                type: string
+                example: 00000000-0000-0000-0000-000000000000
+            application/xml:
+              schema:
+                format: uuid
+                type: string
+                example: 00000000-0000-0000-0000-000000000000
+            text/xml:
+              schema:
+                format: uuid
+                type: string
+                example: 00000000-0000-0000-0000-000000000000
+        '404':
+          description: Not Found
+  /v1/workflows/{resultSetId}/cancel:
+    delete:
+      tags:
+      - Workflows
+      summary: Cancel Workflow
+      description: Cancels workflow instance by "resultSetId"
+      operationId: Workflows_Terminate
+      parameters:
+      - name: resultSetId
+        in: path
+        description: Unique ID of workflow instance
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '204':
+          description: No Content
+          content:
+            text/plain:
+              schema:
+                type: string
+            text/csv:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
+            application/xml:
+              schema:
+                type: string
+            text/xml:
+              schema:
+                type: string
+        '404':
+          description: Not Found
+  /v1/workflows/{tokenId}/assign/{userId}:
+    put:
+      tags:
+      - Workflows
+      summary: Re-assign Workflow
+      description: Assigns new user to specific workflow token by "tokenId"
+      operationId: Workflows_Assign
+      parameters:
+      - name: tokenId
+        in: path
+        description: ID of workflow token
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: userId
+        in: path
+        description: New user ID
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Ok
+          content:
+            text/plain:
+              schema:
+                type: string
+            text/csv:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
+            application/xml:
+              schema:
+                type: string
+            text/xml:
+              schema:
+                type: string
+        '404':
+          description: Not Found
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              type: string
+          text/csv:
+            schema:
+              type: string
+          application/json:
+            schema:
+              type: string
+          text/json:
+            schema:
+              type: string
+          application/xml:
+            schema:
+              type: string
+          text/xml:
+            schema:
+              type: string
+          application/x-www-form-urlencoded:
+            schema:
+              type: string
+        description: Comment about reassignment
+        required: true
+  /v1/workflows/archive:
+    post:
+      tags:
+      - Workflows
+      summary: Archive by ID
+      description: Archives records by resultSetId. Archived records can be restored with Restore calls
+      operationId: Workflows_ArchiveRecord
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+            text/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+            application/xml:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+            text/xml:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                format: uuid
+                type: string
+                example: 00000000-0000-0000-0000-000000000000
+          text/json:
+            schema:
+              type: array
+              items:
+                format: uuid
+                type: string
+                example: 00000000-0000-0000-0000-000000000000
+          application/xml:
+            schema:
+              type: array
+              items:
+                format: uuid
+                type: string
+                example: 00000000-0000-0000-0000-000000000000
+          text/xml:
+            schema:
+              type: array
+              items:
+                format: uuid
+                type: string
+                example: 00000000-0000-0000-0000-000000000000
+          application/x-www-form-urlencoded:
+            schema:
+              type: array
+              items:
+                format: uuid
+                type: string
+                example: 00000000-0000-0000-0000-000000000000
+        description: List of IDs for the Records you wish to Archive.
+        required: true
+  /v1/workflows/archive/name:
+    post:
+      tags:
+      - Workflows
+      summary: Archive by Name
+      description: Archives records by workflow name. Archived records can be restored with Restore calls
+      operationId: Workflows_ArchiveRecord
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+            text/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+            application/xml:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+            text/xml:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+          text/json:
+            schema:
+              type: array
+              items:
+                type: string
+          application/xml:
+            schema:
+              type: array
+              items:
+                type: string
+          text/xml:
+            schema:
+              type: array
+              items:
+                type: string
+          application/x-www-form-urlencoded:
+            schema:
+              type: array
+              items:
+                type: string
+        description: A list of the Workflow Record names you wish to archive.
+        required: true
+  /v1/workflows/archive/filter:
+    post:
+      tags:
+      - Workflows
+      summary: Archive by Filter
+      description: Archives records by Filter. Archived records can be restored with Restore calls
+      operationId: Workflows_ArchiveRecord
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+            text/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+            application/xml:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+            text/xml:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TapApiFilterStructureNotPaged'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/TapApiFilterStructureNotPaged'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/TapApiFilterStructureNotPaged'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/TapApiFilterStructureNotPaged'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TapApiFilterStructureNotPaged'
+        required: true
+  /v1/workflows/delete:
+    post:
+      tags:
+      - Workflows
+      summary: Delete by ID
+      description: Deletes records by resultSetId. Deleted records are removed permanently
+      operationId: Workflows_DeleteRecords
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+            text/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+            application/xml:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+            text/xml:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                format: uuid
+                type: string
+                example: 00000000-0000-0000-0000-000000000000
+          text/json:
+            schema:
+              type: array
+              items:
+                format: uuid
+                type: string
+                example: 00000000-0000-0000-0000-000000000000
+          application/xml:
+            schema:
+              type: array
+              items:
+                format: uuid
+                type: string
+                example: 00000000-0000-0000-0000-000000000000
+          text/xml:
+            schema:
+              type: array
+              items:
+                format: uuid
+                type: string
+                example: 00000000-0000-0000-0000-000000000000
+          application/x-www-form-urlencoded:
+            schema:
+              type: array
+              items:
+                format: uuid
+                type: string
+                example: 00000000-0000-0000-0000-000000000000
+        description: The list of IDs you wish to delete
+        required: true
+  /v1/workflows/delete/name:
+    post:
+      tags:
+      - Workflows
+      summary: Delete by Name
+      description: Deletes records by workflow name. Deleted records are removed permanently
+      operationId: Workflows_DeleteRecords
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+            text/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+            application/xml:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+            text/xml:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+          text/json:
+            schema:
+              type: array
+              items:
+                type: string
+          application/xml:
+            schema:
+              type: array
+              items:
+                type: string
+          text/xml:
+            schema:
+              type: array
+              items:
+                type: string
+          application/x-www-form-urlencoded:
+            schema:
+              type: array
+              items:
+                type: string
+        description: The Names you wish to Delete
+        required: true
+  /v1/workflows/delete/filter:
+    post:
+      tags:
+      - Workflows
+      summary: Delete by Filter
+      description: Deletes records by Filter. Deleted records are removed permanently
+      operationId: Workflows_DeleteRecord
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+            text/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+            application/xml:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+            text/xml:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TapApiFilterStructureNotPaged'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/TapApiFilterStructureNotPaged'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/TapApiFilterStructureNotPaged'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/TapApiFilterStructureNotPaged'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TapApiFilterStructureNotPaged'
+        required: true
+  /v1/workflows/restore:
+    post:
+      tags:
+      - Workflows
+      summary: Restore by ID
+      description: Restores previously-archived records by resultSetId
+      operationId: Workflows_RestoreRecord
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+            text/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+            application/xml:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+            text/xml:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                format: uuid
+                type: string
+                example: 00000000-0000-0000-0000-000000000000
+          text/json:
+            schema:
+              type: array
+              items:
+                format: uuid
+                type: string
+                example: 00000000-0000-0000-0000-000000000000
+          application/xml:
+            schema:
+              type: array
+              items:
+                format: uuid
+                type: string
+                example: 00000000-0000-0000-0000-000000000000
+          text/xml:
+            schema:
+              type: array
+              items:
+                format: uuid
+                type: string
+                example: 00000000-0000-0000-0000-000000000000
+          application/x-www-form-urlencoded:
+            schema:
+              type: array
+              items:
+                format: uuid
+                type: string
+                example: 00000000-0000-0000-0000-000000000000
+        description: The list of workflow records to restore
+        required: true
+  /v1/workflows/restore/name:
+    post:
+      tags:
+      - Workflows
+      summary: Restore by Name
+      description: Restores previously-archived records by workflow name
+      operationId: Workflows_RestoreRecord
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+            text/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+            application/xml:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+            text/xml:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+          text/json:
+            schema:
+              type: array
+              items:
+                type: string
+          application/xml:
+            schema:
+              type: array
+              items:
+                type: string
+          text/xml:
+            schema:
+              type: array
+              items:
+                type: string
+          application/x-www-form-urlencoded:
+            schema:
+              type: array
+              items:
+                type: string
+        description: The list of workflow records to restore
+        required: true
+  /v1/workflows/restore/filter:
+    post:
+      tags:
+      - Workflows
+      summary: Restore by Filter
+      description: Restores previously-archived records by Filter
+      operationId: Workflows_RestoreRecord
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+            text/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+            application/xml:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+            text/xml:
+              schema:
+                type: object
+                additionalProperties:
+                  type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TapApiFilterStructureNotPaged'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/TapApiFilterStructureNotPaged'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/TapApiFilterStructureNotPaged'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/TapApiFilterStructureNotPaged'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TapApiFilterStructureNotPaged'
+        description: The list of workflow records to restore
+        required: true
+  /v1/workflows/getaudittrail/filter:
+    get:
+      tags:
+      - Workflows
+      summary: Audit Trail by Filter
+      description: Get list of audit trail of selected workflow by Filter.
+      operationId: Workflows_GetAuditTrail
+      parameters:
+      - name: filter.pageSize
+        in: query
+        description: ''
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: filter.page
+        in: query
+        description: ''
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: filter.configurationId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: filter.search
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: filter.orderBy
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: filter.orderDirection
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: filter.advancedFilter
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: filter.dynamicColumns
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BasicAuditTrailDetailsList'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BasicAuditTrailDetailsList'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/BasicAuditTrailDetailsList'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/BasicAuditTrailDetailsList'
+  /v1/workflows/getaudittrail/name:
+    get:
+      tags:
+      - Workflows
+      summary: Audit Trail by Name
+      description: Get list of audit trail of selected workflow by name.
+      operationId: Workflows_GetAuditTrail
+      parameters:
+      - name: workflowNames
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BasicAuditTrailDetailsList'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BasicAuditTrailDetailsList'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/BasicAuditTrailDetailsList'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/BasicAuditTrailDetailsList'
+  /v1/workflows/getaudittrail:
+    get:
+      tags:
+      - Workflows
+      summary: Audit Trail by ID
+      description: Get list of audit trail of selected workflow by resultSetId.
+      operationId: Workflows_GetAuditTrail
+      parameters:
+      - name: resultSetIds
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BasicAuditTrailDetailsList'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BasicAuditTrailDetailsList'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/BasicAuditTrailDetailsList'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/BasicAuditTrailDetailsList'
+  /v1/workflows/getaudittraildetails/filter:
+    get:
+      tags:
+      - Workflows
+      summary: Audit Trail Log by Filter
+      description: Method to audit the workflows by Filter. Get list of audit trail log by filter.
+      operationId: Workflows_GetAuditTrailDetailsWithFilter
+      parameters:
+      - name: filter.pageSize
+        in: query
+        description: ''
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: filter.page
+        in: query
+        description: ''
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: filter.configurationId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: filter.search
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: filter.orderBy
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: filter.orderDirection
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: filter.advancedFilter
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: filter.dynamicColumns
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AuditTrailDetailList'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AuditTrailDetailList'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AuditTrailDetailList'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AuditTrailDetailList'
+  /v1/workflows/comments/name:
+    get:
+      tags:
+      - Workflows
+      summary: Comments by Workflow Names
+      description: Get workflow comments from a workflow or list of workflows based on provided Workflow Name(s).
+      operationId: Workflows_GetComments
+      parameters:
+      - name: workflowNames
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommentsDetailList'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommentsDetailList'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommentsDetailList'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommentsDetailList'
+  /v1/workflows/comments:
+    get:
+      tags:
+      - Workflows
+      summary: Comments by Workflow ID
+      description: Get workflow comments from a workflow or list of workflows based on Workflow ID/ResultSetID.
+      operationId: Workflows_GetComments
+      parameters:
+      - name: resultSetIds
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommentsDetailList'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommentsDetailList'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommentsDetailList'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommentsDetailList'
+  /v1/workflows/comments/all:
+    get:
+      tags:
+      - Workflows
+      summary: Comments by Filter Id
+      description: Get workflow comments from a workflow or list of workflows based on provided dashboard view Filter ID/Configuration ID.
+      operationId: Workflows_GetComments
+      parameters:
+      - name: filter.pageSize
+        in: query
+        description: ''
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: filter.page
+        in: query
+        description: ''
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: filter.configurationId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: filter.search
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: filter.orderBy
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: filter.orderDirection
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: filter.advancedFilter
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: filter.dynamicColumns
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BasicCommentsFields'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BasicCommentsFields'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/BasicCommentsFields'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/BasicCommentsFields'
+  /v1/workflows/discussion:
+    get:
+      tags:
+      - Workflows
+      summary: Discussion by Workflow ID
+      description: Get discussion section info for a workflow or list of workflows based on Workflow ID/ResultSetID.
+      operationId: Workflows_GetCollabCommentsById
+      parameters:
+      - name: resultSetIds
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommentsDetailList'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommentsDetailList'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommentsDetailList'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommentsDetailList'
+  /v1/workflows/discussion/name:
+    get:
+      tags:
+      - Workflows
+      summary: Discussion by Workflow Names
+      description: Get discussion section info for a workflow or list of workflows based on provided Workflow Name(s).
+      operationId: Workflows_GetCollabCommentsByName
+      parameters:
+      - name: workflowNames
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommentsDetailList'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommentsDetailList'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommentsDetailList'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommentsDetailList'
+  /v1/workflows/discussion/all:
+    get:
+      tags:
+      - Workflows
+      summary: Discussion by Filter Id
+      description: Get discussion section info for a workflow or list of workflows based on provided dashboard view Filter ID/Configuration Id.
+      operationId: Workflows_GetCollabComments
+      parameters:
+      - name: filter.pageSize
+        in: query
+        description: ''
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: filter.page
+        in: query
+        description: ''
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: filter.configurationId
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: filter.search
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: filter.orderBy
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: filter.orderDirection
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: filter.advancedFilter
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: filter.dynamicColumns
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BasicCommentsFields'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BasicCommentsFields'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/BasicCommentsFields'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/BasicCommentsFields'
+components:
+  schemas:
+    BasicAuditTrailDetailsList:
+      description: Wrapper for Basic audit trail details
+      type: object
+      properties:
+        Items:
+          description: Requested items
+          type: array
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/BasicAuditTrailDetails'
+        Count:
+          format: int32
+          description: Total items
+          type: integer
+    Column:
+      description: Dashboard Column definition
+      type: object
+      properties:
+        Name:
+          description: Column name
+          type: string
+        Label:
+          description: Column Label
+          type: string
+        Value:
+          description: Value
+          type: string
+    BasicCommentsFields:
+      type: object
+      properties:
+        Items:
+          description: Requested items
+          type: array
+          items:
+            $ref: '#/components/schemas/CommentsDetailList'
+        Count:
+          format: int32
+          description: Total items
+          type: integer
+    SignedDocument:
+      description: Workflow signed document
+      type: object
+      properties:
+        ID:
+          format: uuid
+          description: Document ID
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+        Name:
+          description: Document name
+          type: string
+        Status:
+          description: Document status
+          type: string
+        SignedOn:
+          format: date-time
+          description: Date of signing
+          type: string
+        AgreementID:
+          description: ESign agreement ID (Document Key)
+          type: string
+        UploadedOn:
+          format: date-time
+          description: Date of uploading
+          type: string
+        UploadedBy:
+          description: User Uploaded
+          type: string
+    DashboardWorkflow:
+      description: Workflow Instance definition for dashboard
+      type: object
+      properties:
+        ResultSetId:
+          format: uuid
+          description: Workflow Instance ID
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+        TaskId:
+          format: uuid
+          description: Task ID
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+        TokenId:
+          format: uuid
+          description: Token ID
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+        Columns:
+          description: Column Collection
+          type: array
+          items:
+            $ref: '#/components/schemas/Column'
+        Actions:
+          description: Allowed Actions
+          type: array
+          items:
+            type: string
+    WorkflowSubmitResult:
+      description: Result message for workflow initiation or cintinuation
+      type: object
+      properties:
+        ResultSetId:
+          format: uuid
+          description: Result Set ID of workflow instance
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+        TokenCollection:
+          description: Token IDs of new workflow stages
+          type: array
+          items:
+            format: uuid
+            type: string
+            example: 00000000-0000-0000-0000-000000000000
+    FormSection:
+      type: object
+      properties:
+        title:
+          type: string
+        sectionIndex:
+          format: int32
+          type: integer
+        HideSection:
+          type: boolean
+    TaskValue:
+      description: Task value wrapper
+      type: object
+      properties:
+        Label:
+          description: Label for task value
+          type: string
+        Value:
+          description: Task value
+          type: string
+        Code:
+          description: Task code
+          type: string
+    AuditTrailDetailList:
+      description: Workflow Attachment
+      type: object
+      properties:
+        WorkflowName:
+          type: string
+        AuditTrailFieldLogStageList:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditTrailFieldLogStage'
+    DashboardWorkflowsList:
+      description: Wrapper for Dashboard Workflows
+      type: object
+      properties:
+        Items:
+          description: Requested items
+          type: array
+          items:
+            $ref: '#/components/schemas/DashboardWorkflow'
+        Count:
+          format: int32
+          description: Total items
+          type: integer
+    SimpleFormField:
+      description: Description of Form Field for submission
+      type: object
+      properties:
+        ID:
+          description: Element unique ID
+          type: string
+        Name:
+          description: Element Name
+          type: string
+        Label:
+          description: Label
+          type: string
+        Value:
+          description: Predefined value
+          type: string
+        Required:
+          description: Is Required
+          type: boolean
+        Editable:
+          description: Is Editable
+          type: boolean
+        Validation:
+          description: Validation for current field
+          type: string
+        FieldType:
+          description: Type of field
+          type: string
+        AdditionalInfo:
+          description: Additional Field info
+          type: object
+        RequiredForSave:
+          type: boolean
+    CommentsDetailList:
+      description: CommentsDetailList
+      type: object
+      properties:
+        WorkflowName:
+          description: WorkflowName
+          type: string
+        Count:
+          format: int32
+          description: Count
+          type: integer
+        Error:
+          description: Error
+          type: string
+        CommentsFieldsList:
+          description: List of comments fields
+          type: array
+          items:
+            type: object
+    WorkflowForm:
+      description: Object that describes workflow for submission
+      type: object
+      properties:
+        TemplateId:
+          format: uuid
+          description: Workflow Template ID
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+        ResultSetId:
+          format: uuid
+          description: Workflow Instance ID
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+        TaskId:
+          format: uuid
+          description: Task ID
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+        TokenId:
+          format: uuid
+          description: Token ID
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+        TemplateName:
+          description: Template Name
+          type: string
+        Title:
+          description: Instance Name
+          type: string
+        StageTitle:
+          description: Active Stage Title
+          type: string
+        Status:
+          description: Workflow Status
+          type: string
+        ActiveRelationship:
+          description: Current relationship (s)
+          type: string
+        IsContinuable:
+          description: Is available for continuation
+          type: boolean
+        CurrentAssignee:
+          description: Current Assegnee ID
+          type: string
+        IsWizardEnabled:
+          description: If true - section fields should be grouped on UI
+          type: boolean
+        FormSections:
+          description: Section names for workflow form
+          type: array
+          items:
+            $ref: '#/components/schemas/FormSection'
+        AdditionalWorkflowInfo:
+          description: Additional Info
+          type: object
+        FormFields:
+          description: Workflow Form Fields
+          type: array
+          items:
+            $ref: '#/components/schemas/SimpleFormField'
+    BasicAuditTrailDetails:
+      description: Basic Audit Trail details Instance definition for workflows
+      type: object
+      properties:
+        RecordName:
+          description: Workflow Name
+          type: string
+        StageName:
+          description: Stage Name
+          type: string
+        StageAssignedTo:
+          description: stage assigned to
+          type: string
+        StageSubmittedBy:
+          description: stage submitted by
+          type: string
+        DateSubmitted:
+          description: Date Submitted
+          type: string
+        StatusSubmittedTo:
+          description: status submitted to
+          type: string
+    AuditTrailFieldLogStage:
+      description: Workflow Attachment
+      type: object
+      properties:
+        Stage:
+          description: Name of the stage
+          type: string
+        Date:
+          format: date-time
+          description: Timestamp when stage was saved
+          type: string
+        User:
+          description: User that saved the stage
+          type: string
+        Status:
+          description: Status of the stage
+          type: string
+        Fields:
+          description: Specific field log
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditTrailFieldLog'
+    AttachedFile:
+      description: Workflow Attachment
+      type: object
+      properties:
+        ID:
+          format: uuid
+          description: File ID
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+        Name:
+          description: File Name
+          type: string
+        UploadedBy:
+          description: User uploaded
+          type: string
+        UploadedOn:
+          format: date-time
+          description: Date uploaded
+          type: string
+    BasicWorkflowDetailsList:
+      description: Wrapper for Basic workflow details
+      type: object
+      properties:
+        Items:
+          description: Requested items
+          type: array
+          items:
+            $ref: '#/components/schemas/BasicWorkflowDetails'
+        Count:
+          format: int32
+          description: Total items
+          type: integer
+    TapApiFilterStructureNotPaged:
+      description: ''
+      type: object
+      properties:
+        PageSize:
+          format: int32
+          description: Force -1 as a value, since this will allow for filtering all items
+          type: integer
+        Page:
+          format: int32
+          description: Force -1 as a value, since this will allow for filtering all items
+          type: integer
+        ConfigurationId:
+          format: uuid
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+        Search:
+          type: string
+        OrderBy:
+          type: string
+        OrderDirection:
+          type: string
+        AdvancedFilter:
+          type: string
+        DynamicColumns:
+          type: string
+        IsNullFilter:
+          description: Checks if any part of the filter is defined, not including page size or which page
+          type: boolean
+          readOnly: true
+    AuditTrailFieldLog:
+      description: Workflow Attachment
+      type: object
+      properties:
+        Name:
+          description: Name of the field
+          type: string
+        Value:
+          description: Value of the field
+          type: string
+        Type:
+          description: Type of the field
+          type: string
+        Label:
+          description: Label of the field
+          type: string
+    BasicWorkflowDetails:
+      description: Basic details Instance definition for workflows
+      type: object
+      properties:
+        ResultSetId:
+          format: uuid
+          description: Workflow Instance ID
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+        WorkflowName:
+          description: Workflow Name
+          type: string
+        Status:
+          description: Current Status
+          type: string
+        CurrentAssignee:
+          description: Current Assignee
+          type: string
+        CreatedOn:
+          description: Date Created
+          type: string
+        LastUpdatedOn:
+          description: Last Updated On
+          type: string

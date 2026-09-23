@@ -1,0 +1,67 @@
+openapi: 3.2.0
+info:
+  version: v1
+  title: TAP API Explorer Dashboard API
+servers:
+- url: https://demo.tap.thinksmart.com/prod/api
+tags:
+- name: Dashboard
+paths:
+  /v1/dashboard/columns:
+    get:
+      tags:
+      - Dashboard
+      summary: Grid Columns
+      description: Method that will return all dashboard workflows (does not support OData filtering yet)
+      operationId: Dashboard_Columns
+      parameters:
+      - name: onlyFromInstances
+        in: query
+        description: Should include dynamic columns only from initiated forkflows
+        required: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DashboardColumnDefinition'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DashboardColumnDefinition'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DashboardColumnDefinition'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DashboardColumnDefinition'
+        '404':
+          description: Not Found
+components:
+  schemas:
+    DashboardColumnDefinition:
+      description: Dashboard Column definition
+      type: object
+      properties:
+        Name:
+          description: Column name
+          type: string
+        Label:
+          description: Column Label
+          type: string
+        IsStatic:
+          description: Is this column is static
+          type: boolean
+        DataType:
+          description: Type of value for this column
+          type: string
