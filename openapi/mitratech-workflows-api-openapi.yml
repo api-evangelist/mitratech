@@ -849,7 +849,7 @@ paths:
       - Workflows
       summary: Archive by Name
       description: Archives records by workflow name. Archived records can be restored with Restore calls
-      operationId: Workflows_ArchiveRecord
+      operationId: postV1WorkflowsArchiveName
       responses:
         '200':
           description: OK
@@ -903,13 +903,15 @@ paths:
                 type: string
         description: A list of the Workflow Record names you wish to archive.
         required: true
+      x-operation-id-source: normalized
+      x-operation-id-original: Workflows_ArchiveRecord
   /v1/workflows/archive/filter:
     post:
       tags:
       - Workflows
       summary: Archive by Filter
       description: Archives records by Filter. Archived records can be restored with Restore calls
-      operationId: Workflows_ArchiveRecord
+      operationId: postV1WorkflowsArchiveFilter
       responses:
         '200':
           description: OK
@@ -952,6 +954,8 @@ paths:
             schema:
               $ref: '#/components/schemas/TapApiFilterStructureNotPaged'
         required: true
+      x-operation-id-source: normalized
+      x-operation-id-original: Workflows_ArchiveRecord
   /v1/workflows/delete:
     post:
       tags:
@@ -1028,7 +1032,7 @@ paths:
       - Workflows
       summary: Delete by Name
       description: Deletes records by workflow name. Deleted records are removed permanently
-      operationId: Workflows_DeleteRecords
+      operationId: postV1WorkflowsDeleteName
       responses:
         '200':
           description: OK
@@ -1082,6 +1086,8 @@ paths:
                 type: string
         description: The Names you wish to Delete
         required: true
+      x-operation-id-source: normalized
+      x-operation-id-original: Workflows_DeleteRecords
   /v1/workflows/delete/filter:
     post:
       tags:
@@ -1207,7 +1213,7 @@ paths:
       - Workflows
       summary: Restore by Name
       description: Restores previously-archived records by workflow name
-      operationId: Workflows_RestoreRecord
+      operationId: postV1WorkflowsRestoreName
       responses:
         '200':
           description: OK
@@ -1261,13 +1267,15 @@ paths:
                 type: string
         description: The list of workflow records to restore
         required: true
+      x-operation-id-source: normalized
+      x-operation-id-original: Workflows_RestoreRecord
   /v1/workflows/restore/filter:
     post:
       tags:
       - Workflows
       summary: Restore by Filter
       description: Restores previously-archived records by Filter
-      operationId: Workflows_RestoreRecord
+      operationId: postV1WorkflowsRestoreFilter
       responses:
         '200':
           description: OK
@@ -1311,6 +1319,8 @@ paths:
               $ref: '#/components/schemas/TapApiFilterStructureNotPaged'
         description: The list of workflow records to restore
         required: true
+      x-operation-id-source: normalized
+      x-operation-id-original: Workflows_RestoreRecord
   /v1/workflows/getaudittrail/filter:
     get:
       tags:
@@ -1386,7 +1396,7 @@ paths:
       - Workflows
       summary: Audit Trail by Name
       description: Get list of audit trail of selected workflow by name.
-      operationId: Workflows_GetAuditTrail
+      operationId: getV1WorkflowsGetaudittrailName
       parameters:
       - name: workflowNames
         in: query
@@ -1414,13 +1424,15 @@ paths:
             text/xml:
               schema:
                 $ref: '#/components/schemas/BasicAuditTrailDetailsList'
+      x-operation-id-source: normalized
+      x-operation-id-original: Workflows_GetAuditTrail
   /v1/workflows/getaudittrail:
     get:
       tags:
       - Workflows
       summary: Audit Trail by ID
       description: Get list of audit trail of selected workflow by resultSetId.
-      operationId: Workflows_GetAuditTrail
+      operationId: getV1WorkflowsGetaudittrail
       parameters:
       - name: resultSetIds
         in: query
@@ -1449,6 +1461,8 @@ paths:
             text/xml:
               schema:
                 $ref: '#/components/schemas/BasicAuditTrailDetailsList'
+      x-operation-id-source: normalized
+      x-operation-id-original: Workflows_GetAuditTrail
   /v1/workflows/getaudittraildetails/filter:
     get:
       tags:
@@ -1574,7 +1588,7 @@ paths:
       - Workflows
       summary: Comments by Workflow ID
       description: Get workflow comments from a workflow or list of workflows based on Workflow ID/ResultSetID.
-      operationId: Workflows_GetComments
+      operationId: getV1WorkflowsComments
       parameters:
       - name: resultSetIds
         in: query
@@ -1611,13 +1625,15 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/CommentsDetailList'
+      x-operation-id-source: normalized
+      x-operation-id-original: Workflows_GetComments
   /v1/workflows/comments/all:
     get:
       tags:
       - Workflows
       summary: Comments by Filter Id
       description: Get workflow comments from a workflow or list of workflows based on provided dashboard view Filter ID/Configuration ID.
-      operationId: Workflows_GetComments
+      operationId: getV1WorkflowsCommentsAll
       parameters:
       - name: filter.pageSize
         in: query
@@ -1680,6 +1696,8 @@ paths:
             text/xml:
               schema:
                 $ref: '#/components/schemas/BasicCommentsFields'
+      x-operation-id-source: normalized
+      x-operation-id-original: Workflows_GetComments
   /v1/workflows/discussion:
     get:
       tags:
@@ -1836,75 +1854,68 @@ paths:
                 $ref: '#/components/schemas/BasicCommentsFields'
 components:
   schemas:
-    BasicAuditTrailDetailsList:
-      description: Wrapper for Basic audit trail details
+    BasicAuditTrailDetails:
+      description: Basic Audit Trail details Instance definition for workflows
       type: object
       properties:
-        Items:
-          description: Requested items
+        RecordName:
+          description: Workflow Name
+          type: string
+        StageName:
+          description: Stage Name
+          type: string
+        StageAssignedTo:
+          description: stage assigned to
+          type: string
+        StageSubmittedBy:
+          description: stage submitted by
+          type: string
+        DateSubmitted:
+          description: Date Submitted
+          type: string
+        StatusSubmittedTo:
+          description: status submitted to
+          type: string
+    AuditTrailDetailList:
+      description: Workflow Attachment
+      type: object
+      properties:
+        WorkflowName:
+          type: string
+        AuditTrailFieldLogStageList:
           type: array
           items:
-            type: array
-            items:
-              $ref: '#/components/schemas/BasicAuditTrailDetails'
-        Count:
+            $ref: '#/components/schemas/AuditTrailFieldLogStage'
+    TapApiFilterStructureNotPaged:
+      description: ''
+      type: object
+      properties:
+        PageSize:
           format: int32
-          description: Total items
+          description: Force -1 as a value, since this will allow for filtering all items
           type: integer
-    Column:
-      description: Dashboard Column definition
-      type: object
-      properties:
-        Name:
-          description: Column name
-          type: string
-        Label:
-          description: Column Label
-          type: string
-        Value:
-          description: Value
-          type: string
-    BasicCommentsFields:
-      type: object
-      properties:
-        Items:
-          description: Requested items
-          type: array
-          items:
-            $ref: '#/components/schemas/CommentsDetailList'
-        Count:
+        Page:
           format: int32
-          description: Total items
+          description: Force -1 as a value, since this will allow for filtering all items
           type: integer
-    SignedDocument:
-      description: Workflow signed document
-      type: object
-      properties:
-        ID:
+        ConfigurationId:
           format: uuid
-          description: Document ID
           type: string
           example: 00000000-0000-0000-0000-000000000000
-        Name:
-          description: Document name
+        Search:
           type: string
-        Status:
-          description: Document status
+        OrderBy:
           type: string
-        SignedOn:
-          format: date-time
-          description: Date of signing
+        OrderDirection:
           type: string
-        AgreementID:
-          description: ESign agreement ID (Document Key)
+        AdvancedFilter:
           type: string
-        UploadedOn:
-          format: date-time
-          description: Date of uploading
+        DynamicColumns:
           type: string
-        UploadedBy:
-          description: User Uploaded
-          type: string
+        IsNullFilter:
+          description: Checks if any part of the filter is defined, not including page size or which page
+          type: boolean
+          readOnly: true
     DashboardWorkflow:
       description: Workflow Instance definition for dashboard
       type: object
@@ -1950,104 +1961,30 @@ components:
             format: uuid
             type: string
             example: 00000000-0000-0000-0000-000000000000
-    FormSection:
+    BasicWorkflowDetails:
+      description: Basic details Instance definition for workflows
       type: object
       properties:
-        title:
+        ResultSetId:
+          format: uuid
+          description: Workflow Instance ID
           type: string
-        sectionIndex:
-          format: int32
-          type: integer
-        HideSection:
-          type: boolean
-    TaskValue:
-      description: Task value wrapper
-      type: object
-      properties:
-        Label:
-          description: Label for task value
-          type: string
-        Value:
-          description: Task value
-          type: string
-        Code:
-          description: Task code
-          type: string
-    AuditTrailDetailList:
-      description: Workflow Attachment
-      type: object
-      properties:
+          example: 00000000-0000-0000-0000-000000000000
         WorkflowName:
+          description: Workflow Name
           type: string
-        AuditTrailFieldLogStageList:
-          type: array
-          items:
-            $ref: '#/components/schemas/AuditTrailFieldLogStage'
-    DashboardWorkflowsList:
-      description: Wrapper for Dashboard Workflows
-      type: object
-      properties:
-        Items:
-          description: Requested items
-          type: array
-          items:
-            $ref: '#/components/schemas/DashboardWorkflow'
-        Count:
-          format: int32
-          description: Total items
-          type: integer
-    SimpleFormField:
-      description: Description of Form Field for submission
-      type: object
-      properties:
-        ID:
-          description: Element unique ID
+        Status:
+          description: Current Status
           type: string
-        Name:
-          description: Element Name
+        CurrentAssignee:
+          description: Current Assignee
           type: string
-        Label:
-          description: Label
+        CreatedOn:
+          description: Date Created
           type: string
-        Value:
-          description: Predefined value
+        LastUpdatedOn:
+          description: Last Updated On
           type: string
-        Required:
-          description: Is Required
-          type: boolean
-        Editable:
-          description: Is Editable
-          type: boolean
-        Validation:
-          description: Validation for current field
-          type: string
-        FieldType:
-          description: Type of field
-          type: string
-        AdditionalInfo:
-          description: Additional Field info
-          type: object
-        RequiredForSave:
-          type: boolean
-    CommentsDetailList:
-      description: CommentsDetailList
-      type: object
-      properties:
-        WorkflowName:
-          description: WorkflowName
-          type: string
-        Count:
-          format: int32
-          description: Count
-          type: integer
-        Error:
-          description: Error
-          type: string
-        CommentsFieldsList:
-          description: List of comments fields
-          type: array
-          items:
-            type: object
     WorkflowForm:
       description: Object that describes workflow for submission
       type: object
@@ -2109,28 +2046,156 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SimpleFormField'
-    BasicAuditTrailDetails:
-      description: Basic Audit Trail details Instance definition for workflows
+    CommentsDetailList:
+      description: CommentsDetailList
       type: object
       properties:
-        RecordName:
-          description: Workflow Name
+        WorkflowName:
+          description: WorkflowName
           type: string
-        StageName:
-          description: Stage Name
+        Count:
+          format: int32
+          description: Count
+          type: integer
+        Error:
+          description: Error
           type: string
-        StageAssignedTo:
-          description: stage assigned to
+        CommentsFieldsList:
+          description: List of comments fields
+          type: array
+          items:
+            type: object
+    AttachedFile:
+      description: Workflow Attachment
+      type: object
+      properties:
+        ID:
+          format: uuid
+          description: File ID
           type: string
-        StageSubmittedBy:
-          description: stage submitted by
+          example: 00000000-0000-0000-0000-000000000000
+        Name:
+          description: File Name
           type: string
-        DateSubmitted:
-          description: Date Submitted
+        UploadedBy:
+          description: User uploaded
           type: string
-        StatusSubmittedTo:
-          description: status submitted to
+        UploadedOn:
+          format: date-time
+          description: Date uploaded
           type: string
+    FormSection:
+      type: object
+      properties:
+        title:
+          type: string
+        sectionIndex:
+          format: int32
+          type: integer
+        HideSection:
+          type: boolean
+    SimpleFormField:
+      description: Description of Form Field for submission
+      type: object
+      properties:
+        ID:
+          description: Element unique ID
+          type: string
+        Name:
+          description: Element Name
+          type: string
+        Label:
+          description: Label
+          type: string
+        Value:
+          description: Predefined value
+          type: string
+        Required:
+          description: Is Required
+          type: boolean
+        Editable:
+          description: Is Editable
+          type: boolean
+        Validation:
+          description: Validation for current field
+          type: string
+        FieldType:
+          description: Type of field
+          type: string
+        AdditionalInfo:
+          description: Additional Field info
+          type: object
+        RequiredForSave:
+          type: boolean
+    TaskValue:
+      description: Task value wrapper
+      type: object
+      properties:
+        Label:
+          description: Label for task value
+          type: string
+        Value:
+          description: Task value
+          type: string
+        Code:
+          description: Task code
+          type: string
+    SignedDocument:
+      description: Workflow signed document
+      type: object
+      properties:
+        ID:
+          format: uuid
+          description: Document ID
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+        Name:
+          description: Document name
+          type: string
+        Status:
+          description: Document status
+          type: string
+        SignedOn:
+          format: date-time
+          description: Date of signing
+          type: string
+        AgreementID:
+          description: ESign agreement ID (Document Key)
+          type: string
+        UploadedOn:
+          format: date-time
+          description: Date of uploading
+          type: string
+        UploadedBy:
+          description: User Uploaded
+          type: string
+    BasicCommentsFields:
+      type: object
+      properties:
+        Items:
+          description: Requested items
+          type: array
+          items:
+            $ref: '#/components/schemas/CommentsDetailList'
+        Count:
+          format: int32
+          description: Total items
+          type: integer
+    BasicAuditTrailDetailsList:
+      description: Wrapper for Basic audit trail details
+      type: object
+      properties:
+        Items:
+          description: Requested items
+          type: array
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/BasicAuditTrailDetails'
+        Count:
+          format: int32
+          description: Total items
+          type: integer
     AuditTrailFieldLogStage:
       description: Workflow Attachment
       type: object
@@ -2153,25 +2218,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AuditTrailFieldLog'
-    AttachedFile:
-      description: Workflow Attachment
+    DashboardWorkflowsList:
+      description: Wrapper for Dashboard Workflows
       type: object
       properties:
-        ID:
-          format: uuid
-          description: File ID
-          type: string
-          example: 00000000-0000-0000-0000-000000000000
-        Name:
-          description: File Name
-          type: string
-        UploadedBy:
-          description: User uploaded
-          type: string
-        UploadedOn:
-          format: date-time
-          description: Date uploaded
-          type: string
+        Items:
+          description: Requested items
+          type: array
+          items:
+            $ref: '#/components/schemas/DashboardWorkflow'
+        Count:
+          format: int32
+          description: Total items
+          type: integer
     BasicWorkflowDetailsList:
       description: Wrapper for Basic workflow details
       type: object
@@ -2185,36 +2244,6 @@ components:
           format: int32
           description: Total items
           type: integer
-    TapApiFilterStructureNotPaged:
-      description: ''
-      type: object
-      properties:
-        PageSize:
-          format: int32
-          description: Force -1 as a value, since this will allow for filtering all items
-          type: integer
-        Page:
-          format: int32
-          description: Force -1 as a value, since this will allow for filtering all items
-          type: integer
-        ConfigurationId:
-          format: uuid
-          type: string
-          example: 00000000-0000-0000-0000-000000000000
-        Search:
-          type: string
-        OrderBy:
-          type: string
-        OrderDirection:
-          type: string
-        AdvancedFilter:
-          type: string
-        DynamicColumns:
-          type: string
-        IsNullFilter:
-          description: Checks if any part of the filter is defined, not including page size or which page
-          type: boolean
-          readOnly: true
     AuditTrailFieldLog:
       description: Workflow Attachment
       type: object
@@ -2231,27 +2260,16 @@ components:
         Label:
           description: Label of the field
           type: string
-    BasicWorkflowDetails:
-      description: Basic details Instance definition for workflows
+    Column:
+      description: Dashboard Column definition
       type: object
       properties:
-        ResultSetId:
-          format: uuid
-          description: Workflow Instance ID
+        Name:
+          description: Column name
           type: string
-          example: 00000000-0000-0000-0000-000000000000
-        WorkflowName:
-          description: Workflow Name
+        Label:
+          description: Column Label
           type: string
-        Status:
-          description: Current Status
-          type: string
-        CurrentAssignee:
-          description: Current Assignee
-          type: string
-        CreatedOn:
-          description: Date Created
-          type: string
-        LastUpdatedOn:
-          description: Last Updated On
+        Value:
+          description: Value
           type: string

@@ -27,7 +27,7 @@ tags:
 - Matter Management
 - Governance Risk and Compliance
 - Compliance
-- Workflow-Automation
+- Workflow Automation
 - Contract Lifecycle Management
 - HR Compliance
 - Risk Management
@@ -48,6 +48,7 @@ tags_raw:
 - immigration
 - odata
 - mcp
+- Workflow-Automation
 apis:
 - name: Mitratech TeamConnect REST API
   description: >-
@@ -106,6 +107,9 @@ apis:
     url: mcp/mitratech-tool-crosswalk.yml
   - type: OAuthScopes
     url: scopes/mitratech-scopes.yml
+  x-surface: platform-generated
+  x-platform: wordpress
+  x-platform-surface: mcp-plugin
 - aid: mitratech:mitratech-dashboard-api
   name: Mitratech Dashboard API
   description: The Dashboard API from Mitratech — 1 operation(s) for dashboard.

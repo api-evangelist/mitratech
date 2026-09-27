@@ -115,7 +115,7 @@ paths:
       - Users
       summary: All Users
       description: Returns TAP users info
-      operationId: Users_Get
+      operationId: getV1Users
       parameters:
       - name: $top
         in: query
@@ -169,6 +169,8 @@ paths:
             text/xml:
               schema:
                 $ref: '#/components/schemas/PageResult_AdvancedUserModel'
+      x-operation-id-source: normalized
+      x-operation-id-original: Users_Get
     post:
       tags:
       - Users
@@ -369,66 +371,6 @@ components:
         DateCreated:
           format: date-time
           type: string
-    KeyValuePair:
-      description: ''
-      type: object
-      properties:
-        Key:
-          type: string
-        Value:
-          type: string
-    User:
-      description: TAP User
-      type: object
-      properties:
-        ID:
-          format: uuid
-          description: User ID
-          type: string
-          example: 00000000-0000-0000-0000-000000000000
-        FullName:
-          description: User name and surname
-          type: string
-        Email:
-          description: User email
-          type: string
-        Roles:
-          description: Roles assigned to user
-          type: array
-          items:
-            type: string
-        Departments:
-          description: Departments assigned to user
-          type: array
-          items:
-            type: string
-        ESignKey:
-          description: User`s esignature key
-          type: string
-        CustomFields:
-          description: Custom fields
-          type: array
-          items:
-            $ref: '#/components/schemas/KeyValuePair'
-    KeyValue:
-      type: object
-      properties:
-        Key:
-          type: string
-        Value:
-          type: string
-    PageResult_AdvancedUserModel:
-      type: object
-      properties:
-        Items:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdvancedUserModel'
-        NextPageLink:
-          type: string
-        Count:
-          format: int64
-          type: integer
     AdvancedUserModel:
       type: object
       properties:
@@ -454,28 +396,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
-    Departmnt:
+    PageResult_AdvancedUserModel:
       type: object
       properties:
-        ID:
-          format: uuid
+        Items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedUserModel'
+        NextPageLink:
           type: string
-          example: 00000000-0000-0000-0000-000000000000
-        Name:
-          type: string
-        Description:
-          type: string
-    Role:
-      type: object
-      properties:
-        ID:
-          format: uuid
-          type: string
-          example: 00000000-0000-0000-0000-000000000000
-        Name:
-          type: string
-        Rank:
-          format: int32
+        Count:
+          format: int64
           type: integer
     UserDetail:
       description: TAP User Detail
@@ -550,4 +481,75 @@ components:
           type: string
         SisenseUserPassword:
           description: Sisense User Password
+          type: string
+    User:
+      description: TAP User
+      type: object
+      properties:
+        ID:
+          format: uuid
+          description: User ID
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+        FullName:
+          description: User name and surname
+          type: string
+        Email:
+          description: User email
+          type: string
+        Roles:
+          description: Roles assigned to user
+          type: array
+          items:
+            type: string
+        Departments:
+          description: Departments assigned to user
+          type: array
+          items:
+            type: string
+        ESignKey:
+          description: User`s esignature key
+          type: string
+        CustomFields:
+          description: Custom fields
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValuePair'
+    Role:
+      type: object
+      properties:
+        ID:
+          format: uuid
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+        Name:
+          type: string
+        Rank:
+          format: int32
+          type: integer
+    KeyValuePair:
+      description: ''
+      type: object
+      properties:
+        Key:
+          type: string
+        Value:
+          type: string
+    Departmnt:
+      type: object
+      properties:
+        ID:
+          format: uuid
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+        Name:
+          type: string
+        Description:
+          type: string
+    KeyValue:
+      type: object
+      properties:
+        Key:
+          type: string
+        Value:
           type: string

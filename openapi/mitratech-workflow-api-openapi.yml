@@ -82,28 +82,6 @@ paths:
         required: true
 components:
   schemas:
-    AuditTrailFieldLogStage:
-      description: Workflow Attachment
-      type: object
-      properties:
-        Stage:
-          description: Name of the stage
-          type: string
-        Date:
-          format: date-time
-          description: Timestamp when stage was saved
-          type: string
-        User:
-          description: User that saved the stage
-          type: string
-        Status:
-          description: Status of the stage
-          type: string
-        Fields:
-          description: Specific field log
-          type: array
-          items:
-            $ref: '#/components/schemas/AuditTrailFieldLog'
     AuditTrailDetailList:
       description: Workflow Attachment
       type: object
@@ -130,3 +108,25 @@ components:
         Label:
           description: Label of the field
           type: string
+    AuditTrailFieldLogStage:
+      description: Workflow Attachment
+      type: object
+      properties:
+        Stage:
+          description: Name of the stage
+          type: string
+        Date:
+          format: date-time
+          description: Timestamp when stage was saved
+          type: string
+        User:
+          description: User that saved the stage
+          type: string
+        Status:
+          description: Status of the stage
+          type: string
+        Fields:
+          description: Specific field log
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditTrailFieldLog'
