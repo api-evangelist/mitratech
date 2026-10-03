@@ -69,18 +69,6 @@ paths:
                 $ref: '#/components/schemas/PageResult_WorkflowTemplate'
 components:
   schemas:
-    PageResult_WorkflowTemplate:
-      type: object
-      properties:
-        Items:
-          type: array
-          items:
-            $ref: '#/components/schemas/WorkflowTemplate'
-        NextPageLink:
-          type: string
-        Count:
-          format: int64
-          type: integer
     WorkflowTemplate:
       description: Workflow Template
       type: object
@@ -105,3 +93,15 @@ components:
           format: date-time
           description: Creation date
           type: string
+    PageResult_WorkflowTemplate:
+      type: object
+      properties:
+        Items:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkflowTemplate'
+        NextPageLink:
+          type: string
+        Count:
+          format: int64
+          type: integer

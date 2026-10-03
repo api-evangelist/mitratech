@@ -165,6 +165,18 @@ paths:
           description: Not Found
 components:
   schemas:
+    PageResult_GridConfiguration:
+      type: object
+      properties:
+        Items:
+          type: array
+          items:
+            $ref: '#/components/schemas/GridConfiguration'
+        NextPageLink:
+          type: string
+        Count:
+          format: int64
+          type: integer
     GridConfiguration:
       description: Grid Configuration
       required:
@@ -230,15 +242,3 @@ components:
           description: User Modified
           type: string
           example: 00000000-0000-0000-0000-000000000000
-    PageResult_GridConfiguration:
-      type: object
-      properties:
-        Items:
-          type: array
-          items:
-            $ref: '#/components/schemas/GridConfiguration'
-        NextPageLink:
-          type: string
-        Count:
-          format: int64
-          type: integer
