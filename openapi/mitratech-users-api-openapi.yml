@@ -347,8 +347,7 @@ paths:
         required: true
 components:
   schemas:
-    KeyValuePair:
-      description: ''
+    KeyValue:
       type: object
       properties:
         Key:
@@ -379,42 +378,6 @@ components:
         DateCreated:
           format: date-time
           type: string
-    Departmnt:
-      type: object
-      properties:
-        ID:
-          format: uuid
-          type: string
-          example: 00000000-0000-0000-0000-000000000000
-        Name:
-          type: string
-        Description:
-          type: string
-    AdvancedUserModel:
-      type: object
-      properties:
-        ID:
-          format: uuid
-          type: string
-          example: 00000000-0000-0000-0000-000000000000
-        FullName:
-          type: string
-        Email:
-          type: string
-        Roles:
-          type: array
-          items:
-            type: string
-        Departments:
-          type: array
-          items:
-            type: string
-        ESignKey:
-          type: string
-        CustomFields:
-          type: array
-          items:
-            $ref: '#/components/schemas/KeyValue'
     Role:
       type: object
       properties:
@@ -427,6 +390,25 @@ components:
         Rank:
           format: int32
           type: integer
+    KeyValuePair:
+      description: ''
+      type: object
+      properties:
+        Key:
+          type: string
+        Value:
+          type: string
+    Departmnt:
+      type: object
+      properties:
+        ID:
+          format: uuid
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+        Name:
+          type: string
+        Description:
+          type: string
     PageResult_AdvancedUserModel:
       type: object
       properties:
@@ -439,39 +421,6 @@ components:
         Count:
           format: int64
           type: integer
-    User:
-      description: TAP User
-      type: object
-      properties:
-        ID:
-          format: uuid
-          description: User ID
-          type: string
-          example: 00000000-0000-0000-0000-000000000000
-        FullName:
-          description: User name and surname
-          type: string
-        Email:
-          description: User email
-          type: string
-        Roles:
-          description: Roles assigned to user
-          type: array
-          items:
-            type: string
-        Departments:
-          description: Departments assigned to user
-          type: array
-          items:
-            type: string
-        ESignKey:
-          description: User`s esignature key
-          type: string
-        CustomFields:
-          description: Custom fields
-          type: array
-          items:
-            $ref: '#/components/schemas/KeyValuePair'
     UserDetail:
       description: TAP User Detail
       type: object
@@ -546,10 +495,61 @@ components:
         SisenseUserPassword:
           description: Sisense User Password
           type: string
-    KeyValue:
+    User:
+      description: TAP User
       type: object
       properties:
-        Key:
+        ID:
+          format: uuid
+          description: User ID
           type: string
-        Value:
+          example: 00000000-0000-0000-0000-000000000000
+        FullName:
+          description: User name and surname
           type: string
+        Email:
+          description: User email
+          type: string
+        Roles:
+          description: Roles assigned to user
+          type: array
+          items:
+            type: string
+        Departments:
+          description: Departments assigned to user
+          type: array
+          items:
+            type: string
+        ESignKey:
+          description: User`s esignature key
+          type: string
+        CustomFields:
+          description: Custom fields
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValuePair'
+    AdvancedUserModel:
+      type: object
+      properties:
+        ID:
+          format: uuid
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+        FullName:
+          type: string
+        Email:
+          type: string
+        Roles:
+          type: array
+          items:
+            type: string
+        Departments:
+          type: array
+          items:
+            type: string
+        ESignKey:
+          type: string
+        CustomFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
