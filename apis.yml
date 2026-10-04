@@ -375,6 +375,9 @@ apis:
   - type: Examples
     url: https://github.com/ThinkSmart/API_Examples
 common:
+- type: CapabilityMap
+  url: capabilities/mitratech-capability-edges.yml
+  name: Mitratech Business Capability Map
 - type: Overlay
   url: overlays/mitratech-tap-overlay.yaml
 - type: DomainSecurity

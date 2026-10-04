@@ -1,0 +1,25 @@
+slug: mitratech
+provider: Mitratech
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Workflows
+  spec_file: mitratech-workflows-api-openapi.yml
+  capability_id: BC-930
+  capability_id_l1: BC-930
+  capability_name: Business Process Management
+  confidence: 0.7
+  evidence: POST /v1/workflows/{templateId}/form  Workflows_InitiateWorkflow  Initiate; PUT /v1/workflows/{tokenId}/form  Workflows_ContinueWorkflow  Continue
+  reason: Operations initiate, continue, save and inspect workflow instances with tasks, forms, attachments
+    and signed documents — the execution surface of an automated business process platform. Mapped at
+    L1 since no single sub-capability (modelling vs automation governance) is squarely named.
