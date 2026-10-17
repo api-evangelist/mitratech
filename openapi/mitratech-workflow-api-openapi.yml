@@ -82,6 +82,16 @@ paths:
         required: true
 components:
   schemas:
+    AuditTrailDetailList:
+      description: Workflow Attachment
+      type: object
+      properties:
+        WorkflowName:
+          type: string
+        AuditTrailFieldLogStageList:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditTrailFieldLogStage'
     AuditTrailFieldLogStage:
       description: Workflow Attachment
       type: object
@@ -104,16 +114,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AuditTrailFieldLog'
-    AuditTrailDetailList:
-      description: Workflow Attachment
-      type: object
-      properties:
-        WorkflowName:
-          type: string
-        AuditTrailFieldLogStageList:
-          type: array
-          items:
-            $ref: '#/components/schemas/AuditTrailFieldLogStage'
     AuditTrailFieldLog:
       description: Workflow Attachment
       type: object
