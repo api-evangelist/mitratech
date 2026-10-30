@@ -64,4 +64,135 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Mitratech is a company surfaced via the API Evangelist harvest backlog (source: absent-parent) and added to the network as a stub for full-pipeline profiling.
+Mitratech is an Austin, Texas based enterprise software company supplying legal operations, governance, risk and compliance, and HR compliance software to corporate legal departments, compliance teams and human resources organizations. Its platform spans enterprise legal management and matter management (TeamConnect), legal spend and e-billing, no-code workflow automation and intake (TAP Workflow Automation, acquired with ThinkSmart), policy and risk management (PolicyHub, Alyne), immigration case management (INSZoom), HR compliance, talent and background screening (Mineral, Trakstar, AssureHire, Circa), and contract lifecycle management. Programmatic access is delivered per-product and per-tenant rather than through a single public developer portal: TAP publishes an OData-style REST API with a live Swagger 2.0 API Explorer, TeamConnect 7.2+ ships a modernized OAuth 2.0 REST API on each customer instance, and mitratech.com itself serves an OAuth-protected Model Context Protocol server.
+
+**Areas:** Legal · Legal Operations · Enterprise Legal Management · Matter Management · Governance Risk and Compliance · Compliance · Workflow Automation · Contract Lifecycle Management · HR Compliance · Risk Management · Immigration · OData
+
+## Mitratech on APIs.io
+
+Everything profiled for Mitratech is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/mitratech/](https://apis.io/providers/mitratech/)** — or go straight to one of the APIs or properties below.
+
+### APIs (10)
+
+- [Mitratech TeamConnect REST API](https://apis.io/apis/mitratech/mitratech-teamconnect-rest-api/) — Modernized REST API shipped with TeamConnect Enterprise 7.2 and later, served from each customer's own TeamConnect instance at /webservice/enterprise/.…
+- [Mitratech MCP Server](https://apis.io/apis/mitratech/mitratech-mcp-server/) — Remote Model Context Protocol server served from mitratech.com over Streamable HTTP. Advertises OAuth 2.0 authorization-server metadata at…
+- [Mitratech Dashboard API](https://apis.io/apis/mitratech/mitratech-dashboard-api/) — The Dashboard API from Mitratech — 1 operation(s) for dashboard.
+- [Mitratech Files API](https://apis.io/apis/mitratech/mitratech-files-api/) — The Files API from Mitratech — 1 operation(s) for files.
+- [Mitratech Grid Configurations API](https://apis.io/apis/mitratech/mitratech-gridconfigurations-api/) — The GridConfigurations API from Mitratech — 3 operation(s) for gridconfigurations.
+- [Mitratech Templates API](https://apis.io/apis/mitratech/mitratech-templates-api/) — The Templates API from Mitratech — 1 operation(s) for templates.
+- [Mitratech Users API](https://apis.io/apis/mitratech/mitratech-users-api/) — The Users API from Mitratech — 5 operation(s) for users.
+- [Mitratech Workflow API](https://apis.io/apis/mitratech/mitratech-workflow-api/) — The Workflow API from Mitratech — 1 operation(s) for workflow.
+- [Mitratech Workflows API](https://apis.io/apis/mitratech/mitratech-workflows-api/) — The Workflows API from Mitratech — 32 operation(s) for workflows.
+- [Mitratech Health Check API](https://apis.io/apis/mitratech/mitratech-health-check-api/) — The Health Check API from Mitratech — 1 operation(s) for health check.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [mitratech-mcp-oauth-server](https://apis.io/servers/mitratech/mitratech-mcp-oauth-server/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Mitratech Tap Overlay](https://apis.io/overlays/mitratech/mitratech-tap-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Mitratech Authentication](https://apis.io/security/mitratech/mitratech-authentication/)
+- [Mitratech Domain Security](https://apis.io/security/mitratech/mitratech-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Mitratech Scopes](https://apis.io/scopes/mitratech/mitratech-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Mitratech Plans Pricing](https://apis.io/plans/mitratech/mitratech-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Mitratech Rate Limits](https://apis.io/rate-limits/mitratech/mitratech-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://mitratech.com/)
+- [Documentation](https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations/TAP_API_Documentation)
+- [Getting started](https://success.mitratech.com/TAP/TAP_Solutions/APIs_and_Integrations)
+- [API reference](https://default.stagingtap.thinksmart.com/default/api/swagger/ui/index)
+- [Sign up](https://mitratech.com/contact-us/)
+- [Support](https://success.mitratech.com/)
+- [Changelog](https://success.mitratech.com/TAP/ReleaseNotes)
+- [Blog](https://mitratech.com/resource-hub/mitratech-blog/)
+- [Terms of service](https://mitratech.com/legal-notice/)
+- [Privacy policy](https://mitratech.com/privacy-policy/)
+- [GitHub](https://github.com/ThinkSmart)
+
+## API Evangelist rating
+
+**Kin Score 46.9** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 44.7 |
+| Contract governance | 18.2 |
+| Operational transparency | 28.9 |
+| Developer ergonomics | 66.1 |
+| Access clarity | 34.2 |
+
+**Agent readiness 37.9** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | platform (partial credit) |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 34.3** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/mitratech/](https://apis.io/providers/mitratech/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Mitratech: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/mitratech/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
